@@ -81,10 +81,42 @@ export async function addRecipe(req, res) {
   }
 }
 
-export function updateRecipe(req, res) {
-  console.log(req.params);
-  console.log(req.body);
-  res.status(200).json({ message: "Patch!" });
+export async function updateRecipe(req, res) {
+  try {
+    console.log(req.body);
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        status: "Failed!",
+        message: "Invalid recipe id",
+      });
+    }
+
+    const recipe = await Recipe.findByIdAndUpdate(id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!recipe) {
+      return res.status(404).json({
+        status: "Failed!",
+        message: "Recipe not found!",
+      });
+    }
+
+    res.status(200).json({
+      status: "Success!",
+      data: {
+        recipe,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "Failed!",
+      message: err.message,
+    });
+  }
 }
 
 export function deleteRecipe(req, res) {

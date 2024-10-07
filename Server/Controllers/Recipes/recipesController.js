@@ -1,8 +1,31 @@
 import Recipe from "../../Models/Recipe/recipeModel.js";
 
 // Route handlers
-export function getRecipes(req, res) {
-  res.status(200).json({ message: "All gotten!" });
+export async function getRecipes(req, res) {
+  try {
+    const recipes = await Recipe.find();
+
+    if (recipes.length === 0) {
+      res.status(404).json({
+        status: "Failed!",
+        message: "No recipes found",
+      });
+    }
+
+    res.status(200).json({
+      status: "Success!",
+      items: recipes.length,
+      requestedAt: new Date().toISOString(),
+      data: {
+        recipes,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "Failed!",
+      message: err.message,
+    });
+  }
 }
 
 export function getRecipe(req, res) {

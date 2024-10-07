@@ -7,7 +7,7 @@ export async function getRecipes(req, res) {
     const recipes = await Recipe.find();
 
     if (recipes.length === 0) {
-      res.status(404).json({
+      return res.status(404).json({
         status: "Failed!",
         message: "No recipes found",
       });

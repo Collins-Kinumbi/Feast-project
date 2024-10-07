@@ -11,7 +11,6 @@ export function getRecipe(req, res) {
 }
 
 export async function addRecipe(req, res) {
-  console.log(req.body);
   try {
     const recipe = await Recipe.create(req.body);
     res.status(200).json({

@@ -36,21 +36,25 @@ function deleteRecipe(req, res) {
 }
 
 // All recipes
-app
-  .route("/api/v1/recipes")
+const recipesRouter = express.Router();
+
+recipesRouter
+  .route("/")
   // GET all recipes
   .get(getRecipes)
   // POST/ADD a recipe
   .post(addRecipe);
 
 //Single recipe
-app
-  .route("/api/v1/recipes/:id")
+recipesRouter
+  .route("/:id")
   // GET a recipe
   .get(getRecipe)
   // UPDATE a recipe
   .patch(updateRecipe)
   // Delete a recipe
   .delete(deleteRecipe);
+
+app.use("/api/v1/recipes", recipesRouter);
 
 export default app;

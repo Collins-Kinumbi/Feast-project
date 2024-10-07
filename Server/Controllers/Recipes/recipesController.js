@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Recipe from "../../Models/Recipe/recipeModel.js";
 
 // Route handlers
@@ -28,9 +29,39 @@ export async function getRecipes(req, res) {
   }
 }
 
-export function getRecipe(req, res) {
-  console.log(req.params);
-  res.status(200).json({ message: "Gotten by id!" });
+export async function getRecipe(req, res) {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        status: "Failed!",
+        message: "Invalid recipe id",
+      });
+    }
+
+    const recipe = await Recipe.findById(id);
+
+    if (!recipe) {
+      return res.status(404).json({
+        status: "Failed!",
+        message: "Recipe not found!",
+      });
+    }
+
+    res.status(200).json({
+      status: "Success!",
+      requestedAt: new Date().toISOString(),
+      data: {
+        recipe,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "Failed!",
+      message: err.message,
+    });
+  }
 }
 
 export async function addRecipe(req, res) {

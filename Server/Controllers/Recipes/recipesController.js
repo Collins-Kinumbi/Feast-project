@@ -83,7 +83,6 @@ export async function addRecipe(req, res) {
 
 export async function updateRecipe(req, res) {
   try {
-    console.log(req.body);
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {

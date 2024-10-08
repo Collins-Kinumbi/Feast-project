@@ -118,7 +118,34 @@ export async function updateRecipe(req, res) {
   }
 }
 
-export function deleteRecipe(req, res) {
-  console.log(req.params);
-  res.status(200).json({ message: "Deleted!" });
+export async function deleteRecipe(req, res) {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({
+        status: "Failed!",
+        message: "Invalid recipe id",
+      });
+    }
+
+    const recipe = await Recipe.findByIdAndDelete(id);
+
+    if (!recipe) {
+      return res.status(404).json({
+        status: "Failed!",
+        message: "Recipe not found!",
+      });
+    }
+
+    res.status(200).json({
+      status: "Success",
+      message: "Recipe successfully deleted!",
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "Failed!",
+      message: err.message,
+    });
+  }
 }

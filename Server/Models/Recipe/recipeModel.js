@@ -15,39 +15,17 @@ const recipeSchema = new mongoose.Schema(
     description: {
       type: String,
       required: [true, "Description field is required!"],
+      maxlength: 500,
     },
-    nutrition: [
-      {
-        calories: {
-          type: Number,
-          required: [true, "Calories field is required!"],
-        },
-        fats: {
-          type: Number,
-          required: [true, "Fats field is required!"],
-        },
-        carbohydrates: {
-          type: Number,
-          required: [true, "Carbohydrates field is required!"],
-        },
-        fibers: {
-          type: Number,
-          required: [true, "Fibers field is required!"],
-        },
-        sodium: {
-          type: Number,
-          required: [true, "Sodium field is required!"],
-        },
-        vitamins: {
-          type: Number,
-          required: [true, "Vitamins field is required!"],
-        },
-        minerals: {
-          type: Number,
-          required: [true, "Minerals field is required!"],
-        },
-      },
-    ],
+    nutrition: {
+      calories: Number,
+      fats: Number,
+      carbohydrates: Number,
+      fibers: Number,
+      sodium: Number,
+      vitamins: Number,
+      minerals: Number,
+    },
     ingredients: {
       type: [String],
       required: [true, "Ingredients field is required!"],
@@ -59,6 +37,14 @@ const recipeSchema = new mongoose.Schema(
     tags: {
       type: [String],
       required: [true, "Tags field is required!"],
+      enum: [
+        "Vegan",
+        "Vegetarian",
+        "Gluten-Free",
+        "Dairy-Free",
+        "Quick",
+        "Dessert",
+      ],
     },
     serving: {
       type: Number,
@@ -66,7 +52,7 @@ const recipeSchema = new mongoose.Schema(
     },
     yield: {
       type: Number,
-      required: [true, "yield field is required!"],
+      required: [true, "Yield field is required!"],
     },
   },
   { timestamps: true }

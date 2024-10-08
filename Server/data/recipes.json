@@ -1,0 +1,201 @@
+[
+  {
+    "name": "Vegetarian Stuffed Peppers",
+    "image": "https://dummyimage.com/vegetarianstuffedpeppers.jpg",
+    "description": "Bell peppers stuffed with rice, beans, and cheese.",
+    "nutrition": {
+      "calories": 400,
+      "fats": 15,
+      "carbohydrates": 45,
+      "fibers": 8,
+      "sodium": 200,
+      "vitamins": 20,
+      "minerals": 12
+    },
+    "ingredients": [
+      "Bell peppers",
+      "Rice",
+      "Black beans",
+      "Cheese",
+      "Tomato sauce"
+    ],
+    "instructions": "Stuff the peppers with filling and bake for 25 minutes.",
+    "tags": ["Vegetarian", "Gluten-Free"],
+    "serving": 4,
+    "yield": 4
+  },
+  {
+    "name": "Vegan Chocolate Mousse",
+    "image": "https://dummyimage.com/veganchocolatemousse.jpg",
+    "description": "Creamy and smooth vegan chocolate mousse.",
+    "nutrition": {
+      "calories": 300,
+      "fats": 18,
+      "carbohydrates": 35,
+      "fibers": 5,
+      "sodium": 100,
+      "vitamins": 5,
+      "minerals": 6
+    },
+    "ingredients": [
+      "Avocado",
+      "Cocoa powder",
+      "Maple syrup",
+      "Vanilla extract"
+    ],
+    "instructions": "Blend all ingredients and chill before serving.",
+    "tags": ["Vegan", "Dessert"],
+    "serving": 4,
+    "yield": 4
+  },
+  {
+    "name": "Dairy-Free Banana Smoothie",
+    "image": "https://dummyimage.com/dairyfreebananasmoothie.jpg",
+    "description": "A refreshing dairy-free banana smoothie with almond milk.",
+    "nutrition": {
+      "calories": 250,
+      "fats": 5,
+      "carbohydrates": 50,
+      "fibers": 4,
+      "sodium": 50,
+      "vitamins": 15,
+      "minerals": 8
+    },
+    "ingredients": ["Bananas", "Almond milk", "Vanilla extract", "Ice cubes"],
+    "instructions": "Blend all ingredients until smooth.",
+    "tags": ["Dairy-Free", "Vegan", "Quick"],
+    "serving": 2,
+    "yield": 2
+  },
+  {
+    "name": "Vegan Buddha Bowl",
+    "image": "https://dummyimage.com/veganbuddhabowl.jpg",
+    "description": "A nourishing bowl packed with veggies, quinoa, and hummus.",
+    "nutrition": {
+      "calories": 350,
+      "fats": 10,
+      "carbohydrates": 45,
+      "fibers": 12,
+      "sodium": 150,
+      "vitamins": 25,
+      "minerals": 20
+    },
+    "ingredients": ["Quinoa", "Sweet potatoes", "Kale", "Hummus", "Avocado"],
+    "instructions": "Assemble the bowl with cooked quinoa, roasted veggies, and hummus.",
+    "tags": ["Vegan", "Gluten-Free"],
+    "serving": 2,
+    "yield": 2
+  },
+  {
+    "name": "Vegetarian Spinach Lasagna",
+    "image": "https://dummyimage.com/vegetarianspinachlasagna.jpg",
+    "description": "Layered lasagna with spinach, ricotta, and marinara sauce.",
+    "nutrition": {
+      "calories": 550,
+      "fats": 25,
+      "carbohydrates": 65,
+      "fibers": 8,
+      "sodium": 450,
+      "vitamins": 30,
+      "minerals": 15
+    },
+    "ingredients": [
+      "Lasagna noodles",
+      "Spinach",
+      "Ricotta cheese",
+      "Mozzarella",
+      "Marinara sauce"
+    ],
+    "instructions": "Layer the lasagna and bake for 45 minutes.",
+    "tags": ["Vegetarian"],
+    "serving": 6,
+    "yield": 6
+  },
+  {
+    "name": "Gluten-Free Zucchini Bread",
+    "image": "https://dummyimage.com/glutenfreezucchinibread.jpg",
+    "description": "Moist and tender zucchini bread made gluten-free.",
+    "nutrition": {
+      "calories": 350,
+      "fats": 12,
+      "carbohydrates": 45,
+      "fibers": 5,
+      "sodium": 100,
+      "vitamins": 10,
+      "minerals": 12
+    },
+    "ingredients": [
+      "Zucchini",
+      "Gluten-free flour",
+      "Eggs",
+      "Sugar",
+      "Cinnamon"
+    ],
+    "instructions": "Mix ingredients and bake for 50 minutes.",
+    "tags": ["Gluten-Free", "Dessert"],
+    "serving": 8,
+    "yield": 8
+  },
+  {
+    "name": "Dairy-Free Mac and Cheese",
+    "image": "https://dummyimage.com/dairyfreemacandcheese.jpg",
+    "description": "A creamy and cheesy mac and cheese without dairy.",
+    "nutrition": {
+      "calories": 500,
+      "fats": 20,
+      "carbohydrates": 60,
+      "fibers": 4,
+      "sodium": 300,
+      "vitamins": 5,
+      "minerals": 8
+    },
+    "ingredients": [
+      "Gluten-free pasta",
+      "Cashew cheese sauce",
+      "Nutritional yeast",
+      "Garlic powder"
+    ],
+    "instructions": "Mix cooked pasta with cashew cheese sauce and bake for 15 minutes.",
+    "tags": ["Dairy-Free", "Gluten-Free"],
+    "serving": 4,
+    "yield": 4
+  },
+  {
+    "name": "Vegan Tofu Scramble",
+    "image": "https://dummyimage.com/vegantofuscramble.jpg",
+    "description": "A protein-packed tofu scramble with veggies.",
+    "nutrition": {
+      "calories": 250,
+      "fats": 15,
+      "carbohydrates": 20,
+      "fibers": 6,
+      "sodium": 180,
+      "vitamins": 10,
+      "minerals": 12
+    },
+    "ingredients": ["Tofu", "Bell peppers", "Spinach", "Turmeric", "Onion"],
+    "instructions": "Sauté the vegetables and scramble the tofu with spices.",
+    "tags": ["Vegan", "Quick", "Gluten-Free"],
+    "serving": 2,
+    "yield": 2
+  },
+  {
+    "name": "Quick Avocado Toast",
+    "image": "https://dummyimage.com/quickavocadotoast.jpg",
+    "description": "Simple and delicious avocado toast with lemon and seeds.",
+    "nutrition": {
+      "calories": 200,
+      "fats": 10,
+      "carbohydrates": 15,
+      "fibers": 4,
+      "sodium": 50,
+      "vitamins": 12,
+      "minerals": 8
+    },
+    "ingredients": ["Avocado", "Bread", "Lemon", "Pumpkin seeds", "Olive oil"],
+    "instructions": "Spread mashed avocado on toast and garnish with lemon and seeds.",
+    "tags": ["Vegan", "Quick", "Vegetarian"],
+    "serving": 1,
+    "yield": 2
+  }
+]

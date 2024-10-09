@@ -47,6 +47,25 @@ export async function getRecipes(req, res) {
       query = query.select("-__v");
     }
 
+    // Pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    // page 1: 1-10, 2: 11-20, 3: 21-30
+    const skip = (page - 1) * limit;
+
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const recipeCount = await Recipe.countDocuments();
+
+      if (skip >= recipeCount) {
+        return res.status(404).json({
+          status: "Failed!",
+          message: "Page is not found!",
+        });
+      }
+    }
+
     const recipes = await query;
 
     // Check if recipes arr is empty

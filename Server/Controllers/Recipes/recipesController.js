@@ -37,6 +37,16 @@ export async function getRecipes(req, res) {
       query = query.sort("-createdAt _id");
     }
 
+    // Limiting fields
+    if (req.query.fields) {
+      const fields = req.query.fields.split(",").join(" ");
+      console.log(fields);
+      query = query.select(fields);
+    } else {
+      // Remove the __v field
+      query = query.select("-__v");
+    }
+
     const recipes = await query;
 
     // Check if recipes arr is empty

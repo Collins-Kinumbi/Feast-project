@@ -8,12 +8,22 @@ export async function getRecipes(req, res) {
     const excludedFields = ["sort", "page", "limit", "fields"];
 
     // making a shallow copy of the req query object
-    const queryObject = { ...req.query };
+    let queryObject = { ...req.query };
 
     // Delete any fields in excludeFields from queryObject
     excludedFields.forEach((field) => {
       delete queryObject[field];
     });
+
+    // Turn query object into a string
+    let queryStr = JSON.stringify(queryObject);
+
+    // Use regex to replace targated strings
+    queryStr = queryStr.replace(/(\bgte|gt|lte|lt)\b/g, (match) => {
+      return `$${match}`;
+    });
+
+    queryObject = JSON.parse(queryStr);
 
     const recipes = await Recipe.find(queryObject);
 

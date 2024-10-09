@@ -4,7 +4,18 @@ import Recipe from "../../Models/Recipe/recipeModel.js";
 // Route handlers
 export async function getRecipes(req, res) {
   try {
-    const recipes = await Recipe.find();
+    // Fields to exclude from query object
+    const excludedFields = ["sort", "page", "limit", "fields"];
+
+    // making a shallow copy of the req query object
+    const queryObject = { ...req.query };
+
+    // Delete any fields in excludeFields from queryObject
+    excludedFields.forEach((field) => {
+      delete queryObject[field];
+    });
+
+    const recipes = await Recipe.find(queryObject);
 
     // Check if recipes arr is empty
     if (recipes.length === 0) {

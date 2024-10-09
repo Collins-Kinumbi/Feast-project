@@ -25,7 +25,19 @@ export async function getRecipes(req, res) {
 
     queryObject = JSON.parse(queryStr);
 
-    const recipes = await Recipe.find(queryObject);
+    // Sorting
+    let query = Recipe.find(queryObject);
+
+    if (req.query.sort) {
+      const sortBy = req.query.sort.split(",").join(" ");
+      query = query.sort(sortBy);
+    }
+    // If now value is provided to sort or sort is not included, sort from newest to old
+    else {
+      query = query.sort("-createdAt _id");
+    }
+
+    const recipes = await query;
 
     // Check if recipes arr is empty
     if (recipes.length === 0) {

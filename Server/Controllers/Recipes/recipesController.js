@@ -25,9 +25,9 @@ export async function getRecipes(req, res) {
 
     queryObject = JSON.parse(queryStr);
 
-    // Sorting
     let query = Recipe.find(queryObject);
 
+    // Sorting
     if (req.query.sort) {
       const sortBy = req.query.sort.split(",").join(" ");
       query = query.sort(sortBy);

@@ -1,70 +1,19 @@
 import mongoose from "mongoose";
 import Recipe from "../../Models/Recipe/recipeModel.js";
+import ApiFeatures from "../../Utils/apiFeatures.js";
 
 // Route handlers
 export async function getRecipes(req, res) {
   try {
-    // Fields to exclude from query object
-    const excludedFields = ["sort", "page", "limit", "fields"];
+    const features = new ApiFeatures(Recipe.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
 
-    // making a shallow copy of the req query object
-    let queryObject = { ...req.query };
+    // console.log(features);
 
-    // Delete any fields in excludeFields from queryObject
-    excludedFields.forEach((field) => {
-      delete queryObject[field];
-    });
-
-    // Turn query object into a string
-    let queryStr = JSON.stringify(queryObject);
-
-    // Use regex to replace targated strings
-    queryStr = queryStr.replace(/(\bgte|gt|lte|lt)\b/g, (match) => {
-      return `$${match}`;
-    });
-
-    queryObject = JSON.parse(queryStr);
-
-    let query = Recipe.find(queryObject);
-
-    // Sorting
-    if (req.query.sort) {
-      const sortBy = req.query.sort.split(",").join(" ");
-      query = query.sort(sortBy);
-    }
-    // If now value is provided to sort or sort is not included, sort from newest to old
-    else {
-      query = query.sort("-createdAt _id");
-    }
-
-    // Limiting fields
-    if (req.query.fields) {
-      const fields = req.query.fields.split(",").join(" ");
-      console.log(fields);
-      query = query.select(fields);
-    } else {
-      // Remove the __v field
-      query = query.select("-__v");
-    }
-
-    // Pagination
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    // page 1: 1-10, 2: 11-20, 3: 21-30
-    const skip = (page - 1) * limit;
-
-    query = query.skip(skip).limit(limit);
-
-    if (req.query.page) {
-      const recipeCount = await Recipe.countDocuments();
-
-      if (skip >= recipeCount) {
-        return res.status(404).json({
-          status: "Failed!",
-          message: "Page is not found!",
-        });
-      }
-    }
+    const { queryObj: query } = features;
 
     const recipes = await query;
 

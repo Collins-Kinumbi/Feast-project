@@ -7,6 +7,8 @@ const recipeSchema = new mongoose.Schema(
       type: String,
       required: [true, "Title field is required!"],
       unique: true,
+      maxlength: [100, "Recipe name must not be more that 100 characters"],
+      minlength: [2, "Recipe name must not be more that 2 characters"],
     },
     image: {
       type: String,
@@ -16,6 +18,7 @@ const recipeSchema = new mongoose.Schema(
       type: String,
       required: [true, "Description field is required!"],
       maxlength: 500,
+      trim: true,
     },
     nutrition: {
       calories: Number,
@@ -36,6 +39,8 @@ const recipeSchema = new mongoose.Schema(
     },
     ratings: {
       type: Number,
+      min: [1, "Ratings must be 1.0 or above"],
+      max: [5, "Ratings must be 5.0 or below"],
     },
     totalRatings: {
       type: Number,

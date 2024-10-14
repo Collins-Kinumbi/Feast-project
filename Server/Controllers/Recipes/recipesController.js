@@ -1,10 +1,21 @@
 import mongoose from "mongoose";
 import Recipe from "../../Models/Recipe/recipeModel.js";
+import ApiFeatures from "../../Utils/apiFeatures.js";
 
 // Route handlers
 export async function getRecipes(req, res) {
   try {
-    const recipes = await Recipe.find();
+    const features = new ApiFeatures(Recipe.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    // console.log(features);
+
+    const { queryObj: query } = features;
+
+    const recipes = await query;
 
     // Check if recipes arr is empty
     if (recipes.length === 0) {

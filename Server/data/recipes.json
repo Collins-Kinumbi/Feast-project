@@ -1,201 +1,352 @@
 [
   {
-    "name": "Vegetarian Stuffed Peppers",
-    "image": "https://dummyimage.com/vegetarianstuffedpeppers.jpg",
-    "description": "Bell peppers stuffed with rice, beans, and cheese.",
-    "nutrition": {
-      "calories": 400,
-      "fats": 15,
-      "carbohydrates": 45,
-      "fibers": 8,
-      "sodium": 200,
-      "vitamins": 20,
-      "minerals": 12
-    },
-    "ingredients": [
-      "Bell peppers",
-      "Rice",
-      "Black beans",
-      "Cheese",
-      "Tomato sauce"
-    ],
-    "instructions": "Stuff the peppers with filling and bake for 25 minutes.",
-    "tags": ["Vegetarian", "Gluten-Free"],
-    "serving": 4,
-    "yield": 4
-  },
-  {
-    "name": "Vegan Chocolate Mousse",
-    "image": "https://dummyimage.com/veganchocolatemousse.jpg",
-    "description": "Creamy and smooth vegan chocolate mousse.",
-    "nutrition": {
-      "calories": 300,
-      "fats": 18,
-      "carbohydrates": 35,
-      "fibers": 5,
-      "sodium": 100,
-      "vitamins": 5,
-      "minerals": 6
-    },
-    "ingredients": [
-      "Avocado",
-      "Cocoa powder",
-      "Maple syrup",
-      "Vanilla extract"
-    ],
-    "instructions": "Blend all ingredients and chill before serving.",
-    "tags": ["Vegan", "Dessert"],
-    "serving": 4,
-    "yield": 4
-  },
-  {
-    "name": "Dairy-Free Banana Smoothie",
-    "image": "https://dummyimage.com/dairyfreebananasmoothie.jpg",
-    "description": "A refreshing dairy-free banana smoothie with almond milk.",
+    "name": "Vegan Chili",
+    "image": "https://example.com/images/vegan_chili.jpg",
+    "description": "A hearty and spicy vegan chili loaded with beans and vegetables.",
     "nutrition": {
       "calories": 250,
       "fats": 5,
-      "carbohydrates": 50,
-      "fibers": 4,
-      "sodium": 50,
-      "vitamins": 15,
-      "minerals": 8
-    },
-    "ingredients": ["Bananas", "Almond milk", "Vanilla extract", "Ice cubes"],
-    "instructions": "Blend all ingredients until smooth.",
-    "tags": ["Dairy-Free", "Vegan", "Quick"],
-    "serving": 2,
-    "yield": 2
-  },
-  {
-    "name": "Vegan Buddha Bowl",
-    "image": "https://dummyimage.com/veganbuddhabowl.jpg",
-    "description": "A nourishing bowl packed with veggies, quinoa, and hummus.",
-    "nutrition": {
-      "calories": 350,
-      "fats": 10,
       "carbohydrates": 45,
-      "fibers": 12,
-      "sodium": 150,
-      "vitamins": 25,
-      "minerals": 20
-    },
-    "ingredients": ["Quinoa", "Sweet potatoes", "Kale", "Hummus", "Avocado"],
-    "instructions": "Assemble the bowl with cooked quinoa, roasted veggies, and hummus.",
-    "tags": ["Vegan", "Gluten-Free"],
-    "serving": 2,
-    "yield": 2
-  },
-  {
-    "name": "Vegetarian Spinach Lasagna",
-    "image": "https://dummyimage.com/vegetarianspinachlasagna.jpg",
-    "description": "Layered lasagna with spinach, ricotta, and marinara sauce.",
-    "nutrition": {
-      "calories": 550,
-      "fats": 25,
-      "carbohydrates": 65,
-      "fibers": 8,
-      "sodium": 450,
-      "vitamins": 30,
-      "minerals": 15
-    },
-    "ingredients": [
-      "Lasagna noodles",
-      "Spinach",
-      "Ricotta cheese",
-      "Mozzarella",
-      "Marinara sauce"
-    ],
-    "instructions": "Layer the lasagna and bake for 45 minutes.",
-    "tags": ["Vegetarian"],
-    "serving": 6,
-    "yield": 6
-  },
-  {
-    "name": "Gluten-Free Zucchini Bread",
-    "image": "https://dummyimage.com/glutenfreezucchinibread.jpg",
-    "description": "Moist and tender zucchini bread made gluten-free.",
-    "nutrition": {
-      "calories": 350,
-      "fats": 12,
-      "carbohydrates": 45,
-      "fibers": 5,
-      "sodium": 100,
-      "vitamins": 10,
-      "minerals": 12
-    },
-    "ingredients": [
-      "Zucchini",
-      "Gluten-free flour",
-      "Eggs",
-      "Sugar",
-      "Cinnamon"
-    ],
-    "instructions": "Mix ingredients and bake for 50 minutes.",
-    "tags": ["Gluten-Free", "Dessert"],
-    "serving": 8,
-    "yield": 8
-  },
-  {
-    "name": "Dairy-Free Mac and Cheese",
-    "image": "https://dummyimage.com/dairyfreemacandcheese.jpg",
-    "description": "A creamy and cheesy mac and cheese without dairy.",
-    "nutrition": {
-      "calories": 500,
-      "fats": 20,
-      "carbohydrates": 60,
-      "fibers": 4,
+      "fibers": 10,
       "sodium": 300,
       "vitamins": 5,
       "minerals": 8
     },
     "ingredients": [
-      "Gluten-free pasta",
-      "Cashew cheese sauce",
-      "Nutritional yeast",
-      "Garlic powder"
+      "1 can black beans",
+      "1 can kidney beans",
+      "1 bell pepper",
+      "1 onion",
+      "2 cloves garlic",
+      "1 can diced tomatoes",
+      "2 tablespoons chili powder"
     ],
-    "instructions": "Mix cooked pasta with cashew cheese sauce and bake for 15 minutes.",
-    "tags": ["Dairy-Free", "Gluten-Free"],
+    "instructions": "In a large pot, sauté onions and garlic. Add peppers, beans, tomatoes, and chili powder. Simmer for 30 minutes.",
+    "ratings": 4.5,
+    "totalRatings": 120,
+    "categories": ["Vegan", "Gluten-Free", "Dinner"],
+    "serving": 4,
+    "yield": 8
+  },
+  {
+    "name": "Vegetable Stir Fry",
+    "image": "https://example.com/images/vegetable_stir_fry.jpg",
+    "description": "A quick and easy vegetable stir fry packed with colorful veggies.",
+    "nutrition": {
+      "calories": 150,
+      "fats": 4,
+      "carbohydrates": 25,
+      "fibers": 6,
+      "sodium": 200,
+      "vitamins": 4,
+      "minerals": 6
+    },
+    "ingredients": [
+      "2 cups mixed vegetables",
+      "2 tablespoons soy sauce",
+      "1 tablespoon olive oil",
+      "1 teaspoon ginger",
+      "1 teaspoon garlic"
+    ],
+    "instructions": "Heat olive oil in a pan. Add garlic and ginger, then vegetables. Stir fry for 5-7 minutes. Add soy sauce.",
+    "ratings": 4.0,
+    "totalRatings": 85,
+    "categories": ["Vegetarian", "Quick & Easy", "Lunch"],
+    "serving": 2,
+    "yield": 4
+  },
+  {
+    "name": "Gluten-Free Pancakes",
+    "image": "https://example.com/images/gluten_free_pancakes.jpg",
+    "description": "Fluffy gluten-free pancakes perfect for breakfast.",
+    "nutrition": {
+      "calories": 200,
+      "fats": 8,
+      "carbohydrates": 30,
+      "fibers": 3,
+      "sodium": 400,
+      "vitamins": 3,
+      "minerals": 5
+    },
+    "ingredients": [
+      "1 cup gluten-free flour",
+      "2 tablespoons sugar",
+      "1 teaspoon baking powder",
+      "1 egg",
+      "1 cup milk",
+      "1 tablespoon butter"
+    ],
+    "instructions": "Mix all ingredients. Pour onto a heated griddle and cook until bubbles form, then flip.",
+    "ratings": 4.7,
+    "totalRatings": 75,
+    "categories": ["Gluten-Free", "Breakfast"],
+    "serving": 3,
+    "yield": 9
+  },
+  {
+    "name": "Dairy-Free Smoothie",
+    "image": "https://example.com/images/dairy_free_smoothie.jpg",
+    "description": "A refreshing smoothie made without dairy.",
+    "nutrition": {
+      "calories": 120,
+      "fats": 2,
+      "carbohydrates": 25,
+      "fibers": 4,
+      "sodium": 50,
+      "vitamins": 7,
+      "minerals": 3
+    },
+    "ingredients": [
+      "1 banana",
+      "1 cup almond milk",
+      "1 tablespoon peanut butter",
+      "1 tablespoon honey"
+    ],
+    "instructions": "Blend all ingredients until smooth. Serve immediately.",
+    "ratings": 4.8,
+    "totalRatings": 100,
+    "categories": ["Dairy-Free", "Healthy", "Snack"],
+    "serving": 1,
+    "yield": 1
+  },
+  {
+    "name": "Keto Cauliflower Rice",
+    "image": "https://example.com/images/keto_cauliflower_rice.jpg",
+    "description": "A low-carb alternative to rice using cauliflower.",
+    "nutrition": {
+      "calories": 50,
+      "fats": 2,
+      "carbohydrates": 8,
+      "fibers": 3,
+      "sodium": 100,
+      "vitamins": 2,
+      "minerals": 1
+    },
+    "ingredients": [
+      "1 head cauliflower",
+      "2 tablespoons olive oil",
+      "1 teaspoon garlic",
+      "Salt and pepper to taste"
+    ],
+    "instructions": "Grate cauliflower into rice-sized pieces. Sauté in olive oil with garlic for 5-7 minutes.",
+    "ratings": 4.6,
+    "totalRatings": 90,
+    "categories": ["Keto", "Low-Carb", "Side Dish"],
+    "serving": 2,
+    "yield": 4
+  },
+  {
+    "name": "Whole30 Salad",
+    "image": "https://example.com/images/whole30_salad.jpg",
+    "description": "A fresh and crunchy salad compliant with Whole30.",
+    "nutrition": {
+      "calories": 180,
+      "fats": 10,
+      "carbohydrates": 15,
+      "fibers": 5,
+      "sodium": 300,
+      "vitamins": 5,
+      "minerals": 4
+    },
+    "ingredients": [
+      "2 cups mixed greens",
+      "1 cucumber",
+      "1 carrot",
+      "1 avocado",
+      "Olive oil and vinegar dressing"
+    ],
+    "instructions": "Toss all ingredients in a bowl and dress with olive oil and vinegar.",
+    "ratings": 4.5,
+    "totalRatings": 65,
+    "categories": ["Whole30", "Healthy", "Salad"],
+    "serving": 2,
+    "yield": 4
+  },
+  {
+    "name": "Paleo Chicken Stir Fry",
+    "image": "https://example.com/images/paleo_chicken_stir_fry.jpg",
+    "description": "A quick stir fry with chicken and vegetables suitable for a Paleo diet.",
+    "nutrition": {
+      "calories": 300,
+      "fats": 12,
+      "carbohydrates": 20,
+      "fibers": 4,
+      "sodium": 400,
+      "vitamins": 5,
+      "minerals": 6
+    },
+    "ingredients": [
+      "1 pound chicken breast",
+      "2 cups mixed vegetables",
+      "2 tablespoons coconut oil",
+      "1 tablespoon ginger",
+      "Salt and pepper to taste"
+    ],
+    "instructions": "In a pan, heat coconut oil. Add chicken and cook until browned. Add vegetables, ginger, salt, and pepper, and stir fry for 5-7 minutes.",
+    "ratings": 4.7,
+    "totalRatings": 80,
+    "categories": ["Paleo", "Dinner"],
     "serving": 4,
     "yield": 4
   },
   {
-    "name": "Vegan Tofu Scramble",
-    "image": "https://dummyimage.com/vegantofuscramble.jpg",
-    "description": "A protein-packed tofu scramble with veggies.",
+    "name": "Keto Avocado Toast",
+    "image": "https://example.com/images/keto_avocado_toast.jpg",
+    "description": "Delicious avocado toast without bread.",
     "nutrition": {
       "calories": 250,
-      "fats": 15,
-      "carbohydrates": 20,
-      "fibers": 6,
-      "sodium": 180,
-      "vitamins": 10,
-      "minerals": 12
+      "fats": 22,
+      "carbohydrates": 8,
+      "fibers": 7,
+      "sodium": 300,
+      "vitamins": 5,
+      "minerals": 2
     },
-    "ingredients": ["Tofu", "Bell peppers", "Spinach", "Turmeric", "Onion"],
-    "instructions": "Sauté the vegetables and scramble the tofu with spices.",
-    "tags": ["Vegan", "Quick", "Gluten-Free"],
-    "serving": 2,
+    "ingredients": [
+      "1 avocado",
+      "2 slices cucumber",
+      "1 tablespoon lemon juice",
+      "Salt and pepper to taste"
+    ],
+    "instructions": "Mash avocado and mix with lemon juice. Spread on cucumber slices and season.",
+    "ratings": 4.9,
+    "totalRatings": 110,
+    "categories": ["Keto", "Healthy", "Snack"],
+    "serving": 1,
     "yield": 2
   },
   {
-    "name": "Quick Avocado Toast",
-    "image": "https://dummyimage.com/quickavocadotoast.jpg",
-    "description": "Simple and delicious avocado toast with lemon and seeds.",
+    "name": "Low-Fat Yogurt Parfait",
+    "image": "https://example.com/images/low_fat_yogurt_parfait.jpg",
+    "description": "A healthy yogurt parfait with fruits and granola.",
     "nutrition": {
-      "calories": 200,
-      "fats": 10,
-      "carbohydrates": 15,
-      "fibers": 4,
-      "sodium": 50,
-      "vitamins": 12,
-      "minerals": 8
+      "calories": 180,
+      "fats": 3,
+      "carbohydrates": 30,
+      "fibers": 5,
+      "sodium": 100,
+      "vitamins": 6,
+      "minerals": 3
     },
-    "ingredients": ["Avocado", "Bread", "Lemon", "Pumpkin seeds", "Olive oil"],
-    "instructions": "Spread mashed avocado on toast and garnish with lemon and seeds.",
-    "tags": ["Vegan", "Quick", "Vegetarian"],
+    "ingredients": [
+      "1 cup low-fat yogurt",
+      "1/2 cup granola",
+      "1/2 cup mixed berries",
+      "1 tablespoon honey"
+    ],
+    "instructions": "Layer yogurt, granola, and berries in a glass. Drizzle with honey.",
+    "ratings": 4.8,
+    "totalRatings": 150,
+    "categories": ["Low-Fat", "Breakfast"],
     "serving": 1,
-    "yield": 2
+    "yield": 1
+  },
+  {
+    "name": "Spicy Lentil Soup",
+    "image": "https://example.com/images/spicy_lentil_soup.jpg",
+    "description": "A warming lentil soup with a kick of spice.",
+    "nutrition": {
+      "calories": 220,
+      "fats": 5,
+      "carbohydrates": 35,
+      "fibers": 8,
+      "sodium": 350,
+      "vitamins": 4,
+      "minerals": 6
+    },
+    "ingredients": [
+      "1 cup lentils",
+      "1 onion",
+      "2 carrots",
+      "2 celery stalks",
+      "1 can diced tomatoes",
+      "1 tablespoon chili powder"
+    ],
+    "instructions": "Sauté onion, carrots, and celery. Add lentils, tomatoes, chili powder, and water. Simmer for 30 minutes.",
+    "ratings": 4.6,
+    "totalRatings": 95,
+    "categories": ["Vegan", "Gluten-Free", "Dinner"],
+    "serving": 4,
+    "yield": 6
+  },
+  {
+    "name": "Chocolate Banana Smoothie",
+    "image": "https://example.com/images/chocolate_banana_smoothie.jpg",
+    "description": "A delicious smoothie made with banana and cocoa.",
+    "nutrition": {
+      "calories": 210,
+      "fats": 4,
+      "carbohydrates": 35,
+      "fibers": 4,
+      "sodium": 70,
+      "vitamins": 5,
+      "minerals": 3
+    },
+    "ingredients": [
+      "1 banana",
+      "1 tablespoon cocoa powder",
+      "1 cup almond milk",
+      "1 tablespoon peanut butter"
+    ],
+    "instructions": "Blend all ingredients until smooth. Serve chilled.",
+    "ratings": 4.9,
+    "totalRatings": 130,
+    "categories": ["Vegan", "Healthy", "Snack"],
+    "serving": 1,
+    "yield": 1
+  },
+  {
+    "name": "Stuffed Bell Peppers",
+    "image": "https://example.com/images/stuffed_bell_peppers.jpg",
+    "description": "Colorful bell peppers stuffed with rice and vegetables.",
+    "nutrition": {
+      "calories": 300,
+      "fats": 8,
+      "carbohydrates": 50,
+      "fibers": 6,
+      "sodium": 400,
+      "vitamins": 5,
+      "minerals": 4
+    },
+    "ingredients": [
+      "4 bell peppers",
+      "1 cup cooked rice",
+      "1 cup black beans",
+      "1 cup corn",
+      "1 tablespoon taco seasoning"
+    ],
+    "instructions": "Preheat oven to 350°F. Mix rice, beans, corn, and seasoning. Stuff peppers and bake for 30 minutes.",
+    "ratings": 4.7,
+    "totalRatings": 70,
+    "categories": ["Vegetarian", "Dinner"],
+    "serving": 4,
+    "yield": 4
+  },
+  {
+    "name": "Creamy Garlic Pasta",
+    "image": "https://example.com/images/creamy_garlic_pasta.jpg",
+    "description": "Pasta tossed in a creamy garlic sauce.",
+    "nutrition": {
+      "calories": 400,
+      "fats": 15,
+      "carbohydrates": 60,
+      "fibers": 5,
+      "sodium": 600,
+      "vitamins": 3,
+      "minerals": 2
+    },
+    "ingredients": [
+      "8 oz pasta",
+      "1 cup heavy cream",
+      "4 cloves garlic",
+      "1/2 cup parmesan cheese",
+      "Salt and pepper to taste"
+    ],
+    "instructions": "Cook pasta. In a pan, sauté garlic. Add cream and cheese. Mix with pasta and season.",
+    "ratings": 4.5,
+    "totalRatings": 60,
+    "categories": ["Vegetarian", "Dinner"],
+    "serving": 4,
+    "yield": 4
   }
 ]

@@ -36,7 +36,7 @@ export const getRecipe = asyncErrorHandler(async function (req, res, next) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     const error = new CustomError("Invalid recipe id", 400);
 
-    // Return in order stop code execution bellow
+    // Return in order stop code execution below
     return next(error);
   }
 
@@ -46,7 +46,7 @@ export const getRecipe = asyncErrorHandler(async function (req, res, next) {
   if (!recipe) {
     const error = new CustomError("Recipe not found!", 404);
 
-    // Return in order stop code execution bellow
+    // Return in order stop code execution below
     return next(error);
   }
 
@@ -80,7 +80,7 @@ export const updateRecipe = asyncErrorHandler(async function (req, res, next) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     const error = new CustomError("Invalid recipe id", 400);
 
-    // Return in order stop code execution bellow
+    // Return in order stop code execution below
     return next(error);
   }
 
@@ -114,7 +114,7 @@ export const deleteRecipe = asyncErrorHandler(async function (req, res, next) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     const error = new CustomError("Invalid recipe id", 400);
 
-    // Return in order stop code execution bellow
+    // Return in order stop code execution below
     return next(error);
   }
 
@@ -124,7 +124,7 @@ export const deleteRecipe = asyncErrorHandler(async function (req, res, next) {
   if (!recipe) {
     const error = new CustomError("Recipe not found!", 404);
 
-    // Return in order stop code execution bellow
+    // Return in order stop code execution below
     return next(error);
   }
 

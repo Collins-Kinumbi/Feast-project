@@ -30,135 +30,107 @@ export const getRecipes = asyncErrorHandler(async (req, res, next) => {
 });
 
 export const getRecipe = asyncErrorHandler(async function (req, res, next) {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    // Check if id is a valid mongoose id
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      const error = new CustomError("Invalid recipe id", 400);
+  // Check if id is a valid mongoose id
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    const error = new CustomError("Invalid recipe id", 400);
 
-      // Return in order stop code execution bellow
-      return next(error);
-    }
-
-    const recipe = await Recipe.findById(id);
-
-    // Check if recipe is falsy
-    if (!recipe) {
-      const error = new CustomError("Recipe not found!", 404);
-
-      // Return in order stop code execution bellow
-      return next(error);
-    }
-
-    // Successfull
-    res.status(200).json({
-      status: "Success!",
-      requestedAt: new Date().toISOString(),
-      data: {
-        recipe,
-      },
-    });
-  } catch (err) {
-    // Server error
-    const error = new CustomError(err.message, 500);
-
-    next(error);
+    // Return in order stop code execution bellow
+    return next(error);
   }
+
+  const recipe = await Recipe.findById(id);
+
+  // Check if recipe is falsy
+  if (!recipe) {
+    const error = new CustomError("Recipe not found!", 404);
+
+    // Return in order stop code execution bellow
+    return next(error);
+  }
+
+  // Successfull
+  res.status(200).json({
+    status: "Success!",
+    requestedAt: new Date().toISOString(),
+    data: {
+      recipe,
+    },
+  });
 });
 
 export const addRecipe = asyncErrorHandler(async function (req, res, next) {
-  try {
-    // Create a new recipe
-    const recipe = await Recipe.create(req.body);
+  // Create a new recipe
+  const recipe = await Recipe.create(req.body);
 
-    // Successfull
-    res.status(200).json({
-      status: "Success!",
-      data: {
-        recipe,
-      },
-    });
-  } catch (err) {
-    // If creating a recipe fails
-    const error = new CustomError(err.message, 400);
-
-    next(error);
-  }
+  // Successfull
+  res.status(200).json({
+    status: "Success!",
+    data: {
+      recipe,
+    },
+  });
 });
 
 export const updateRecipe = asyncErrorHandler(async function (req, res, next) {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    // Check if id is a valid mongoose id
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      const error = new CustomError("Invalid recipe id", 400);
+  // Check if id is a valid mongoose id
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    const error = new CustomError("Invalid recipe id", 400);
 
-      // Return in order stop code execution bellow
-      return next(error);
-    }
-
-    // Find recipe and update
-    const recipe = await Recipe.findByIdAndUpdate(id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    // Check if recipe is falsy
-    if (!recipe) {
-      const error = new CustomError("Recipe not found!", 404);
-
-      // Return in order stop code execution bellow
-      return next(error);
-    }
-
-    // Successfull
-    res.status(200).json({
-      status: "Success!",
-      data: {
-        recipe,
-      },
-    });
-  } catch (err) {
-    // Server error
-    const error = new CustomError(err.message, 500);
-
-    next(error);
+    // Return in order stop code execution bellow
+    return next(error);
   }
+
+  // Find recipe and update
+  const recipe = await Recipe.findByIdAndUpdate(id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  // Check if recipe is falsy
+  if (!recipe) {
+    const error = new CustomError("Recipe not found!", 404);
+
+    // Return in order stop code execution bellow
+    return next(error);
+  }
+
+  // Successfull
+  res.status(200).json({
+    status: "Success!",
+    data: {
+      recipe,
+    },
+  });
 });
 
 export const deleteRecipe = asyncErrorHandler(async function (req, res, next) {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    // Check if id is a valid mongoose id
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      const error = new CustomError("Invalid recipe id", 400);
+  // Check if id is a valid mongoose id
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    const error = new CustomError("Invalid recipe id", 400);
 
-      // Return in order stop code execution bellow
-      return next(error);
-    }
-
-    const recipe = await Recipe.findByIdAndDelete(id);
-
-    // Check if recipe is falsy
-    if (!recipe) {
-      const error = new CustomError("Recipe not found!", 404);
-
-      // Return in order stop code execution bellow
-      return next(error);
-    }
-
-    // Successfull
-    res.status(200).json({
-      status: "Success",
-      message: "Recipe successfully deleted!",
-    });
-  } catch (err) {
-    // Server error
-    const error = new CustomError(err.message, 500);
-
-    next(error);
+    // Return in order stop code execution bellow
+    return next(error);
   }
+
+  const recipe = await Recipe.findByIdAndDelete(id);
+
+  // Check if recipe is falsy
+  if (!recipe) {
+    const error = new CustomError("Recipe not found!", 404);
+
+    // Return in order stop code execution bellow
+    return next(error);
+  }
+
+  // Successfull
+  res.status(200).json({
+    status: "Success",
+    message: "Recipe successfully deleted!",
+  });
 });

@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import Recipe from "../../Models/Recipe/recipeModel.js";
 import ApiFeatures from "../../Utils/apiFeatures.js";
-
+import CustomError from "../../Utils/CustomError.js";
 // Route handlers
-export async function getRecipes(req, res) {
+export async function getRecipes(req, res, next) {
   try {
     const features = new ApiFeatures(Recipe.find(), req.query)
       .filter()
@@ -17,14 +17,6 @@ export async function getRecipes(req, res) {
 
     const recipes = await query;
 
-    // Check if recipes arr is empty
-    if (recipes.length === 0) {
-      return res.status(404).json({
-        status: "Failed!",
-        message: "No recipes found",
-      });
-    }
-
     // Successfull
     res.status(200).json({
       status: "Success!",
@@ -36,33 +28,32 @@ export async function getRecipes(req, res) {
     });
   } catch (err) {
     // Server error
-    res.status(500).json({
-      status: "Failed!",
-      message: err.message,
-    });
+    const error = new CustomError(err.message, 500);
+
+    next(error);
   }
 }
 
-export async function getRecipe(req, res) {
+export async function getRecipe(req, res, next) {
   try {
     const { id } = req.params;
 
     // Check if id is a valid mongoose id
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        status: "Failed!",
-        message: "Invalid recipe id",
-      });
+      const error = new CustomError("Invalid recipe id", 400);
+
+      // Return in order stop code execution bellow
+      return next(error);
     }
 
     const recipe = await Recipe.findById(id);
 
     // Check if recipe is falsy
     if (!recipe) {
-      return res.status(404).json({
-        status: "Failed!",
-        message: "Recipe not found!",
-      });
+      const error = new CustomError("Recipe not found!", 404);
+
+      // Return in order stop code execution bellow
+      return next(error);
     }
 
     // Successfull
@@ -74,15 +65,14 @@ export async function getRecipe(req, res) {
       },
     });
   } catch (err) {
-    // Internal server error
-    res.status(500).json({
-      status: "Failed!",
-      message: err.message,
-    });
+    // Server error
+    const error = new CustomError(err.message, 500);
+
+    next(error);
   }
 }
 
-export async function addRecipe(req, res) {
+export async function addRecipe(req, res, next) {
   try {
     // Create a new recipe
     const recipe = await Recipe.create(req.body);
@@ -96,23 +86,22 @@ export async function addRecipe(req, res) {
     });
   } catch (err) {
     // If creating a recipe fails
-    res.status(400).json({
-      status: "Failed!",
-      message: err.message,
-    });
+    const error = new CustomError(err.message, 400);
+
+    next(error);
   }
 }
 
-export async function updateRecipe(req, res) {
+export async function updateRecipe(req, res, next) {
   try {
     const { id } = req.params;
 
     // Check if id is a valid mongoose id
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        status: "Failed!",
-        message: "Invalid recipe id",
-      });
+      const error = new CustomError("Invalid recipe id", 400);
+
+      // Return in order stop code execution bellow
+      return next(error);
     }
 
     // Find recipe and update
@@ -123,10 +112,10 @@ export async function updateRecipe(req, res) {
 
     // Check if recipe is falsy
     if (!recipe) {
-      return res.status(404).json({
-        status: "Failed!",
-        message: "Recipe not found!",
-      });
+      const error = new CustomError("Recipe not found!", 404);
+
+      // Return in order stop code execution bellow
+      return next(error);
     }
 
     // Successfull
@@ -137,34 +126,33 @@ export async function updateRecipe(req, res) {
       },
     });
   } catch (err) {
-    // Internal server error
-    res.status(500).json({
-      status: "Failed!",
-      message: err.message,
-    });
+    // Server error
+    const error = new CustomError(err.message, 500);
+
+    next(error);
   }
 }
 
-export async function deleteRecipe(req, res) {
+export async function deleteRecipe(req, res, next) {
   try {
     const { id } = req.params;
 
     // Check if id is a valid mongoose id
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(404).json({
-        status: "Failed!",
-        message: "Invalid recipe id",
-      });
+      const error = new CustomError("Invalid recipe id", 400);
+
+      // Return in order stop code execution bellow
+      return next(error);
     }
 
     const recipe = await Recipe.findByIdAndDelete(id);
 
     // Check if recipe is falsy
     if (!recipe) {
-      return res.status(404).json({
-        status: "Failed!",
-        message: "Recipe not found!",
-      });
+      const error = new CustomError("Recipe not found!", 404);
+
+      // Return in order stop code execution bellow
+      return next(error);
     }
 
     // Successfull
@@ -173,10 +161,9 @@ export async function deleteRecipe(req, res) {
       message: "Recipe successfully deleted!",
     });
   } catch (err) {
-    // Internal server error
-    res.status(500).json({
-      status: "Failed!",
-      message: err.message,
-    });
+    // Server error
+    const error = new CustomError(err.message, 500);
+
+    next(error);
   }
 }

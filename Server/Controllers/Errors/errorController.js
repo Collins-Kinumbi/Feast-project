@@ -1,3 +1,5 @@
+import CustomError from "../../Utils/CustomError.js";
+
 function developmentErrors(res, error) {
   res.status(error.statusCode).json({
     statusCode: error.statusCode,
@@ -22,6 +24,12 @@ function productionErrors(res, error) {
   }
 }
 
+function castErrorHandler(error) {
+  const message = `Invalid Value: ${error.value} for field: ${error.path}`;
+
+  return new CustomError(message, 400);
+}
+
 //////////////////////////////////////////////////
 function globalErrorHandler(error, req, res, next) {
   // console.log("Error");
@@ -32,6 +40,9 @@ function globalErrorHandler(error, req, res, next) {
   if (process.env.NODE_ENV === "development") {
     developmentErrors(res, error);
   } else if (process.env.NODE_ENV === "production") {
+    if (error.name === "CastError") {
+      error = castErrorHandler(error);
+    }
     productionErrors(res, error);
   }
 

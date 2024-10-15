@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import recipesRouter from "./Routes/Recipes/recipesRoutes.js";
+import CustomError from "./Utils/Error.js";
 
 const app = express();
 
@@ -14,10 +15,11 @@ app.use("/api/v1/recipes", recipesRouter);
 
 //For all not undefined routes
 app.all("*", (req, res, next) => {
-  // Create an instance of the Error class
-  const error = new Error(`Can't find ${req.originalUrl} on the server`);
-  error.status = "Not found!";
-  error.statusCode = 404;
+  // Create an instance of my CustormError class
+  const error = new CustomError(
+    `Can't find ${req.originalUrl} on the server`,
+    404
+  );
 
   // Passing error object into next function
   next(error);

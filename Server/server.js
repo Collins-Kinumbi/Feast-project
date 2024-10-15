@@ -8,11 +8,20 @@ async function connect() {
   await mongoose.connect(process.env.CONNECTION_STRING);
   console.log("Connection to database successfull...");
 }
-connect().catch((err) => {
-  console.log(err.message);
-});
+
+connect();
 
 // Creating server
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
+});
+
+// Handling rejected promises
+process.on("unhandledRejection", (error) => {
+  console.log(`${error.name}: ${error.message}`);
+  console.log("Unhandled rejection occured, shutting down...");
+
+  server.close(() => {
+    process.exit(1);
+  });
 });

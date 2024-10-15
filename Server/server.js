@@ -9,7 +9,9 @@ async function connect() {
   console.log("Connection to database successfull...");
 }
 
-connect();
+connect().catch((error) => {
+  console.log(`${error.name}: ${error.message}`);
+});
 
 // Creating server
 const server = app.listen(port, () => {

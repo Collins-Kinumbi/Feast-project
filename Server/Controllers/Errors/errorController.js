@@ -39,6 +39,16 @@ function duplicateKey(error) {
   return new CustomError(message, 400);
 }
 
+// Mongoose validation error handler
+function validationError(error) {
+  const errors = Object.values(error.errors).map((value) => {
+    return value.message;
+  });
+  const message = `Invalid input data: ${errors.join(". ")}`;
+
+  return new CustomError(message, 400);
+}
+
 //////////////////////////////////////////////////
 function globalErrorHandler(error, req, res, next) {
   // console.log("Error");
@@ -49,14 +59,21 @@ function globalErrorHandler(error, req, res, next) {
   if (process.env.NODE_ENV === "development") {
     developmentErrors(res, error);
   } else if (process.env.NODE_ENV === "production") {
-    // if invalid mongoose ID
+    // if invalid mongoose ID error
     if (error.name === "CastError") {
       error = invalidId(error);
     }
-    // If duplicate key for unique keys
+
+    // If duplicate key error
     if (error.code === 11000) {
       error = duplicateKey(error);
     }
+
+    // Mongoose validation errors
+    if (error.name === "ValidationError") {
+      error = validationError(error);
+    }
+
     productionErrors(res, error);
   }
 

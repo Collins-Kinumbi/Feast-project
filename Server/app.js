@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import recipesRouter from "./Routes/Recipes/recipesRoutes.js";
 import CustomError from "./Utils/Error.js";
+import globalErrorHandler from "./Controllers/Errors/ErrorController.js";
 
 const app = express();
 
@@ -26,19 +27,6 @@ app.all("*", (req, res, next) => {
 });
 
 // Global error handling middleware
-app.use((error, req, res, next) => {
-  // console.log("Error");
-  error.statusCode = error.statusCode || 500;
-  error.status = error.status || "Error";
-
-  // Sending error response
-  res.status(error.statusCode).json({
-    statusCode: error.statusCode,
-    status: error.status,
-    message: error.message,
-  });
-
-  next();
-});
+app.use(globalErrorHandler);
 
 export default app;

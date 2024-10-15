@@ -2,39 +2,34 @@ import mongoose from "mongoose";
 import Recipe from "../../Models/Recipe/recipeModel.js";
 import ApiFeatures from "../../Utils/apiFeatures.js";
 import CustomError from "../../Utils/CustomError.js";
+import asyncErrorHandler from "../../Utils/asyncErrorHandler.js";
+
 // Route handlers
-export async function getRecipes(req, res, next) {
-  try {
-    const features = new ApiFeatures(Recipe.find(), req.query)
-      .filter()
-      .sort()
-      .limitFields()
-      .paginate();
+export const getRecipes = asyncErrorHandler(async (req, res, next) => {
+  const features = new ApiFeatures(Recipe.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
 
-    // console.log(features);
+  // console.log(features);
 
-    const { queryObj: query } = features;
+  const { queryObj: query } = features;
 
-    const recipes = await query;
+  const recipes = await query;
 
-    // Successfull
-    res.status(200).json({
-      status: "Success!",
-      items: recipes.length,
-      requestedAt: new Date().toISOString(),
-      data: {
-        recipes,
-      },
-    });
-  } catch (err) {
-    // Server error
-    const error = new CustomError(err.message, 500);
+  // Successfull
+  res.status(200).json({
+    status: "Success!",
+    items: recipes.length,
+    requestedAt: new Date().toISOString(),
+    data: {
+      recipes,
+    },
+  });
+});
 
-    next(error);
-  }
-}
-
-export async function getRecipe(req, res, next) {
+export const getRecipe = asyncErrorHandler(async function (req, res, next) {
   try {
     const { id } = req.params;
 
@@ -70,9 +65,9 @@ export async function getRecipe(req, res, next) {
 
     next(error);
   }
-}
+});
 
-export async function addRecipe(req, res, next) {
+export const addRecipe = asyncErrorHandler(async function (req, res, next) {
   try {
     // Create a new recipe
     const recipe = await Recipe.create(req.body);
@@ -90,9 +85,9 @@ export async function addRecipe(req, res, next) {
 
     next(error);
   }
-}
+});
 
-export async function updateRecipe(req, res, next) {
+export const updateRecipe = asyncErrorHandler(async function (req, res, next) {
   try {
     const { id } = req.params;
 
@@ -131,9 +126,9 @@ export async function updateRecipe(req, res, next) {
 
     next(error);
   }
-}
+});
 
-export async function deleteRecipe(req, res, next) {
+export const deleteRecipe = asyncErrorHandler(async function (req, res, next) {
   try {
     const { id } = req.params;
 
@@ -166,4 +161,4 @@ export async function deleteRecipe(req, res, next) {
 
     next(error);
   }
-}
+});

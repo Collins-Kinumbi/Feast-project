@@ -1,3 +1,11 @@
+// Handling uncaught exceptions
+process.on("uncaughtException", (err) => {
+  console.log(err.name, err.message);
+  console.log("UncaughtExpeption occured shutting down...");
+
+  process.exit(1);
+});
+
 import express from "express";
 import morgan from "morgan";
 import recipesRouter from "./Routes/Recipes/recipesRoutes.js";

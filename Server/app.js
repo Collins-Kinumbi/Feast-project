@@ -1,7 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import recipesRouter from "./Routes/Recipes/recipesRoutes.js";
-import CustomError from "./Utils/Error.js";
+import CustomError from "./Utils/CustomError.js";
 import globalErrorHandler from "./Controllers/Errors/ErrorController.js";
 
 const app = express();

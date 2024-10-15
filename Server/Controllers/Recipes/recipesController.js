@@ -32,14 +32,6 @@ export const getRecipes = asyncErrorHandler(async (req, res, next) => {
 export const getRecipe = asyncErrorHandler(async function (req, res, next) {
   const { id } = req.params;
 
-  // Check if id is a valid mongoose id
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    const error = new CustomError("Invalid recipe id", 400);
-
-    // Return in order stop code execution below
-    return next(error);
-  }
-
   const recipe = await Recipe.findById(id);
 
   // Check if recipe is falsy
@@ -76,14 +68,6 @@ export const addRecipe = asyncErrorHandler(async function (req, res, next) {
 export const updateRecipe = asyncErrorHandler(async function (req, res, next) {
   const { id } = req.params;
 
-  // Check if id is a valid mongoose id
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    const error = new CustomError("Invalid recipe id", 400);
-
-    // Return in order stop code execution below
-    return next(error);
-  }
-
   // Find recipe and update
   const recipe = await Recipe.findByIdAndUpdate(id, req.body, {
     new: true,
@@ -109,14 +93,6 @@ export const updateRecipe = asyncErrorHandler(async function (req, res, next) {
 
 export const deleteRecipe = asyncErrorHandler(async function (req, res, next) {
   const { id } = req.params;
-
-  // Check if id is a valid mongoose id
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    const error = new CustomError("Invalid recipe id", 400);
-
-    // Return in order stop code execution below
-    return next(error);
-  }
 
   const recipe = await Recipe.findByIdAndDelete(id);
 

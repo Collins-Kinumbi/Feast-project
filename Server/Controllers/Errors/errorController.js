@@ -24,8 +24,17 @@ function productionErrors(res, error) {
   }
 }
 
-function castErrorHandler(error) {
+// Invalid mongoose ID error handler
+function invalidId(error) {
   const message = `Invalid Value: ${error.value} for field: ${error.path}`;
+
+  return new CustomError(message, 400);
+}
+
+// Duplicate unique key error handler
+function duplicateKey(error) {
+  const name = error.keyValue.name;
+  const message = `Sorry there is already a recipe with the name: ${name}, please try another name...`;
 
   return new CustomError(message, 400);
 }
@@ -40,8 +49,13 @@ function globalErrorHandler(error, req, res, next) {
   if (process.env.NODE_ENV === "development") {
     developmentErrors(res, error);
   } else if (process.env.NODE_ENV === "production") {
+    // if invalid mongoose ID
     if (error.name === "CastError") {
-      error = castErrorHandler(error);
+      error = invalidId(error);
+    }
+    // If duplicate key for unique keys
+    if (error.code === 11000) {
+      error = duplicateKey(error);
     }
     productionErrors(res, error);
   }

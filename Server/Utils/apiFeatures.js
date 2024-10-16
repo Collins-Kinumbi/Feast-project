@@ -6,7 +6,7 @@ class ApiFeatures {
 
   filter() {
     // Fields to exclude from query object
-    const excludedFields = ["sort", "page", "limit", "fields"];
+    const excludedFields = ["sort", "page", "limit", "fields", "search"];
 
     // making a shallow copy of the req query object
     let queryObject = { ...this.queryStr };
@@ -70,6 +70,18 @@ class ApiFeatures {
     //     });
     //   }
     // }
+
+    return this;
+  }
+  search() {
+    if (this.queryStr.search) {
+      const query = this.queryStr.search;
+      this.queryObj = this.queryObj
+        .find({
+          $text: { $search: query },
+        })
+        .sort({ score: { $meta: "textScore" } }); // Sort by relevance
+    }
 
     return this;
   }

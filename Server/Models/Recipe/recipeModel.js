@@ -102,9 +102,6 @@ const recipeSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Index for fuzzy search
-recipeSchema.index({ name: "text", ingredients: "text", description: "text" });
-
 // Recipe model
 const Recipe = mongoose.model("Recipe", recipeSchema);
 

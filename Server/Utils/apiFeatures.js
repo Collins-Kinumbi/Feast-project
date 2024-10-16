@@ -76,11 +76,9 @@ class ApiFeatures {
   search() {
     if (this.queryStr.search) {
       const query = this.queryStr.search;
-      this.queryObj = this.queryObj
-        .find({
-          $text: { $search: query },
-        })
-        .sort({ score: { $meta: "textScore" } }); // Sort by relevance
+      this.queryObj = this.queryObj.find({
+        name: { $regex: query, $options: "i" },
+      });
     }
 
     return this;

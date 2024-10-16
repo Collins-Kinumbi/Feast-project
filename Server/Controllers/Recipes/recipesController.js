@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import Recipe from "../../Models/Recipe/recipeModel.js";
 import ApiFeatures from "../../Utils/apiFeatures.js";
 import CustomError from "../../Utils/CustomError.js";
@@ -10,7 +9,8 @@ export const getRecipes = asyncErrorHandler(async (req, res, next) => {
     .filter()
     .sort()
     .limitFields()
-    .paginate();
+    .paginate()
+    .search();
 
   // console.log(features);
 

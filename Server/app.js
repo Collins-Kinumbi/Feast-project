@@ -11,6 +11,7 @@ import morgan from "morgan";
 import recipesRouter from "./Routes/Recipes/recipesRoutes.js";
 import CustomError from "./Utils/CustomError.js";
 import globalErrorHandler from "./Controllers/Errors/ErrorController.js";
+import authRouter from "./Routes/Auth/authRouter.js";
 
 const app = express();
 
@@ -21,6 +22,9 @@ app.use(express.json());
 
 // Recipes
 app.use("/api/v1/recipes", recipesRouter);
+
+// Auth
+app.use("/api/v1/auth", authRouter);
 
 //For all not undefined routes
 app.all("*", (req, res, next) => {

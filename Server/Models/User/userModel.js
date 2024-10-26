@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter a password!"],
       minlength: 8,
-      // select: false, // to prevent password from being returned in queries
+      select: false, // to prevent password from being returned in queries
     },
     confirmPassword: {
       type: String,
@@ -52,6 +52,11 @@ userSchema.pre("save", async function (next) {
 
   next();
 });
+
+// Compare passwords instance method
+userSchema.methods.comparePasswordInDb = async function (password, passwordDb) {
+  return await bcrypt.compare(password, passwordDb); //true or false
+};
 
 // User model
 const User = mongoose.model("User", userSchema);

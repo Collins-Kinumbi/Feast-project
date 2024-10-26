@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import bcrypt from "bcryptjs";
 
 // User schema
 const userSchema = new mongoose.Schema({
@@ -29,12 +30,24 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please confirm your password!"],
     validate: {
       // This only works on CREATE and SAVE (not on UPDATE)
-      validator: function (el) {
-        return el === this.password;
+      validator: function (value) {
+        return value === this.password;
       },
       message: "Passwords do not match!",
     },
   },
+});
+
+//Encrypting password before saving it to the database
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next(); //if password is not modified next()
+
+  // Encrypting/hashing password before saving it
+  this.password = await bcrypt.hash(this.password, 12); //first salts (adds a random string) password then hashes/encrypts it
+
+  this.confirmPassword = undefined; //removes the field before saving user to database
+
+  next();
 });
 
 // User model

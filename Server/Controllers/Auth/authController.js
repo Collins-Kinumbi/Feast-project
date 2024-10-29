@@ -3,15 +3,15 @@ import asyncErrorHandler from "../../Utils/asyncErrorHandler.js";
 import jwt from "jsonwebtoken";
 import CustomError from "../../Utils/CustomError.js";
 
+const secret = process.env.SECRET_STRING || "Secret string";
+
+const tokenExpires = process.env.LOGIN_EXPIRES || "1d";
+
 // Returns a jwt token
 function getToken(id, email) {
-  return jwt.sign(
-    { id: id, user: email },
-    process.env.SECRET_STRING || "Secret string",
-    {
-      expiresIn: process.env.LOGIN_EXPIRES || "1d",
-    }
-  );
+  return jwt.sign({ id: id, user: email }, secret, {
+    expiresIn: tokenExpires,
+  });
 }
 
 // Sending response data
@@ -30,7 +30,12 @@ export const signup = asyncErrorHandler(async function (req, res, next) {
   // 1. Create the new user
   const { username, email, password, confirmPassword } = req.body;
 
-  const user = await User.create(username, email, password, confirmPassword);
+  const user = await User.create({
+    username,
+    email,
+    password,
+    confirmPassword,
+  });
 
   // 2. Create a json web token
   const token = getToken(user._id, user.email);
@@ -75,4 +80,50 @@ export const login = asyncErrorHandler(async function (req, res, next) {
   const token = getToken(user._id, user.email);
 
   response(res, 200, token);
+});
+
+// Protecting routes
+export const protect = asyncErrorHandler(async function (req, res, next) {
+  // 1. Read the token and check if it exists
+  let token = req.headers.authorization || req.headers.Authorization; //checking header
+  // console.log(token);
+  if (token && token.startsWith("Bearer")) {
+    token = token.split(" ")[1];
+  }
+  // console.log(token);
+  if (!token) {
+    const error = new CustomError("Please log in!", 401);
+    return next(error);
+  }
+  // 2. Validate the token
+  const decodedToken = jwt.verify(token, secret, function (err, decodedToken) {
+    if (err) return next(new CustomError(err.message, 401));
+    // console.log(decodedToken);
+    return decodedToken;
+  });
+
+  if (!decodedToken) return;
+
+  // 3. Check if user exists in the database
+  const user = await User.findById(decodedToken.id);
+
+  if (!user) {
+    const error = new CustomError(
+      "The user with given the token does not exist!",
+      401
+    );
+    return next(error);
+  }
+
+  // 4. Check if user changed passward after token was issued
+  if (user.isPasswordReset(decodedToken.iat)) {
+    const error = new CustomError(
+      "Passord was reset recently please log in again!",
+      401
+    );
+    return next(error);
+  }
+
+  // 5. Allow user to access the route
+  next();
 });

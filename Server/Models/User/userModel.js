@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: [true, "Username is requred!"],
+      required: [true, "Username is required!"],
       unique: true,
       trim: true,
     },
@@ -24,19 +24,19 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter a password!"],
       minlength: 8,
-      select: false, // to prevent password from being returned in queries
+      select: false,
     },
     confirmPassword: {
       type: String,
       required: [true, "Please confirm your password!"],
       validate: {
-        // This only works on CREATE and SAVE (not on UPDATE)
         validator: function (value) {
           return value === this.password;
         },
         message: "Passwords do not match!",
       },
     },
+    passwordResetAt: Date,
   },
   { timestamps: true }
 );
@@ -56,6 +56,18 @@ userSchema.pre("save", async function (next) {
 // Compare passwords instance method
 userSchema.methods.comparePasswordInDb = async function (password, passwordDb) {
   return await bcrypt.compare(password, passwordDb); //true or false
+};
+
+//
+userSchema.methods.isPasswordReset = function (jwtTimestamp) {
+  if (this.passwordResetAt) {
+    // console.log(this.passwordResetAt, jwtTimestamp);
+    const passwordResetTimesstamp = this.passwordResetAt.getTime() / 1000; //convert timestamp to seconds
+
+    // console.log(passwordResetTimesstamp);
+    return jwtTimestamp < passwordResetTimesstamp;
+  }
+  return false;
 };
 
 // User model

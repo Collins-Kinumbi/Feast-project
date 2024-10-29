@@ -96,13 +96,12 @@ export const protect = asyncErrorHandler(async function (req, res, next) {
     return next(error);
   }
   // 2. Validate the token
-  const decodedToken = jwt.verify(token, secret, function (err, decodedToken) {
-    if (err) return next(new CustomError(err.message, 401));
-    // console.log(decodedToken);
-    return decodedToken;
-  });
-
-  if (!decodedToken) return;
+  let decodedToken;
+  try {
+    decodedToken = jwt.verify(token, secret);
+  } catch (error) {
+    return next(new CustomError(error.message, 401));
+  }
 
   // 3. Check if user exists in the database
   const user = await User.findById(decodedToken.id);

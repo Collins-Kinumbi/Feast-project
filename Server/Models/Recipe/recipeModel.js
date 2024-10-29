@@ -94,9 +94,14 @@ const recipeSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Serving field is required!"],
     },
-    yield: {
+    servingYield: {
       type: Number,
       required: [true, "Yield field is required!"],
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", //Links Recipe model to User model,
+      required: true,
     },
   },
   { timestamps: true }

@@ -124,5 +124,6 @@ export const protect = asyncErrorHandler(async function (req, res, next) {
   }
 
   // 5. Allow user to access the route
+  req.user = user; //Setting user to request object
   next();
 });

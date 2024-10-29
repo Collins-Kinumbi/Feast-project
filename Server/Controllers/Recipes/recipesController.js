@@ -54,7 +54,30 @@ export const getRecipe = asyncErrorHandler(async function (req, res, next) {
 
 export const addRecipe = asyncErrorHandler(async function (req, res, next) {
   // Create a new recipe
-  const recipe = await Recipe.create(req.body);
+  const {
+    name,
+    image,
+    description,
+    nutrition,
+    ingredients,
+    instructions,
+    categories,
+    serving,
+    servingYield,
+  } = req.body;
+
+  const recipe = await Recipe.create({
+    name,
+    image,
+    description,
+    nutrition,
+    ingredients,
+    instructions,
+    categories,
+    serving,
+    servingYield,
+    user: req.user._id, //Associate recipe with user's ID
+  });
 
   // Successfull
   res.status(200).json({
@@ -106,7 +129,7 @@ export const deleteRecipe = asyncErrorHandler(async function (req, res, next) {
 
   // Successfull
   res.status(200).json({
-    status: "Success",
+    status: "Success!",
     message: "Recipe successfully deleted!",
   });
 });

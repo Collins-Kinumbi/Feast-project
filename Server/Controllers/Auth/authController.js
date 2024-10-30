@@ -3,6 +3,7 @@ import asyncErrorHandler from "../../Utils/asyncErrorHandler.js";
 import jwt from "jsonwebtoken";
 import CustomError from "../../Utils/CustomError.js";
 import sendEmail from "../../Utils/mailer.js";
+import crypto from "crypto";
 
 const secret = process.env.SECRET_STRING || "Secret string";
 
@@ -16,7 +17,10 @@ function getToken(id, email) {
 }
 
 // Sending response data
-function response(res, statusCode, token, user = undefined) {
+function response(res, statusCode, user) {
+  const token = getToken(user._id, user.email);
+
+  user.password = undefined; //deselect password on user object
   return res.status(statusCode).json({
     status: "Success!",
     token, //Sending the token back to the client
@@ -42,10 +46,8 @@ export const signup = asyncErrorHandler(async function (req, res, next) {
   // 2. Create a json web token
   const token = getToken(user._id, user.email);
 
-  user.password = undefined; //deselect password on user object
-
   // 3.Login the user
-  response(res, 201, token, user);
+  response(res, 201, user);
 });
 
 export const login = asyncErrorHandler(async function (req, res, next) {
@@ -83,7 +85,7 @@ export const login = asyncErrorHandler(async function (req, res, next) {
   // 6. Login the user
   const token = getToken(user._id, user.email);
 
-  response(res, 200, token);
+  response(res, 200, user);
 });
 
 // Protecting routes
@@ -199,6 +201,29 @@ export const forgotPassword = asyncErrorHandler(async function (
 });
 
 // Reset password
-export const resetPassword = function (req, res, next) {
-  next();
-};
+export const resetPassword = asyncErrorHandler(async function (req, res, next) {
+  const resetToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await User.findOne({
+    passwordResetToken: resetToken,
+    passwordResetTokenExpire: { $gt: Date.now() },
+  }); //compare password reset token and check if the token has expired
+
+  if (!user) {
+    const error = new CustomError("Token is invalid or has expired!", 400);
+    return next(error);
+  }
+
+  // Resetting the user password
+  user.password = req.body.password;
+  user.confirmPassword = req.body.confirmPassword;
+  user.passwordResetToken = undefined;
+  user.passwordResetTokenExpire = undefined;
+  user.passwordResetAt = Date.now();
+
+  await user.save(); //Save the changes
+  response(res, 200, user);
+});

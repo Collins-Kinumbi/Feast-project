@@ -2,6 +2,7 @@ import User from "../../Models/User/userModel.js";
 import asyncErrorHandler from "../../Utils/asyncErrorHandler.js";
 import jwt from "jsonwebtoken";
 import CustomError from "../../Utils/CustomError.js";
+import sendEmail from "../../Utils/mailer.js";
 
 const secret = process.env.SECRET_STRING || "Secret string";
 
@@ -168,7 +169,33 @@ export const forgotPassword = asyncErrorHandler(async function (
   await user.save({ validateBeforeSave: false });
 
   // 3. send email with reset token to user
-  next();
+  const resetURL = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/auth/resetPassword/${resetToken}`;
+
+  const message = `We have recieved a password reset request, please use the link below to reset your password\n\n${resetURL}\n\nThis reset password link will only be valid for 10 minutes`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: "Forgot password",
+      message,
+    });
+
+    // Successful
+    res.status(200).json({
+      status: "Success!",
+      message: `Password reset link sent to ${user.email}`,
+    });
+  } catch (error) {
+    console.log(error);
+    user.passwordResetToken = undefined;
+    user.passwordResetTokenExpire = undefined;
+    user.save({ validateBeforeSave: false });
+    return next(
+      new CustomError("There was an error sending password reset email", 500)
+    );
+  }
 });
 
 // Reset password

@@ -43,10 +43,7 @@ export const signup = asyncErrorHandler(async function (req, res, next) {
     role,
   });
 
-  // 2. Create a json web token
-  const token = getToken(user._id, user.email);
-
-  // 3.Login the user
+  // 2.Login the user
   response(res, 201, user);
 });
 

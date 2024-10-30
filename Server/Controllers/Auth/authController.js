@@ -145,3 +145,33 @@ export const restrictTo = function (...roles) {
     next();
   };
 };
+
+// Forgot password
+export const forgotPassword = asyncErrorHandler(async function (
+  req,
+  res,
+  next
+) {
+  // 1. Get user based on email
+  const { email } = req.body;
+  const user = await User.findOne({ email: email });
+
+  if (!user) {
+    const error = new CustomError(`User with given email: ${email}`, 404);
+
+    return next(error);
+  }
+
+  // 2. Generate a random reset token
+  const resetToken = user.generateResetPasswordToken();
+
+  await user.save({ validateBeforeSave: false });
+
+  // 3. send email with reset token to user
+  next();
+});
+
+// Reset password
+export const resetPassword = function (req, res, next) {
+  next();
+};

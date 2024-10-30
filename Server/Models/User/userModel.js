@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 
 // User schema
 const userSchema = new mongoose.Schema(
@@ -42,6 +43,8 @@ const userSchema = new mongoose.Schema(
       },
     },
     passwordResetAt: Date,
+    passwordResetToken: String,
+    passwordResetTokenExpire: Date,
   },
   { timestamps: true }
 );
@@ -73,6 +76,24 @@ userSchema.methods.isPasswordReset = function (jwtTimestamp) {
     return jwtTimestamp < passwordResetTimesstamp;
   }
   return false;
+};
+
+// Random token generator
+userSchema.methods.generateResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex"); //encrypting reset token and setting it
+
+  this.passwordResetTokenExpire = Date.now() + 10 * 60000; //reset token expires in 10 mins
+
+  console.log(
+    `Reset token: ${resetToken} encryptedResetToken: ${this.passwordResetToken}`
+  );
+
+  return resetToken;
 };
 
 // User model

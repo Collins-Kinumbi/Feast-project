@@ -28,17 +28,20 @@ function response(res, statusCode, token, user = undefined) {
 // Create account
 export const signup = asyncErrorHandler(async function (req, res, next) {
   // 1. Create the new user
-  const { username, email, password, confirmPassword } = req.body;
+  const { username, email, password, confirmPassword, role } = req.body;
 
   const user = await User.create({
     username,
     email,
     password,
     confirmPassword,
+    role,
   });
 
   // 2. Create a json web token
   const token = getToken(user._id, user.email);
+
+  user.password = undefined; //deselect password on user object
 
   // 3.Login the user
   response(res, 201, token, user);
@@ -127,3 +130,18 @@ export const protect = asyncErrorHandler(async function (req, res, next) {
   req.user = user; //Setting user to request object
   next();
 });
+
+// Restricting user's power based on role
+export const restrictTo = function (...roles) {
+  return (req, res, next) => {
+    // console.log(roles);//Spread into an array
+    if (!roles.includes(req.user.role)) {
+      const error = new CustomError(
+        "You are not authorized to perform this action!",
+        403
+      );
+      return next(error);
+    }
+    next();
+  };
+};

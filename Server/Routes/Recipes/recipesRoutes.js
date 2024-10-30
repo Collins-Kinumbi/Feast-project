@@ -7,7 +7,7 @@ import {
   deleteRecipe,
 } from "../../Controllers/Recipes/recipesController.js";
 
-import { protect } from "../../Controllers/Auth/authController.js";
+import { protect, restrictTo } from "../../Controllers/Auth/authController.js";
 
 /* API recipe routes */
 // All recipes
@@ -26,8 +26,8 @@ router
   // GET a recipe
   .get(getRecipe)
   // UPDATE a recipe
-  .patch(protect, updateRecipe)
+  .patch(protect, restrictTo("admin", "user"), updateRecipe)
   // Delete a recipe
-  .delete(protect, deleteRecipe);
+  .delete(protect, restrictTo("admin", "user"), deleteRecipe);
 
 export default router;

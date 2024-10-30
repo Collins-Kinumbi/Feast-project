@@ -91,25 +91,38 @@ export const addRecipe = asyncErrorHandler(async function (req, res, next) {
 export const updateRecipe = asyncErrorHandler(async function (req, res, next) {
   const { id } = req.params;
 
-  // Find recipe and update
-  const recipe = await Recipe.findByIdAndUpdate(id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  // 1. Find recipe by ID
+  const recipe = await Recipe.findById(id);
 
-  // Check if recipe is falsy
+  // 2. Check if recipe is falsy
   if (!recipe) {
     const error = new CustomError("Recipe not found!", 404);
 
-    // Return in order stop code execution bellow
+    // Return in order stop code execution below
     return next(error);
   }
+
+  // 3. Check if the user is admin or owns the recipe
+  if (
+    req.user.role !== "admin" &&
+    recipe.user.toString() !== req.user._id.toString()
+  ) {
+    return next(
+      new CustomError("You do not have authorization to edit this recipe", 403)
+    );
+  }
+
+  // 4. If authorized update recipe
+  const updatedRecipe = await Recipe.findByIdAndUpdate(id, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
   // Successfull
   res.status(200).json({
     status: "Success!",
     data: {
-      recipe,
+      recipe: updatedRecipe,
     },
   });
 });
@@ -117,15 +130,32 @@ export const updateRecipe = asyncErrorHandler(async function (req, res, next) {
 export const deleteRecipe = asyncErrorHandler(async function (req, res, next) {
   const { id } = req.params;
 
-  const recipe = await Recipe.findByIdAndDelete(id);
+  // 1. Find recipe by ID
+  const recipe = await Recipe.findById(id);
 
-  // Check if recipe is falsy
+  // 2. Check if recipe is falsy
   if (!recipe) {
     const error = new CustomError("Recipe not found!", 404);
 
     // Return in order stop code execution below
     return next(error);
   }
+
+  // 3. Check if the user is admin or owns the recipe
+  if (
+    req.user.role !== "admin" &&
+    recipe.user.toString() !== req.user._id.toString()
+  ) {
+    return next(
+      new CustomError(
+        "You do not have authorization to delete this recipe",
+        403
+      )
+    );
+  }
+
+  // 4. Proceed with deletion if authorized
+  await Recipe.findByIdAndDelete(id);
 
   // Successfull
   res.status(200).json({

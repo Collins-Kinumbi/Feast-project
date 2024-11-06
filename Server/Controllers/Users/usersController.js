@@ -11,7 +11,7 @@ export const getAllUsers = asyncErrorHandler(async function (req, res, next) {
     status: "Success!",
     result: users.length,
     data: {
-      users: users,
+      users,
     },
   });
 });

@@ -65,3 +65,12 @@ export const updateDetails = asyncErrorHandler(async function (req, res, next) {
     message: "User profile updated successfully!",
   });
 });
+
+// Soft delete user account
+export const deleteAccount = asyncErrorHandler(async function (req, res, next) {
+  const user = await User.findByIdAndUpdate(req.user._id, { active: false });
+  res.status(200).json({
+    status: "Success!",
+    data: null,
+  });
+});

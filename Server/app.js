@@ -11,10 +11,19 @@ import morgan from "morgan";
 import recipesRouter from "./Routes/Recipes/recipesRoutes.js";
 import CustomError from "./Utils/CustomError.js";
 import globalErrorHandler from "./Controllers/Errors/ErrorController.js";
+import rateLimit from "express-rate-limit";
 import authRouter from "./Routes/Auth/authRouter.js";
 import usersRouter from "./Routes/Users/usersRouter.js";
 
 const app = express();
+
+let limiter = rateLimit({
+  max: 1000,
+  windowMs: 60 * 60 * 1000,
+  message:
+    "We have recieved to many requests from this IP. Please try again after one hour",
+});
+app.use("/api", limiter);
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));

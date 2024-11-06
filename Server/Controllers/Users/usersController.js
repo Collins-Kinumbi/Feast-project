@@ -3,6 +3,19 @@ import asyncErrorHandler from "../../Utils/asyncErrorHandler.js";
 import CustomError from "../../Utils/CustomError.js";
 import { response } from "../Auth/authController.js";
 
+// Get all users
+export const getAllUsers = asyncErrorHandler(async function (req, res, next) {
+  const users = await User.find();
+
+  res.status(200).json({
+    status: "Success!",
+    result: users.length,
+    data: {
+      users: users,
+    },
+  });
+});
+
 // Update user password functionality
 export const updatePassword = asyncErrorHandler(async function (
   req,

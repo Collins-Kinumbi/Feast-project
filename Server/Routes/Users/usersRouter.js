@@ -1,12 +1,16 @@
 import express from "express";
 import {
   deleteAccount,
+  getAllUsers,
   updateDetails,
   updatePassword,
 } from "../../Controllers/Users/usersController.js";
 import { protect } from "../../Controllers/Auth/authController.js";
 
 const router = express.Router();
+
+// Get all users
+router.route("/").get(getAllUsers);
 
 // Update user details
 router.route("/updateDetails").patch(protect, updateDetails);

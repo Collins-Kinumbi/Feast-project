@@ -66,6 +66,12 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+// Query middleware to return all active users
+userSchema.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } }); //this keyword points to current query
+  next();
+});
+
 // Compare passwords instance method
 userSchema.methods.comparePasswordInDb = async function (password, passwordDb) {
   return await bcrypt.compare(password, passwordDb); //true or false

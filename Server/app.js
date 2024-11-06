@@ -1,38 +1,47 @@
-// Handling uncaught exceptions
-process.on("uncaughtException", (err) => {
-  console.log(err.name, err.message);
-  console.log("UncaughtExpeption occured shutting down...");
-
-  process.exit(1);
-});
-
 import express from "express";
-import morgan from "morgan";
+import helmet from "helmet";
+import ExpressMongoSanitize from "express-mongo-sanitize";
+import hpp from "hpp";
+
 import recipesRouter from "./Routes/Recipes/recipesRoutes.js";
-import CustomError from "./Utils/CustomError.js";
+import authRouter from "./Routes/Auth/authRouter.js";
+import usersRouter from "./Routes/Users/usersRouter.js";
 import globalErrorHandler from "./Controllers/Errors/ErrorController.js";
+import handleUncaughtExceptions from "./Middleware/handleUncaughtExceptions.js";
+import requestLogger from "./Middleware/requestLoger.js";
+import limiter from "./Middleware/rateLimiter.js";
+import { sanitizeRequestBody } from "./Middleware/sanitizeRequestBody.js";
+import notFoundHandler from "./Middleware/notFoundHandler.js";
+
+handleUncaughtExceptions();
 
 const app = express();
 
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
-app.use(express.json());
+app.use(helmet());
+
+app.use("/api", limiter); //Rate limiter
+
+requestLogger(app); //Logs requests
+
+app.use(express.json({ limit: "10kb" }));
+
+app.use(ExpressMongoSanitize()); //Sanitize against NoSQL query injection
+
+app.use(sanitizeRequestBody); //Sanitize against cross site scripting
+
+app.use(hpp({ whitelist: ["serving", "servingYield", "ratings"] })); //Preventing parameter pollution
 
 // Recipes
 app.use("/api/v1/recipes", recipesRouter);
 
-//For all not undefined routes
-app.all("*", (req, res, next) => {
-  // Create an instance of my CustormError class
-  const error = new CustomError(
-    `Can't find ${req.originalUrl} on the server`,
-    404
-  );
+// Auth
+app.use("/api/v1/auth", authRouter);
 
-  // Passing error object into next function
-  next(error);
-});
+//Users
+app.use("/api/v1/users", usersRouter);
+
+//For all not undefined routes
+app.all("*", notFoundHandler);
 
 // Global error handling middleware
 app.use(globalErrorHandler);

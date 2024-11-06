@@ -7,6 +7,8 @@ import {
   deleteRecipe,
 } from "../../Controllers/Recipes/recipesController.js";
 
+import { protect, restrictTo } from "../../Controllers/Auth/authController.js";
+
 /* API recipe routes */
 // All recipes
 const router = express.Router();
@@ -16,7 +18,7 @@ router
   // GET all recipes
   .get(getRecipes)
   // POST/ADD a recipe
-  .post(addRecipe);
+  .post(protect, addRecipe);
 
 //Single recipe
 router
@@ -24,8 +26,8 @@ router
   // GET a recipe
   .get(getRecipe)
   // UPDATE a recipe
-  .patch(updateRecipe)
+  .patch(protect, restrictTo("admin", "user"), updateRecipe)
   // Delete a recipe
-  .delete(deleteRecipe);
+  .delete(protect, restrictTo("admin", "user"), deleteRecipe);
 
 export default router;

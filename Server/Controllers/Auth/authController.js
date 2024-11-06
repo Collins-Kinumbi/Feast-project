@@ -21,6 +21,9 @@ export function response(res, statusCode, user) {
   const token = getToken(user._id, user.email);
 
   user.password = undefined; //deselect password on user object
+
+  user.active = undefined; //deselect active field from user object
+
   return res.status(statusCode).json({
     status: "Success!",
     token, //Sending the token back to the client
@@ -65,21 +68,27 @@ export const login = asyncErrorHandler(async function (req, res, next) {
   }
 
   // 3. Query for user in database
-  const user = await User.findOne({ email: email }).select("+password");
+  const user = await User.findOne({ email: email }).select("+password +active");
 
-  // 4. Check if user from provided email exists in the database
+  // 4. Check if the user account is deleted
+  if (!user.active) {
+    user.active = true; // Reactivate the user
+    await user.save({ validateBeforeSave: false }); // Save without triggering validation
+  }
+
+  // 5. Check if user from provided email exists in the database
   if (!user) {
     const error = new CustomError("Incorrect email!", 400);
     return next(error);
   }
 
-  // 5. Check if passwords match
+  // 6. Check if passwords match
   if (!(await user.comparePasswordInDb(password, user.password))) {
     const error = new CustomError("Incorrect password!", 400);
     return next(error);
   }
 
-  // 6. Login the user
+  // 7. Login the user
   const token = getToken(user._id, user.email);
 
   response(res, 200, user);

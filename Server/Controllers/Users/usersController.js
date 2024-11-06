@@ -5,7 +5,7 @@ import { response } from "../Auth/authController.js";
 
 // Get all users
 export const getAllUsers = asyncErrorHandler(async function (req, res, next) {
-  const users = await User.find();
+  const users = await User.find({ active: { $ne: false } });
 
   res.status(200).json({
     status: "Success!",

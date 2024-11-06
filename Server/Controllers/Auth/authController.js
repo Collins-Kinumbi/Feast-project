@@ -17,7 +17,7 @@ function getToken(id, email) {
 }
 
 // Sending response data
-function response(res, statusCode, user) {
+export function response(res, statusCode, user) {
   const token = getToken(user._id, user.email);
 
   user.password = undefined; //deselect password on user object

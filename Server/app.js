@@ -12,6 +12,7 @@ import recipesRouter from "./Routes/Recipes/recipesRoutes.js";
 import CustomError from "./Utils/CustomError.js";
 import globalErrorHandler from "./Controllers/Errors/ErrorController.js";
 import authRouter from "./Routes/Auth/authRouter.js";
+import usersRouter from "./Routes/Users/usersRouter.js";
 
 const app = express();
 
@@ -25,6 +26,9 @@ app.use("/api/v1/recipes", recipesRouter);
 
 // Auth
 app.use("/api/v1/auth", authRouter);
+
+//Users
+app.use("/api/v1/users", usersRouter);
 
 //For all not undefined routes
 app.all("*", (req, res, next) => {

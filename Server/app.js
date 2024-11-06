@@ -17,6 +17,7 @@ import usersRouter from "./Routes/Users/usersRouter.js";
 import helmet from "helmet";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 import sanitizeHtml from "sanitize-html";
+import hpp from "hpp";
 
 const app = express();
 
@@ -58,6 +59,8 @@ const sanitizeRequestBody = (req, res, next) => {
 };
 
 app.use(sanitizeRequestBody); //Sanitize against cross site scripting
+
+app.use(hpp({ whitelist: ["serving", "servingYield", "ratings"] })); //Preventing parameter pollution
 
 // Recipes
 app.use("/api/v1/recipes", recipesRouter);

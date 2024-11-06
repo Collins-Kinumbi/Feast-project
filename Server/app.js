@@ -14,8 +14,11 @@ import globalErrorHandler from "./Controllers/Errors/ErrorController.js";
 import rateLimit from "express-rate-limit";
 import authRouter from "./Routes/Auth/authRouter.js";
 import usersRouter from "./Routes/Users/usersRouter.js";
+import helmet from "helmet";
 
 const app = express();
+
+app.use(helmet());
 
 let limiter = rateLimit({
   max: 1000,
@@ -28,7 +31,7 @@ app.use("/api", limiter);
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-app.use(express.json());
+app.use(express.json({ limit: "10kb" }));
 
 // Recipes
 app.use("/api/v1/recipes", recipesRouter);

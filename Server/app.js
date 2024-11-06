@@ -15,6 +15,8 @@ import rateLimit from "express-rate-limit";
 import authRouter from "./Routes/Auth/authRouter.js";
 import usersRouter from "./Routes/Users/usersRouter.js";
 import helmet from "helmet";
+import ExpressMongoSanitize from "express-mongo-sanitize";
+import sanitizeHtml from "sanitize-html";
 
 const app = express();
 
@@ -31,7 +33,31 @@ app.use("/api", limiter);
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
 app.use(express.json({ limit: "10kb" }));
+
+app.use(ExpressMongoSanitize()); //Sanitize against NoSQL query injection
+
+const sanitizeOptions = {
+  allowedTags: ["b", "i", "em", "strong", "p", "ul", "ol", "li", "a"],
+  allowedAttributes: {
+    a: ["href"],
+  },
+  allowedSchemes: ["http", "https"],
+};
+
+const sanitizeRequestBody = (req, res, next) => {
+  if (req.body) {
+    for (const key in req.body) {
+      if (typeof req.body[key] === "string") {
+        req.body[key] = sanitizeHtml(req.body[key], sanitizeOptions);
+      }
+    }
+  }
+  next();
+};
+
+app.use(sanitizeRequestBody); //Sanitize against cross site scripting
 
 // Recipes
 app.use("/api/v1/recipes", recipesRouter);

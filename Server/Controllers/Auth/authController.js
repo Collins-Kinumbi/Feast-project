@@ -20,6 +20,18 @@ function getToken(id, email) {
 export function response(res, statusCode, user) {
   const token = getToken(user._id, user.email);
 
+  const options = {
+    maxAge: process.env.LOGIN_EXPIRES,
+    // secure: true,
+    httpOnly: true, //prevents offside scripting attacks
+  };
+
+  if (process.env.NODE_ENV === "production") {
+    options.secure = true;
+  }
+
+  res.cookie("jwt", token, options);
+
   user.password = undefined; //deselect password on user object
 
   user.active = undefined; //deselect active field from user object

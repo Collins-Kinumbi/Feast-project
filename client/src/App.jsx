@@ -1,7 +1,9 @@
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
     <div>
-      <h1>Welcome to Feast</h1>
+      <Navbar />
     </div>
   );
 }

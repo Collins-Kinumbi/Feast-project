@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+:root {
+  --lightGray: #f3f3f3;
+  --darkGray: #bebebe;
+  --fontColor: #333;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "outfit", sans-serif;
+  color: var(--fontColor);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+  font-size: 1.6rem;
+  /* background-color: red; */
+  box-shadow: 0 1rem 2rem 0.1rem rgba(0, 0, 0, 0.35);
+  margin-bottom: 2rem;
+}
+
+.navbar .logo {
+  font-weight: 800;
+  font-size: 2.4rem;
+  letter-spacing: 0.5rem;
+  background-color: var(--lightGray);
+  padding: 1rem;
+}
+
+.navbar img {
+  width: 2.5rem;
+}
+
+.navbar div {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.navbar div p,
+.navbar div img {
+  cursor: pointer;
+}
+
+.navbar .about,
+.navbar .login,
+.navbar .signup {
+  font-weight: 500;
+  padding: 1rem;
+}
+
+.navbar .about:hover,
+.navbar .login:hover,
+.navbar .signup:hover {
+  transition: 0.5s;
+  background-color: var(--darkGray);
+}
+
+.navbar .login,
+.navbar .signup {
+  font-weight: 700;
+  background-color: var(--lightGray);
+}

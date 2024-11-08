@@ -2,6 +2,7 @@ import express from "express";
 import helmet from "helmet";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 import hpp from "hpp";
+import cors from "cors";
 
 import recipesRouter from "./Routes/Recipes/recipesRoutes.js";
 import authRouter from "./Routes/Auth/authRouter.js";
@@ -16,6 +17,13 @@ import notFoundHandler from "./Middleware/notFoundHandler.js";
 handleUncaughtExceptions();
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 app.use(helmet());
 

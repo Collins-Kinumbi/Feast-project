@@ -1,15 +1,25 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
   return (
-    <div className="navbar">
-      <p className="logo">Feast</p>
+    <header>
+      <div className="navbar">
+        <Link to="/" className="logo">
+          Feast
+        </Link>
 
-      <div>
-        <img src="images/search_icon.png" alt="Search" className="search" />
-        <p className="about">About</p>
-        <p className="login">Login</p>
-        <p className="signup">Sign up</p>
+        <div>
+          <Link to="/search">
+            <img src="images/search_icon.png" alt="Search" className="search" />
+          </Link>
+          <Link to="/about" className="about">
+            About
+          </Link>
+          <p className="login">Login</p>
+          <p className="signup">Sign up</p>
+        </div>
       </div>
-    </div>
+    </header>
   );
 }
 

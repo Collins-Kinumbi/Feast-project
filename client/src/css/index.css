@@ -21,6 +21,11 @@ body {
   color: var(--fontColor);
 }
 
+a {
+  text-decoration: none;
+  color: var(--fontColor);
+}
+
 /* Navbar */
 .navbar {
   display: flex;
@@ -74,4 +79,13 @@ body {
 .navbar .signup {
   font-weight: 700;
   background-color: var(--lightGray);
+}
+
+/* Pages */
+.pages {
+  /* background-color: red; */
+  background-color: var(--lightGray);
+  max-width: 140rem;
+  padding: 2rem;
+  margin: 0 auto;
 }

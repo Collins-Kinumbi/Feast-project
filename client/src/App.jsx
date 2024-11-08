@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Search from "./pages/Search";
-import About from "./pages/About";
+import Navbar from "./components/Navbar/Navbar";
+import Home from "./pages/Home/Home";
+import Search from "./pages/Search/Search";
+import About from "./pages/About/About";
+import Create from "./pages/Create/Create";
 
 function App() {
   return (
@@ -13,9 +14,12 @@ function App() {
           <div className="pages">
             <Routes>
               <Route path="/" element={<Home />} />
+
               <Route path="/search" element={<Search />} />
 
               <Route path="/about" element={<About />} />
+
+              <Route path="/create" element={<Create />} />
             </Routes>
           </div>
         </main>

@@ -5,6 +5,7 @@
   --lightGray: #f3f3f3;
   --darkGray: #bebebe;
   --fontColor: #333;
+  --btnColor: #19ddff;
 }
 
 * {
@@ -116,18 +117,71 @@ a {
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
-  background: #f1f1f1;
-  padding: 1.4rem 2.8rem;
+  background-color: var(--white);
+  padding: 1.5rem 3rem;
   border-radius: 0.3rem;
   max-width: 60rem;
   min-width: 30rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content h2 {
+  text-align: center;
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
 }
 
 .close-modal {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
   padding: 0.5rem 0.7rem;
+  align-self: end;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+/* Login / signup forms */
+.form-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.form-content form input {
+  padding: 0.8rem;
+  font-size: 1.8rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+}
+
+.form-content form button[type="submit"] {
+  background-color: var(--btnColor);
+  padding: 1rem;
+  font-size: 1.8rem;
+  border: none;
+  border-radius: 0.5rem;
+
+  cursor: pointer;
+}
+
+.form-content form .queries {
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.form-content form .queries p {
+  margin-bottom: 2rem;
+}
+
+.form-content form .queries p span {
+  color: var(--btnColor);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sign-up-btn {
+  margin-bottom: 2rem;
 }
 
 /* Pages */
@@ -148,7 +202,7 @@ a {
 }
 
 .home .create {
-  background-color: #19ddff;
+  background-color: var(--btnColor);
   padding: 2rem;
   display: flex;
   align-items: center;
@@ -161,7 +215,8 @@ a {
   font-size: 2.4rem;
 }
 
-.home .create:hover {
+.home .create:hover,
+.form-content form button[type="submit"]:hover {
   opacity: 0.8;
 }
 

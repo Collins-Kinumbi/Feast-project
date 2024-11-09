@@ -1,4 +1,28 @@
+import { useState } from "react";
+
 function Login({ onClose }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    setError(null); //Reset any existing errors
+    try {
+      const response = await fetch("http://localhost:4000/api/v1/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const resData = await response.json();
+      console.log(resData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
       <div className="modal">
@@ -9,10 +33,22 @@ function Login({ onClose }) {
           </button>
           <div className="form-content">
             <h2>Login</h2>
-            <form action="">
-              <input type="email" required placeholder="Email" />
+            <form onSubmit={handleLogin}>
+              <input
+                type="email"
+                required
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-              <input type="password" required placeholder="Password" />
+              <input
+                type="password"
+                required
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
               <button type="submit">Login</button>
 

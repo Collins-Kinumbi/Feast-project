@@ -4,21 +4,11 @@ import Login from "../Modals/Login/Login";
 import Signup from "../Modals/Signup/Signup";
 
 function Navbar() {
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showSignupModal, setShowSignupModal] = useState(false);
+  const [openModal, setOpenModal] = useState(null);
 
-  function toggleLogin() {
-    setShowLoginModal(!showLoginModal);
-    if (!showLoginModal) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-  }
-
-  function toggleSignup() {
-    setShowSignupModal(!showSignupModal);
-    if (!showSignupModal) {
+  function toggleModal(type) {
+    setOpenModal((prev) => (prev === type ? null : type));
+    if (openModal !== type) {
       document.body.classList.add("no-scroll");
     } else {
       document.body.classList.remove("no-scroll");
@@ -38,18 +28,20 @@ function Navbar() {
           <Link to="/about" className="about">
             About
           </Link>
-          <p className="login" onClick={toggleLogin}>
+          <p className="login" onClick={() => toggleModal("login")}>
             Login
           </p>
-          <p className="signup" onClick={toggleSignup}>
+          <p className="signup" onClick={() => toggleModal("signup")}>
             Sign up
           </p>
         </div>
       </div>
 
       {/* Modals */}
-      {showLoginModal && <Login onClose={toggleLogin} />}
-      {showSignupModal && <Signup onClose={toggleSignup} />}
+      {openModal === "login" && <Login onClose={() => toggleModal("login")} />}
+      {openModal === "signup" && (
+        <Signup onClose={() => toggleModal("signup")} />
+      )}
     </header>
   );
 }

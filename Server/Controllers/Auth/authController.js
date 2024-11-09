@@ -82,16 +82,16 @@ export const login = asyncErrorHandler(async function (req, res, next) {
   // 3. Query for user in database
   const user = await User.findOne({ email: email }).select("+password +active");
 
-  // 4. Check if the user account is deleted
-  if (!user.active) {
-    user.active = true; // Reactivate the user
-    await user.save({ validateBeforeSave: false }); // Save without triggering validation
-  }
-
-  // 5. Check if user from provided email exists in the database
+  // 4. Check if user from provided email exists in the database
   if (!user) {
     const error = new CustomError("Incorrect email!", 400);
     return next(error);
+  }
+
+  // 5. Check if the user account is deleted
+  if (!user.active) {
+    user.active = true; // Reactivate the user
+    await user.save({ validateBeforeSave: false }); // Save without triggering validation
   }
 
   // 6. Check if passwords match

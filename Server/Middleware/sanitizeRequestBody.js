@@ -1,3 +1,5 @@
+import sanitizeHtml from "sanitize-html";
+
 const sanitizeOptions = {
   allowedTags: ["b", "i", "em", "strong", "p", "ul", "ol", "li", "a"],
   allowedAttributes: {

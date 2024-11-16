@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Search from "./pages/Search/Search";
 import About from "./pages/About/About";
 import Create from "./pages/Create/Create";
+import RecipeDetails from "./pages/Recipe/RecipeDetails";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path="/about" element={<About />} />
 
               <Route path="/create" element={<Create />} />
+              <Route path="/recipe/:id" element={<RecipeDetails />} />
             </Routes>
           </div>
         </main>

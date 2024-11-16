@@ -1,28 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { recipeContext } from "../../contexts/recipesContext";
 // Components
 import Recipe from "../../components/Recipe/Recipe";
 
 function Home() {
-  const [recipes, setRecipes] = useState(null);
-
-  useEffect(() => {
-    async function fetchRecipies() {
-      try {
-        const response = await fetch("http://localhost:4000/api/v1/recipes");
-
-        // console.log(response);
-        const resData = await response.json();
-        // console.log(resData);
-        const { recipes } = resData.data;
-        console.log(recipes);
-        setRecipes(recipes);
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-    fetchRecipies();
-  }, []);
+  const { recipes } = useContext(recipeContext);
   return (
     <div className="home">
       <Link to="/create" className="create">

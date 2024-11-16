@@ -23,7 +23,7 @@ function RecipesContextProvider({ children }) {
       }
     }
     fetchRecipies();
-  }, []);
+  }, [recipes]);
 
   return (
     <recipeContext.Provider value={{ recipes }}>

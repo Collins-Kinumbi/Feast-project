@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import formatDate from "../../utils/Date";
 
 function RecipeDetails() {
   const { id } = useParams(); //Get id from url
@@ -34,7 +35,7 @@ function RecipeDetails() {
 
   return (
     <>
-      {isLoading && <p className="loading">Loading recipes...</p>}
+      {isLoading && <p className="loading">Loading recipe...</p>}
       {error && <p className="error">{error}</p>}
       {recipe && (
         <div className="recipe-details">
@@ -47,8 +48,7 @@ function RecipeDetails() {
             <strong>Uploaded by:</strong> {recipe.user}
           </p>
           <p>
-            <strong>Uploaded on:</strong>{" "}
-            {new Date(recipe.createdAt).toLocaleDateString()}
+            <strong>Uploaded on:</strong> {formatDate(recipe.createdAt)}
           </p>
           <p>
             <strong>Ingredients:</strong> {recipe.ingredients.join(", ")}

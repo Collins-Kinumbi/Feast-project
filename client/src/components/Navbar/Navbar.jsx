@@ -23,7 +23,11 @@ function Navbar() {
 
         <div>
           <Link to="/search">
-            <img src="images/search_icon.png" alt="Search" className="search" />
+            <img
+              src="/images/search_icon.png"
+              alt="Search"
+              className="search"
+            />
           </Link>
           <Link to="/about" className="about">
             About

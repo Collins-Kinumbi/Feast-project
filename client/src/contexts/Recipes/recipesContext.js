@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 export const recipeContext = createContext();
 
 function RecipesContextProvider({ children }) {
-  const [recipes, setRecipes] = useState(null);
+  const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 

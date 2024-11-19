@@ -189,6 +189,7 @@ a {
 .pages {
   /* background-color: red; */
   max-width: 140rem;
+  height: 100vh;
   padding: 2rem;
   margin: 0 auto;
 }
@@ -217,7 +218,8 @@ a {
 }
 
 .home .create:hover,
-.form-content form button[type="submit"]:hover {
+.form-content form button[type="submit"]:hover,
+.search .button:hover {
   opacity: 0.8;
 }
 
@@ -280,4 +282,47 @@ a {
 .recipe:hover {
   transform: translateY(-0.5rem);
   box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.2);
+}
+
+/* Search*/
+.search-form {
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.search-form .field {
+  width: 100%;
+  max-width: 40rem;
+  border: 0.2rem solid var(--darkGray);
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  font-size: 1.6rem;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  margin-right: 1rem;
+}
+
+.search-form .field:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.search-form .field::placeholder {
+  color: var(--darkGray);
+  font-style: italic;
+}
+
+.search-form .button {
+  background-color: var(--btnColor);
+  border: none;
+  color: var(--fontColor);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 1.3rem;
+  border-radius: 0.2rem;
+}
+
+.search-form .button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Recipe from "../../components/Recipe/Recipe";
+import { useSearchParams } from "react-router-dom";
 
 function Search() {
-  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query") || "";
   const [recipes, setRecipes] = useState([]);
   const [notFound, setNotFound] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(
+    () => {
+      if (query) fetchResults();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   async function fetchResults() {
     if (!query) return;
@@ -52,7 +62,7 @@ function Search() {
           required
           placeholder="Search..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => setSearchParams({ query: e.target.value })}
           className="field"
         />
         <input

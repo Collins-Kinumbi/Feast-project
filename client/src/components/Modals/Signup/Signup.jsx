@@ -5,11 +5,12 @@ function Signup({ onClose }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   async function signup(email, username, password, confirmPassword) {
     setError(null);
-
+    setIsLoading(true);
     const userData = {
       email,
       username,
@@ -23,7 +24,7 @@ function Signup({ onClose }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
-        credentials: "include",
+        credentials: "include", //include cookies
       });
       // console.log(response);
 
@@ -37,6 +38,8 @@ function Signup({ onClose }) {
     } catch (error) {
       // console.log(error);
       setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
   function handleSubmit(e) {
@@ -87,8 +90,8 @@ function Signup({ onClose }) {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
               {error && <p className="error">{error}</p>}
-              <button type="submit" className="sign-up-btn">
-                Sign up
+              <button type="submit" className="button" disabled={isLoading}>
+                {isLoading ? "Signing up..." : "Sign up"}
               </button>
             </form>
           </div>

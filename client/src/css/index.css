@@ -33,6 +33,12 @@ a {
   overflow: hidden;
 }
 
+.error {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: red;
+}
+
 /* Navbar */
 .navbar {
   display: flex;
@@ -147,6 +153,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  width: 30rem;
 }
 
 .form-content form input {
@@ -162,8 +169,12 @@ a {
   font-size: 1.8rem;
   border: none;
   border-radius: 0.5rem;
-
   cursor: pointer;
+}
+
+.form-content form button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .form-content form .queries {

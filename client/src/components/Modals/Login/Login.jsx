@@ -3,11 +3,12 @@ import { useState } from "react";
 function Login({ onClose }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   async function login(email, password) {
     setError(null); //Reset any existing errors
-
+    setIsLoading(true);
     try {
       const response = await fetch("http://localhost:4000/api/v1/auth/login", {
         method: "POST",
@@ -30,6 +31,8 @@ function Login({ onClose }) {
     } catch (error) {
       console.log(error);
       setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -64,7 +67,9 @@ function Login({ onClose }) {
                 onChange={(e) => setPassword(e.target.value)}
               />
               {error && <p className="error">{error}</p>}
-              <button type="submit">Login</button>
+              <button type="submit" className="button" disabled={isLoading}>
+                {isLoading ? "Logging in..." : "Login"}
+              </button>
 
               <div className="queries">
                 <p className="forgot-password">

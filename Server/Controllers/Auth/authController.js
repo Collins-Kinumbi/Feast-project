@@ -108,13 +108,16 @@ export const login = asyncErrorHandler(async function (req, res, next) {
 
 // Protecting routes
 export const protect = asyncErrorHandler(async function (req, res, next) {
-  // 1. Read the token and check if it exists
-  let token = req.headers.authorization || req.headers.Authorization; //checking header
-  // console.log(token);
-  if (token && token.startsWith("Bearer")) {
-    token = token.split(" ")[1];
-  }
-  // console.log(token);
+  // // 1. Read the token and check if it exists
+  // let token = req.headers.authorization || req.headers.Authorization; //checking header
+  // // console.log(token);
+  // if (token && token.startsWith("Bearer")) {
+  //   token = token.split(" ")[1];
+  // }
+  // // console.log(token);
+
+  let token = req.cookies.jwt;
+
   if (!token) {
     const error = new CustomError("Please log in!", 401);
     return next(error);

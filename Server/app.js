@@ -3,6 +3,7 @@ import helmet from "helmet";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 import hpp from "hpp";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import recipesRouter from "./Routes/Recipes/recipesRoutes.js";
 import authRouter from "./Routes/Auth/authRouter.js";
@@ -24,6 +25,10 @@ app.use(
     credentials: true,
   })
 );
+
+// app.use(cookieParser());
+
+app.use(cookieParser(process.env.SECRET_STRING));
 
 app.use(helmet());
 

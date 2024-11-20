@@ -5,23 +5,37 @@ function Login({ onClose }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  async function handleLogin(e) {
-    e.preventDefault();
+  async function login(email, password) {
     setError(null); //Reset any existing errors
+
     try {
       const response = await fetch("http://localhost:4000/api/v1/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", //Include cookies
         body: JSON.stringify({ email, password }),
       });
 
+      // console.log(response);
+
       const resData = await response.json();
       console.log(resData);
+
+      if (!response.ok) {
+        throw new Error(resData.message);
+      }
+      onClose();
     } catch (error) {
       console.log(error);
+      setError(error.message);
     }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    login(email, password);
   }
   return (
     <>
@@ -33,7 +47,7 @@ function Login({ onClose }) {
           </button>
           <div className="form-content">
             <h2>Login</h2>
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleSubmit}>
               <input
                 type="email"
                 required
@@ -49,7 +63,7 @@ function Login({ onClose }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-
+              {error && <p className="error">{error}</p>}
               <button type="submit">Login</button>
 
               <div className="queries">

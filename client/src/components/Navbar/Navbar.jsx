@@ -1,19 +1,11 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Login from "../Modals/Login/Login";
 import Signup from "../Modals/Signup/Signup";
+import { modalContext } from "../../contexts/Modal/modalContext";
 
 function Navbar() {
-  const [openModal, setOpenModal] = useState(null);
-
-  function toggleModal(type) {
-    setOpenModal((prev) => (prev === type ? null : type));
-    if (openModal !== type) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-  }
+  const { openModal, toggleModal } = useContext(modalContext);
   return (
     <header>
       <div className="navbar">
@@ -42,10 +34,8 @@ function Navbar() {
       </div>
 
       {/* Modals */}
-      {openModal === "login" && <Login onClose={() => toggleModal("login")} />}
-      {openModal === "signup" && (
-        <Signup onClose={() => toggleModal("signup")} />
-      )}
+      {openModal === "login" && <Login />}
+      {openModal === "signup" && <Signup />}
     </header>
   );
 }

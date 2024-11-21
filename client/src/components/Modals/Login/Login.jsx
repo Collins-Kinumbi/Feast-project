@@ -1,40 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { authContext } from "../../../contexts/Auth/authContext";
+import { modalContext } from "../../../contexts/Modal/modalContext";
 
-function Login({ onClose }) {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  async function login(email, password) {
-    setError(null); //Reset any existing errors
-    setIsLoading(true);
-    try {
-      const response = await fetch("http://localhost:4000/api/v1/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", //Include cookies
-        body: JSON.stringify({ email, password }),
-      });
-
-      // console.log(response);
-
-      const resData = await response.json();
-      console.log(resData);
-
-      if (!response.ok) {
-        throw new Error(resData.message);
-      }
-      onClose();
-    } catch (error) {
-      console.log(error);
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  const { closeModal: onClose } = useContext(modalContext);
+  const { login, isLoading, error } = useContext(authContext);
 
   function handleSubmit(e) {
     e.preventDefault();

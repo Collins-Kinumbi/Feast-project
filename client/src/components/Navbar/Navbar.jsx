@@ -7,7 +7,7 @@ import { authContext } from "../../contexts/Auth/authContext";
 
 function Navbar() {
   const { openModal, toggleModal } = useContext(modalContext);
-  const { user } = useContext(authContext);
+  const { user, isLoading } = useContext(authContext);
   return (
     <header>
       <div className="navbar">
@@ -26,7 +26,9 @@ function Navbar() {
           <Link to="/about" className="about">
             About
           </Link>
-          {user ? (
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : user ? (
             <p>{user.username}</p>
           ) : (
             <>

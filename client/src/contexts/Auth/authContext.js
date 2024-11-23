@@ -5,7 +5,7 @@ export const authContext = createContext();
 
 function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { closeModal } = useContext(modalContext);
 
@@ -31,6 +31,8 @@ function AuthContextProvider({ children }) {
       } catch (error) {
         console.error("Error during persistent login check:", error);
         setUser(null);
+      } finally {
+        setIsLoading(false);
       }
     };
 

@@ -3,7 +3,6 @@ import { useState } from "react";
 function Create() {
   const [formData, setFormData] = useState({
     name: "",
-    image: "",
     description: "",
     ingredients: [""],
     instructions: "",
@@ -20,47 +19,48 @@ function Create() {
     serving: "",
     servingYield: "",
   });
+  const [image, setImage] = useState(null); //Image state
 
   const categoriesList = [
+    "Appetizer",
+    "Baked",
+    "BBQ",
+    "Beverage",
+    "Breakfast",
+    "Carnivore",
+    "Comfort Food",
+    "Dairy-Free",
+    "Dessert",
+    "Dinner",
+    "Frozen",
+    "Gluten-Free",
+    "Grilled",
+    "Healthy",
+    "High-Protein",
+    "Holiday",
+    "Instant Pot",
+    "Kid-Friendly",
+    "Keto",
+    "Lunch",
+    "Low-Carb",
+    "Low-Fat",
+    "Main Course",
+    "Nutrient-Dense",
+    "Paleo",
+    "Party",
+    "Quick",
+    "Quick & Easy",
+    "Raw",
+    "Salad",
+    "Side Dish",
+    "Slow Cooker",
+    "Snack",
+    "Soup",
+    "Spicy",
+    "Sugar-Free",
     "Vegan",
     "Vegetarian",
-    "Gluten-Free",
-    "Dairy-Free",
-    "Quick",
-    "Dessert",
-    "Low-Carb",
-    "High-Protein",
-    "Paleo",
-    "Keto",
     "Whole30",
-    "Low-Fat",
-    "Sugar-Free",
-    "Breakfast",
-    "Lunch",
-    "Dinner",
-    "Snack",
-    "Appetizer",
-    "Salad",
-    "Soup",
-    "Side Dish",
-    "Main Course",
-    "Beverage",
-    "Holiday",
-    "Spicy",
-    "Comfort Food",
-    "Baked",
-    "Grilled",
-    "Raw",
-    "Slow Cooker",
-    "Instant Pot",
-    "Healthy",
-    "Kid-Friendly",
-    "Party",
-    "BBQ",
-    "Frozen",
-    "Quick & Easy",
-    "Carnivore",
-    "Nutrient-Dense",
   ];
 
   const handleInputChange = (e) => {
@@ -96,14 +96,31 @@ function Create() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    const formDataToSend = new FormData(); //FormData instance
+    formDataToSend.append("image", image); // Append the image file
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("instructions", formData.instructions);
+    formDataToSend.append("serving", formData.serving);
+    formDataToSend.append("servingYield", formData.servingYield);
+
+    formData.ingredients.forEach((ingredient) => {
+      formDataToSend.append("ingredients[]", ingredient);
+    });
+    formData.categories.forEach((category) => {
+      formDataToSend.append("categories[]", category);
+    });
+
+    Object.keys(formData.nutrition).forEach((key) => {
+      formDataToSend.append(`nutrition[${key}]`, formData.nutrition[key]);
+    });
+
     try {
       const response = await fetch("http://localhost:4000/api/v1/recipes", {
         method: "POST",
-        credentials: "include", // Include cookies for authentication
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        credentials: "include",
+        body: formDataToSend,
       });
 
       const data = await response.json();
@@ -134,13 +151,13 @@ function Create() {
         </div>
 
         <div className="section">
-          <label htmlFor="image">Image URL</label>
+          <label htmlFor="image">Upload Image</label>
           <input
-            type="text"
+            type="file"
             id="image"
             name="image"
-            value={formData.image}
-            onChange={handleInputChange}
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])} // Handle file directly
             required
           />
         </div>
@@ -232,7 +249,7 @@ function Create() {
         </div>
 
         <div className="section">
-          <label htmlFor="servingYield">Yield</label>
+          <label htmlFor="servingYield">Serving Yield</label>
           <input
             type="number"
             id="servingYield"

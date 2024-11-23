@@ -5,7 +5,7 @@ function Recipe({ recipe }) {
   return (
     <Link to={`/recipe/${recipe._id}`}>
       <div className="recipe">
-        <img src="images/placeholder/placeholder.png" alt={`${recipe.name}`} />
+        <img src={recipe.image} alt={`${recipe.name}`} />
         <div className="content">
           <p className="uploadedOn">
             Uploaded on: <span>{formatDate(recipe.createdAt)}</span>

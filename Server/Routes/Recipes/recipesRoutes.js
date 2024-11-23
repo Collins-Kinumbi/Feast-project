@@ -1,4 +1,6 @@
 import express from "express";
+import multer from "multer";
+import { storage } from "../../Utils/cloudinary.js";
 import {
   getRecipes,
   getRecipe,
@@ -13,12 +15,14 @@ import { protect, restrictTo } from "../../Controllers/Auth/authController.js";
 // All recipes
 const router = express.Router();
 
+const upload = multer({ storage });
+
 router
   .route("/")
   // GET all recipes
   .get(getRecipes)
   // POST/ADD a recipe
-  .post(protect, addRecipe);
+  .post(protect, upload.single("image"), addRecipe);
 
 //Single recipe
 router

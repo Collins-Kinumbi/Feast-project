@@ -56,7 +56,6 @@ export const addRecipe = asyncErrorHandler(async function (req, res, next) {
   // Create a new recipe
   const {
     name,
-    image,
     description,
     nutrition,
     ingredients,
@@ -66,9 +65,12 @@ export const addRecipe = asyncErrorHandler(async function (req, res, next) {
     servingYield,
   } = req.body;
 
+  // Cloudinary image URL
+  const imageUrl = req.file.path;
+
   const recipe = await Recipe.create({
     name,
-    image,
+    image: imageUrl,
     description,
     nutrition,
     ingredients,

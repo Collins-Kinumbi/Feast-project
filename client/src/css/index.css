@@ -346,7 +346,7 @@ a {
   padding: 2rem;
   background-color: var(--white);
   border: 0.1rem solid var(--lightGray);
-  border-radius: 8px;
+  border-radius: o.8rem;
   box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
 }
 
@@ -385,7 +385,7 @@ a {
 .create-recipe textarea:focus {
   border-color: var(--btnColor);
   outline: none;
-  box-shadow: 0 0 5px #007bff4d;
+  box-shadow: 0 0 0.5rem #007bff4d;
 }
 
 .create-recipe .ingredients {

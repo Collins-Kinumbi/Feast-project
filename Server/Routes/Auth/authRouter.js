@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  checkAuth,
   forgotPassword,
   login,
   resetPassword,
@@ -12,6 +13,8 @@ const router = express.Router();
 router.route("/signup").post(signup);
 // Login
 router.route("/login").post(login);
+// Check if user is logged in
+router.route("/checkAuth").get(checkAuth);
 // Forgot password
 router.route("/forgotPassword").post(forgotPassword);
 // Reset password

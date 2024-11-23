@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { modalContext } from "../Modal/modalContext";
 
 export const authContext = createContext();
@@ -8,6 +8,34 @@ function AuthContextProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { closeModal } = useContext(modalContext);
+
+  // Persistent login
+  useEffect(() => {
+    const checkPersistentLogin = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/v1/auth/checkAuth",
+          {
+            method: "GET",
+            credentials: "include", // Include cookies
+          }
+        );
+
+        const data = await response.json();
+        if (response.ok) {
+          setUser(data.data.user); // Update user state
+        } else {
+          setUser(null); // Clear user state
+          console.error(data.message);
+        }
+      } catch (error) {
+        console.error("Error during persistent login check:", error);
+        setUser(null);
+      }
+    };
+
+    checkPersistentLogin();
+  }, []);
 
   // Login
   async function login(email, password) {

@@ -135,7 +135,7 @@ export const protect = asyncErrorHandler(async function (req, res, next) {
 
   if (!user) {
     const error = new CustomError(
-      "The user with given the token does not exist!",
+      "User no longer exists or account is inactive!",
       401
     );
     return next(error);
@@ -169,6 +169,63 @@ export const restrictTo = function (...roles) {
     next();
   };
 };
+
+// check auth for persistent login
+export const checkAuth = asyncErrorHandler(async function (req, res, next) {
+  // // 1. Read the token and check if it exists
+
+  let token = req.cookies.jwt;
+
+  if (!token) {
+    const error = new CustomError("You are not logged in!", 401);
+    return next(error);
+  }
+  // 2. Validate the token
+  let decodedToken;
+  try {
+    decodedToken = jwt.verify(token, secret);
+  } catch (error) {
+    return next(new CustomError(error.message, 401));
+  }
+
+  // 3. Check if user exists in the database
+  const user = await User.findById(decodedToken.id).select("+active");
+
+  if (!user || !user.active) {
+    const error = new CustomError(
+      "User no longer exists or account is inactive!",
+      401
+    );
+    return next(error);
+  }
+
+  // 4. Check if user changed passward after token was issued
+  if (user.isPasswordReset(decodedToken.iat)) {
+    const error = new CustomError(
+      "Passord was reset recently please log in again!",
+      401
+    );
+    return next(error);
+  }
+
+  // 5. Renew token (for smoother UX)
+  const newToken = getToken(user._id, user.email);
+  res.cookie("jwt", newToken, {
+    maxAge: process.env.LOGIN_EXPIRES || "1d",
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+  });
+
+  // 6. Return user data
+  user.password = undefined;
+  user.active = undefined;
+  res.status(200).json({
+    status: "success",
+    data: {
+      user,
+    },
+  });
+});
 
 // Forgot password
 export const forgotPassword = asyncErrorHandler(async function (

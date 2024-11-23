@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import Login from "../Modals/Login/Login";
 import Signup from "../Modals/Signup/Signup";
 import { modalContext } from "../../contexts/Modal/modalContext";
+import { authContext } from "../../contexts/Auth/authContext";
 
 function Navbar() {
   const { openModal, toggleModal } = useContext(modalContext);
+  const { user } = useContext(authContext);
   return (
     <header>
       <div className="navbar">
@@ -24,12 +26,18 @@ function Navbar() {
           <Link to="/about" className="about">
             About
           </Link>
-          <p className="login" onClick={() => toggleModal("login")}>
-            Login
-          </p>
-          <p className="signup" onClick={() => toggleModal("signup")}>
-            Sign up
-          </p>
+          {user ? (
+            <p>{user.username}</p>
+          ) : (
+            <>
+              <p className="login" onClick={() => toggleModal("login")}>
+                Login
+              </p>
+              <p className="signup" onClick={() => toggleModal("signup")}>
+                Sign up
+              </p>
+            </>
+          )}
         </div>
       </div>
 

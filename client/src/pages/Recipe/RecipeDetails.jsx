@@ -34,31 +34,81 @@ function RecipeDetails() {
   }, [id]);
 
   return (
-    <>
+    <div className="recipe-page">
       {isLoading && <p className="loading">Loading recipe...</p>}
       {error && <p className="error">{error}</p>}
       {recipe && (
-        <div className="recipe-details">
-          <img src={"images/placeholder/placeholder.png"} alt={recipe.name} />
-          <h1>{recipe.name}</h1>
-          <p>
-            <strong>Description:</strong> {recipe.description}
-          </p>
-          <p>
-            <strong>Uploaded by:</strong> {recipe.user}
-          </p>
-          <p>
-            <strong>Uploaded on:</strong> {formatDate(recipe.createdAt)}
-          </p>
-          <p>
-            <strong>Ingredients:</strong> {recipe.ingredients.join(", ")}
-          </p>
-          <p>
-            <strong>Instructions:</strong> {recipe.instructions}
-          </p>
+        <div className="recipe-container">
+          <div>
+            <img src={recipe.image} alt={recipe.name} />
+          </div>
+          <div className="content">
+            <h1>{recipe.name}</h1>
+            <p className="description">{recipe.description}</p>
+            <div>
+              <p>by{recipe.user}</p>
+              <div className="categories">
+                <h2>Categories</h2>
+                <ul>
+                  {recipe.categories.map((category) => {
+                    return (
+                      <li>
+                        <p>{category}</p>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+            <div className="ingredients">
+              <h2>Ingredients</h2>
+              <ul>
+                {recipe.ingredients.map((ingredient) => {
+                  return <li key={ingredient}>{ingredient}</li>;
+                })}
+              </ul>
+            </div>
+            <div className="instructions">
+              <h2>Instructions</h2>
+              <ul>
+                {recipe.instructions
+                  .match(/(\d+\.\s.+?)(?=(\d+\.\s)|$)/g) //Using regex to turn instructions string into an array
+                  .map((instruction) => {
+                    return <li key={instruction}>{instruction}</li>;
+                  })}
+              </ul>
+            </div>
+            <div className="nutrition">
+              <p>
+                The table below shows nutritional values per serving without the
+                additional fillings.
+              </p>
+              <h2>Nutrition</h2>
+              <div>
+                <p>Calories</p>
+                <span>{recipe.nutrition.calories}kcal</span>
+              </div>
+              <div>
+                <p>Carbs</p>
+                <span>{recipe.nutrition.carbohydrates}g</span>
+              </div>
+              <div>
+                <p>Proteins</p>
+                <span>{recipe.nutrition.proteins}g</span>
+              </div>
+              <div>
+                <p>Fats</p>
+                <span>{recipe.nutrition.fats}g</span>
+              </div>
+            </div>
+            <div className="serving">
+              <p>Serving:{recipe.serving}</p>
+              <p>Serving yeald:{recipe.servingYield}</p>
+            </div>
+          </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

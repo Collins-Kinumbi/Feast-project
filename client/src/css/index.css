@@ -24,6 +24,10 @@ body {
   background-color: var(--lightGray);
 }
 
+ul {
+  list-style: none;
+}
+
 a {
   text-decoration: none;
   color: var(--fontColor);
@@ -200,9 +204,10 @@ a {
 .pages {
   /* background-color: red; */
   max-width: 140rem;
-  height: 100vh;
+  height: 100%;
   padding: 2rem;
   margin: 0 auto;
+  margin-bottom: 2rem;
 }
 
 /* Home */
@@ -427,4 +432,67 @@ a {
 
 .create-recipe button:hover {
   opacity: 0.8;
+}
+
+/* Recipe details page */
+.recipe-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recipe-container {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  max-width: 70rem;
+  width: 100%;
+}
+
+.recipe-container h2 {
+  margin-bottom: 1rem;
+}
+
+.recipe-container img {
+  display: block;
+  width: 100%;
+  margin: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.recipe-container .description {
+  margin-bottom: 2rem;
+}
+
+.recipe-container .categories {
+  margin-bottom: 1rem;
+}
+
+.recipe-container .categories ul {
+  display: flex;
+  gap: 2rem;
+}
+
+.nutrition div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-left: 2.5rem;
+  border-bottom: 0.2rem var(--darkGray) solid;
+  margin-bottom: 1.5rem;
+}
+
+.nutrition div:last-child {
+  border: none;
+  margin-bottom: 0;
+}
+
+.nutrition p,
+.nutrition span {
+  margin-bottom: 1rem;
+}
+
+.nutrition span {
+  font-weight: 600;
 }

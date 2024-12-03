@@ -9,12 +9,9 @@ function Create() {
     categories: [],
     nutrition: {
       calories: "",
+      proteins: "",
       fats: "",
       carbohydrates: "",
-      fibers: "",
-      sodium: "",
-      vitamins: "",
-      minerals: "",
     },
     serving: "",
     servingYield: "",
@@ -149,7 +146,7 @@ function Create() {
             required
           />
         </div>
-
+        <hr />
         <div className="section">
           <label htmlFor="image">Upload Image</label>
           <input
@@ -161,7 +158,7 @@ function Create() {
             required
           />
         </div>
-
+        <hr />
         <div className="section">
           <label htmlFor="description">Description</label>
           <textarea
@@ -173,7 +170,7 @@ function Create() {
             required
           ></textarea>
         </div>
-
+        <hr />
         <div className="section">
           <label htmlFor="ingredients">Ingredients</label>
           {formData.ingredients.map((ingredient, index) => (
@@ -190,7 +187,7 @@ function Create() {
             Add Ingredient
           </button>
         </div>
-
+        <hr />
         <div className="section">
           <label htmlFor="instructions">Instructions</label>
           <textarea
@@ -201,7 +198,7 @@ function Create() {
             required
           ></textarea>
         </div>
-
+        <hr />
         <div className="section">
           <label>Categories</label>
           <div className="categories">
@@ -217,7 +214,7 @@ function Create() {
             ))}
           </div>
         </div>
-
+        <hr />
         <div className="section">
           <label>Nutrition Information</label>
           {Object.keys(formData.nutrition).map((key) => (
@@ -235,7 +232,7 @@ function Create() {
             </div>
           ))}
         </div>
-
+        <hr />
         <div className="section">
           <label htmlFor="serving">Serving Size</label>
           <input
@@ -247,7 +244,7 @@ function Create() {
             required
           />
         </div>
-
+        <hr />
         <div className="section">
           <label htmlFor="servingYield">Serving Yield</label>
           <input

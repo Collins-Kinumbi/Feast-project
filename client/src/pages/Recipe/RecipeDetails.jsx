@@ -107,7 +107,7 @@ function RecipeDetails() {
               </div>
             </div>
             <div className="serving">
-              <h2>Serving</h2>
+              <h2>Serving:</h2>
               <div>
                 <p>
                   Serving: <span>{recipe.serving}</span>

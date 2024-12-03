@@ -22,7 +22,7 @@ function RecipeDetails() {
         const resData = await response.json();
         // console.log(resData);
         const { recipe } = resData.data;
-        console.log(recipe);
+        // console.log(recipe);
         setRecipe(recipe);
       } catch (error) {
         console.log(error.message);
@@ -49,12 +49,15 @@ function RecipeDetails() {
               <p className="poster">
                 By: <span>{recipe.user}</span>
               </p>
+              <p className="created-on">
+                Created on : <span>{formatDate(recipe.createdAt)}</span>
+              </p>
               <div className="categories">
                 <h2>Categories:</h2>
                 <ul>
                   {recipe.categories.map((category) => {
                     return (
-                      <li>
+                      <li key={category}>
                         <p>{category}</p>
                       </li>
                     );

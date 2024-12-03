@@ -478,6 +478,14 @@ a {
   font-weight: 600;
 }
 
+.recipe-container .created-on {
+  margin-bottom: 2rem;
+}
+
+.recipe-container .created-on span {
+  font-weight: 600;
+}
+
 .recipe-container .categories {
   margin-bottom: 1rem;
   border-bottom: 0.2rem var(--darkGray) solid;

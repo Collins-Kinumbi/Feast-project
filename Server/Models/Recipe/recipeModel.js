@@ -24,10 +24,7 @@ const recipeSchema = new mongoose.Schema(
       calories: Number,
       fats: Number,
       carbohydrates: Number,
-      fibers: Number,
-      sodium: Number,
-      vitamins: Number,
-      minerals: Number,
+      proteins: Number,
     },
     ingredients: {
       type: [String],

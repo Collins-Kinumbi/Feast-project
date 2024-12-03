@@ -46,9 +46,11 @@ function RecipeDetails() {
             <h1>{recipe.name}</h1>
             <p className="description">{recipe.description}</p>
             <div>
-              <p>by{recipe.user}</p>
+              <p className="poster">
+                By: <span>{recipe.user}</span>
+              </p>
               <div className="categories">
-                <h2>Categories</h2>
+                <h2>Categories:</h2>
                 <ul>
                   {recipe.categories.map((category) => {
                     return (
@@ -61,7 +63,7 @@ function RecipeDetails() {
               </div>
             </div>
             <div className="ingredients">
-              <h2>Ingredients</h2>
+              <h2>Ingredients:</h2>
               <ul>
                 {recipe.ingredients.map((ingredient) => {
                   return <li key={ingredient}>{ingredient}</li>;
@@ -69,7 +71,7 @@ function RecipeDetails() {
               </ul>
             </div>
             <div className="instructions">
-              <h2>Instructions</h2>
+              <h2>Instructions:</h2>
               <ul>
                 {recipe.instructions
                   .match(/(\d+\.\s.+?)(?=(\d+\.\s)|$)/g) //Using regex to turn instructions string into an array
@@ -83,7 +85,7 @@ function RecipeDetails() {
                 The table below shows nutritional values per serving without the
                 additional fillings.
               </p>
-              <h2>Nutrition</h2>
+              <h2>Nutrition:</h2>
               <div>
                 <p>Calories</p>
                 <span>{recipe.nutrition.calories}kcal</span>
@@ -102,8 +104,15 @@ function RecipeDetails() {
               </div>
             </div>
             <div className="serving">
-              <p>Serving:{recipe.serving}</p>
-              <p>Serving yeald:{recipe.servingYield}</p>
+              <h2>Serving</h2>
+              <div>
+                <p>
+                  Serving: <span>{recipe.serving}</span>
+                </p>
+                <p>
+                  Serving yeald: <span>{recipe.servingYield}</span>
+                </p>
+              </div>
             </div>
           </div>
         </div>

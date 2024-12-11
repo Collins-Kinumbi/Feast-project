@@ -2,12 +2,21 @@ import { Link } from "react-router-dom";
 import formatDate from "../../utils/Date";
 import { useEffect, useState } from "react";
 
+const userCache = new Map(); // Local cache for user data
+
 function Recipe({ recipe }) {
   const [username, setUsername]= useState('')
   const[error,setError]= useState(null)
 useEffect(()=>{
   async function getUser(id) {
     setError(null)
+
+    // Check cache first
+    if (userCache.has(id)) {
+      setUsername(userCache.get(id));
+      return;
+    }
+
     try {
       const response = await fetch(`http://localhost:4000/api/v1/users/${id}`);
 
@@ -16,10 +25,12 @@ useEffect(()=>{
         throw new Error("Sorry something went wrong...");
       }
       const resData = await response.json();
-      console.log(resData)
-      const username = resData.data.user.username
-      setUsername(username)
       
+      const username = resData.data.user.username
+      
+      // Update state and cache
+      setUsername(username)
+      userCache.set(id, username);
 
     } catch (error) {
       setError(error.message)

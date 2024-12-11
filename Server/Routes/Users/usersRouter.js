@@ -2,6 +2,7 @@ import express from "express";
 import {
   deleteAccount,
   getAllUsers,
+  getUser,
   updateDetails,
   updatePassword,
 } from "../../Controllers/Users/usersController.js";
@@ -11,6 +12,9 @@ const router = express.Router();
 
 // Get all users
 router.route("/").get(getAllUsers);
+
+// Get user by id
+router.route('/:id').get(getUser)
 
 // Update user details
 router.route("/updateDetails").patch(protect, updateDetails);

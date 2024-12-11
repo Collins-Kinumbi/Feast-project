@@ -16,6 +16,26 @@ export const getAllUsers = asyncErrorHandler(async function (req, res, next) {
   });
 });
 
+// Get a user
+export const getUser=asyncErrorHandler(async function (req,res,next) {
+  const { id } = req.params
+  const user = await User.findById(id)
+  // console.log(user)
+  if(!user){
+    const error = new CustomError("User not found!", 404);
+    return next(error);
+  }
+  // Successfull
+  res.status(200).json({
+    status: "Success!",
+    requestedAt: new Date().toISOString(),
+    data: {
+      user,
+    },
+  });
+  
+})
+
 // Update user password functionality
 export const updatePassword = asyncErrorHandler(async function (
   req,

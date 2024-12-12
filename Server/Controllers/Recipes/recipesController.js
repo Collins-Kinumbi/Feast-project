@@ -18,9 +18,22 @@ export const getRecipes = asyncErrorHandler(async (req, res, next) => {
 
   const recipes = await query;
 
+  const recipeCount = await Recipe.countDocuments();
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  if (req.query.page && skip >= recipeCount) {
+    return res.status(404).json({
+      status: "Failed!",
+      message: "Page not found!",
+    });
+  }
+
   // Successfull
   res.status(200).json({
     status: "Success!",
+    page,
     items: recipes.length,
     requestedAt: new Date().toISOString(),
     data: {

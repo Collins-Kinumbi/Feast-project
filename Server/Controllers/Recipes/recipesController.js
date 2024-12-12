@@ -34,6 +34,7 @@ export const getRecipes = asyncErrorHandler(async (req, res, next) => {
   res.status(200).json({
     status: "Success!",
     page, // Current page
+    items: recipes.length,// total Items on this page
     totalPages: Math.ceil(recipeCount / limit), // Total pages
     itemsPerPage: limit, // Items per page
     totalItems: recipeCount, // Total recipes

@@ -1,11 +1,40 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { recipeContext } from "../../contexts/Recipes/recipesContext";
+import { useEffect, useState } from "react";
 // Components
 import Recipe from "../../components/Recipe/Recipe";
 
 function Home() {
-  const { recipes, isLoading, error } = useContext(recipeContext);
+ 
+  const [recipes, setRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Fetch all recipes
+  useEffect(() => {
+    async function fetchRecipies() {
+      setIsLoading(true);
+      try {
+        setError(null);
+        const response = await fetch("http://localhost:4000/api/v1/recipes");
+
+        // console.log(response);
+        if (!response.ok) {
+          return setError("Sorry something went wrong...");
+        }
+        const resData = await response.json();
+        // console.log(resData);
+        const { recipes } = resData.data;
+        // console.log(recipes);
+        setRecipes(recipes);
+      } catch (error) {
+        console.log(error.message);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchRecipies();
+  }, []);
 
   return (
     <div className="home">

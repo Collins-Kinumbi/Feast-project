@@ -33,8 +33,10 @@ export const getRecipes = asyncErrorHandler(async (req, res, next) => {
   // Successfull
   res.status(200).json({
     status: "Success!",
-    page,
-    items: recipes.length,
+    page, // Current page
+    totalPages: Math.ceil(recipeCount / limit), // Total pages
+    itemsPerPage: limit, // Items per page
+    totalItems: recipeCount, // Total recipes
     requestedAt: new Date().toISOString(),
     data: {
       recipes,

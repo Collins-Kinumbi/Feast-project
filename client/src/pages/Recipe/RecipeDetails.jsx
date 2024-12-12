@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import formatDate from "../../utils/Date";
 
+const userCache = new Map(); // Local cache for user data
+
 function RecipeDetails() {
-  const { id } = useParams(); //Get id from url
+  const { id } = useParams(); // Get id from URL
   const [recipe, setRecipe] = useState(null);
+  const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -20,16 +23,34 @@ function RecipeDetails() {
           return setError("Sorry something went wrong...");
         }
         const resData = await response.json();
-        // console.log(resData);
         const { recipe } = resData.data;
-        // console.log(recipe);
         setRecipe(recipe);
+
+        // Fetch username if not cached
+        if (recipe.user && !userCache.has(recipe.user)) {
+          const userResponse = await fetch(
+            `http://localhost:4000/api/v1/users/${recipe.user}`
+          );
+          if (!userResponse.ok) {
+            throw new Error("Failed to fetch user data");
+          }
+          const userData = await userResponse.json();
+          const username = userData.data.user.username;
+
+          // Set username in state and cache it
+          setUsername(username);
+          userCache.set(recipe.user, username);
+        } else {
+          // Use cached username if available
+          setUsername(userCache.get(recipe.user) || "Unknown");
+        }
       } catch (error) {
-        console.log(error.message);
+        setError(error.message);
       } finally {
         setIsLoading(false);
       }
     }
+
     fetchRecipe();
   }, [id]);
 
@@ -47,7 +68,7 @@ function RecipeDetails() {
             <p className="description">{recipe.description}</p>
             <div>
               <p className="poster">
-                By: <span>{recipe.user}</span>
+                By: <span>{username || "Loading..."}</span>
               </p>
               <p className="created-on">
                 Created on : <span>{formatDate(recipe.createdAt)}</span>
@@ -77,7 +98,7 @@ function RecipeDetails() {
               <h2>Instructions:</h2>
               <ul>
                 {recipe.instructions
-                  .match(/(\d+\.\s.+?)(?=(\d+\.\s)|$)/g) //Using regex to turn instructions string into an array
+                  .match(/(\d+\.\s.+?)(?=(\d+\.\s)|$)/g) // Using regex to turn instructions string into an array
                   .map((instruction) => {
                     return <li key={instruction}>{instruction}</li>;
                   })}
@@ -113,7 +134,7 @@ function RecipeDetails() {
                   Serving: <span>{recipe.serving}</span>
                 </p>
                 <p>
-                  Serving yeald: <span>{recipe.servingYield}</span>
+                  Serving yield: <span>{recipe.servingYield}</span>
                 </p>
               </div>
             </div>

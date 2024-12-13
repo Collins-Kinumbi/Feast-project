@@ -20,6 +20,7 @@ router.route("/checkAuth").get(checkAuth);
 router.route("/forgotPassword").post(forgotPassword);
 // Reset password
 router.route("/resetPassword/:token").patch(resetPassword);
+// Logout
 router.route("/logout").get(logout);
 
 export default router;

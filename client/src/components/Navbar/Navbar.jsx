@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Login from "../Modals/Login/Login";
 import Signup from "../Modals/Signup/Signup";
+import Profile from "../Modals/Profile/Profile";
 import { modalContext } from "../../contexts/Modal/modalContext";
 import { authContext } from "../../contexts/Auth/authContext";
 
@@ -27,9 +28,9 @@ function Navbar() {
             About
           </Link>
           {isLoading ? (
-            <p>Loading...</p>
+            <p></p>
           ) : user ? (
-            <p>{user.username}</p>
+            <p onClick={() => toggleModal("profile")}>{user.username}</p>
           ) : (
             <>
               <p className="login" onClick={() => toggleModal("login")}>
@@ -46,6 +47,7 @@ function Navbar() {
       {/* Modals */}
       {openModal === "login" && <Login />}
       {openModal === "signup" && <Signup />}
+      {openModal === "profile" && <Profile />}
     </header>
   );
 }

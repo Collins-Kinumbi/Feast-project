@@ -305,3 +305,15 @@ export const resetPassword = asyncErrorHandler(async function (req, res, next) {
   await user.save(); //Save the changes
   response(res, 200, user);
 });
+
+// Logout
+export const logout = (req, res) => {
+  // Set the JWT cookie with an expired date
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    expires: new Date(0), // Expire immediately
+  });
+  res.status(200).json({ success: true, message: "Logged out successfully" });
+};

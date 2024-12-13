@@ -3,6 +3,7 @@ import {
   checkAuth,
   forgotPassword,
   login,
+  logout,
   resetPassword,
   signup,
 } from "../../Controllers/Auth/authController.js";
@@ -19,5 +20,6 @@ router.route("/checkAuth").get(checkAuth);
 router.route("/forgotPassword").post(forgotPassword);
 // Reset password
 router.route("/resetPassword/:token").patch(resetPassword);
+router.route("/logout").get(logout);
 
 export default router;

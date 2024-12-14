@@ -56,7 +56,7 @@ function AuthContextProvider({ children }) {
       // console.log(response);
 
       const resData = await response.json();
-      console.log(resData);
+      // console.log(resData);
 
       if (!response.ok) {
         throw new Error(resData.message);
@@ -110,8 +110,24 @@ function AuthContextProvider({ children }) {
     }
   }
 
-  function logout() {
-    setUser(null);
+  async function logout() {
+    try {
+      // Send a request to the server to clear the JWT cookie
+      const response = await fetch("http://localhost:4000/api/v1/auth/logout", {
+        method: "GET",
+        credentials: "include", // Include cookies in the request
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to log out");
+      }
+
+      // Clear client-side authentication state
+      setUser(null);
+      console.log("Logged out successfully");
+    } catch (error) {
+      console.error("Error during logout:", error.message);
+    }
   }
   return (
     <authContext.Provider

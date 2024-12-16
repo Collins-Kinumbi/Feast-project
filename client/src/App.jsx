@@ -5,6 +5,7 @@ import Search from "./pages/Search/Search";
 import About from "./pages/About/About";
 import Create from "./pages/Create/Create";
 import RecipeDetails from "./pages/Recipe/RecipeDetails";
+import ProtectedRoute from "./components/Protected Routes/ProtectedRoutes";
 
 function App() {
   return (
@@ -20,8 +21,11 @@ function App() {
 
               <Route path="/about" element={<About />} />
 
-              <Route path="/create" element={<Create />} />
               <Route path="/recipe/:id" element={<RecipeDetails />} />
+
+              <Route element={<ProtectedRoute />}>
+                <Route path="/create" element={<Create />} />
+              </Route>
             </Routes>
           </div>
         </main>

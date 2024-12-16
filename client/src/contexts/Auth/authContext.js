@@ -26,7 +26,7 @@ function AuthContextProvider({ children }) {
           setUser(data.data.user); // Update user state
         } else {
           setUser(null); // Clear user state
-          console.error(data.message);
+          // console.error(data.message);
         }
       } catch (error) {
         console.error("Error during persistent login check:", error);

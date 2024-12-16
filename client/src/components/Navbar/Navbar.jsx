@@ -36,9 +36,6 @@ function Navbar() {
               <p className="login" onClick={() => toggleModal("login")}>
                 Login
               </p>
-              <p className="signup" onClick={() => toggleModal("signup")}>
-                Sign up
-              </p>
             </>
           )}
         </div>

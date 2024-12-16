@@ -5,7 +5,7 @@ import { modalContext } from "../../../contexts/Modal/modalContext";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { closeModal: onClose } = useContext(modalContext);
+  const { closeModal: onClose, toggleModal } = useContext(modalContext);
   const { login, isLoading, error } = useContext(authContext);
 
   function handleSubmit(e) {
@@ -49,7 +49,14 @@ function Login() {
                 </p>
 
                 <p className="no-account">
-                  Don't have an account? <span>Sign up</span>
+                  Don't have an account?{" "}
+                  <span
+                    onClick={() => {
+                      toggleModal("signup");
+                    }}
+                  >
+                    Sign up
+                  </span>
                 </p>
               </div>
             </form>

@@ -4,8 +4,7 @@ function UpdateDetailsForm({ closeForm }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
 
-  const handleUpdateUsername = async (e) => {
-    e.preventDefault();
+  const handleUpdateField = async (field, value) => {
     try {
       const response = await fetch(
         "http://localhost:4000/api/v1/users/updateDetails",
@@ -13,48 +12,26 @@ function UpdateDetailsForm({ closeForm }) {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
-          body: JSON.stringify({ username }),
+          body: JSON.stringify({ [field]: value }), // Dynamic field update
         }
       );
+
       const data = await response.json();
 
       if (data.status === "Success!") {
-        alert("Username updated successfully!");
+        alert(
+          `${
+            field.charAt(0).toUpperCase() + field.slice(1)
+          } updated successfully!`
+        );
         closeForm();
         window.location.reload(); // Refresh page to reflect changes
       } else {
-        alert("Failed to update username.");
+        alert(`Failed to update ${field}.`);
       }
     } catch (error) {
-      console.error("Error updating username:", error);
-      alert("Something went wrong while updating the username.");
-    }
-  };
-
-  const handleUpdateEmail = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(
-        "http://localhost:4000/api/v1/users/updateDetails",
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ email }),
-        }
-      );
-      const data = await response.json();
-
-      if (data.status === "Success!") {
-        alert("Email updated successfully!");
-        closeForm();
-        window.location.reload(); // Refresh page to reflect changes
-      } else {
-        alert("Failed to update email.");
-      }
-    } catch (error) {
-      console.error("Error updating email:", error);
-      alert("Something went wrong while updating the email.");
+      console.error(`Error updating ${field}:`, error);
+      alert(`Something went wrong while updating the ${field}.`);
     }
   };
 
@@ -63,7 +40,12 @@ function UpdateDetailsForm({ closeForm }) {
       <h2>Update Details</h2>
 
       {/* Form to update Username */}
-      <form onSubmit={handleUpdateUsername}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleUpdateField("username", username);
+        }}
+      >
         <label>
           New Username:
           <input
@@ -80,7 +62,12 @@ function UpdateDetailsForm({ closeForm }) {
       <hr />
 
       {/* Form to update Email */}
-      <form onSubmit={handleUpdateEmail}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleUpdateField("email", email);
+        }}
+      >
         <label>
           New Email:
           <input

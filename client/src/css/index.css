@@ -164,7 +164,7 @@ a {
 .form-content form input {
   padding: 0.8rem;
   font-size: 1.6rem;
-  border: 1px solid var(--darkGray);
+  border: 0.1rem solid var(--darkGray);
   border-radius: 0.4rem;
 }
 
@@ -387,7 +387,7 @@ a {
 
 .search-form .field:focus {
   border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 0.5rem rgba(0, 123, 255, 0.5);
 }
 
 .search-form .field::placeholder {
@@ -524,8 +524,8 @@ a {
   display: block;
   width: 100%;
   margin: auto;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
 }
 
 .content h1 {
@@ -666,6 +666,10 @@ a {
   margin-bottom: 1.5rem;
 }
 
+.form-card hr {
+  margin: 1rem 0;
+}
+
 .profile-actions {
   display: flex;
   flex-direction: column;
@@ -700,6 +704,6 @@ input {
   width: 100%;
   padding: 0.5rem;
   margin-top: 0.3rem;
-  border: 1px solid var(--darkGray);
+  border: 0.1rem solid var(--darkGray);
   border-radius: 0.5rem;
 }

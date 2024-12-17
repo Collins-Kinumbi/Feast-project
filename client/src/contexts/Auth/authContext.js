@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { modalContext } from "../Modal/modalContext";
-
 export const authContext = createContext();
 
 function AuthContextProvider({ children }) {
@@ -124,7 +123,7 @@ function AuthContextProvider({ children }) {
 
       // Clear client-side authentication state
       setUser(null);
-      console.log("Logged out successfully");
+      // console.log("Logged out successfully");
     } catch (error) {
       console.error("Error during logout:", error.message);
     }

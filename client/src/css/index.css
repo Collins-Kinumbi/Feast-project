@@ -639,3 +639,67 @@ a {
   font-weight: 500;
   font-size: 1.8rem;
 }
+
+/* My profile */
+.profile-container {
+  padding: 2rem;
+  max-width: 60rem;
+  margin: 0 auto;
+  font-size: 1.8rem;
+}
+
+.profile-container h1 {
+  margin-bottom: 2rem;
+}
+
+.profile-card p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.profile-card,
+.form-card {
+  background: var(--white);
+  border: 0.1rem solid var(--lightGray);
+  border-radius: 0.8rem;
+  padding: 1.5rem;
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin: 0.5rem 0;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  background-color: var(--btnColor);
+  border: none;
+  color: var(--fontColor);
+  font-size: 1.8rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+}
+
+.delete-btn {
+  background-color: red;
+}
+
+.form-actions button {
+  margin-right: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid var(--darkGray);
+  border-radius: 0.5rem;
+}

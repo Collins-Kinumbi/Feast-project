@@ -6,6 +6,7 @@ import About from "./pages/About/About";
 import Create from "./pages/Create/Create";
 import RecipeDetails from "./pages/Recipe/RecipeDetails";
 import ProtectedRoute from "./components/Protected Routes/ProtectedRoutes";
+import MyProfile from "./pages/MyProfile/MyProfile";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
 
               <Route element={<ProtectedRoute />}>
                 <Route path="/create" element={<Create />} />
+                <Route path="/profile" element={<MyProfile />} />
               </Route>
             </Routes>
           </div>

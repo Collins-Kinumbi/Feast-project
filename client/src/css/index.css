@@ -682,6 +682,17 @@ a {
   margin: 1rem 0;
 }
 
+.bio-field {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 0.1rem solid var(--darkGray);
+  border-radius: 0.5rem;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 1.6rem;
+}
+
 .profile-actions {
   display: flex;
   flex-direction: column;

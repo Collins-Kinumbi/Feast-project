@@ -3,35 +3,35 @@ import { useState } from "react";
 function UpdateDetailsForm({ closeForm }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [bio, setBio] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleUpdateField = async (field, value) => {
     try {
+      setLoading(true);
       const response = await fetch(
         "http://localhost:4000/api/v1/users/updateDetails",
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
-          body: JSON.stringify({ [field]: value }), // Dynamic field update
+          body: JSON.stringify({ [field]: value }),
         }
       );
 
       const data = await response.json();
 
       if (data.status === "Success!") {
-        alert(
-          `${
-            field.charAt(0).toUpperCase() + field.slice(1)
-          } updated successfully!`
-        );
-        closeForm();
-        window.location.reload(); // Refresh page to reflect changes
+        alert(`${field.charAt(0).toUpperCase() + field.slice(1)} updated!`);
+        window.location.reload(); // Refresh to reflect changes
       } else {
         alert(`Failed to update ${field}.`);
       }
     } catch (error) {
       console.error(`Error updating ${field}:`, error);
       alert(`Something went wrong while updating the ${field}.`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,7 +39,7 @@ function UpdateDetailsForm({ closeForm }) {
     <div className="form-card">
       <h2>Update Details</h2>
 
-      {/* Form to update Username */}
+      {/* Update Username */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -56,12 +56,14 @@ function UpdateDetailsForm({ closeForm }) {
             required
           />
         </label>
-        <button type="submit">Update Username</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Updating..." : "Update Username"}
+        </button>
       </form>
 
       <hr />
 
-      {/* Form to update Email */}
+      {/* Update Email */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -78,10 +80,38 @@ function UpdateDetailsForm({ closeForm }) {
             required
           />
         </label>
-        <button type="submit">Update Email</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Updating..." : "Update Email"}
+        </button>
       </form>
 
-      {/* Close Form Button */}
+      <hr />
+
+      {/* Update Bio */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleUpdateField("bio", bio);
+        }}
+      >
+        <label>
+          Update Bio:
+          <textarea
+            className="bio-field"
+            placeholder="Add a short bio..."
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            maxLength={150}
+            rows="3"
+            required
+          ></textarea>
+        </label>
+        <button type="submit" disabled={loading}>
+          {loading ? "Updating..." : "Update Bio"}
+        </button>
+      </form>
+
+      {/* Close Form */}
       <button type="button" onClick={closeForm} className="close-button">
         Close
       </button>

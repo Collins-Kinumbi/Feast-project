@@ -52,6 +52,9 @@ function MyProfile() {
               <strong>Username:</strong> {user.username}
             </p>
             <p>
+              <strong>Bio:</strong> {user.bio || "No bio added yet."}
+            </p>
+            <p>
               <strong>Email:</strong> {user.email}
             </p>
           </div>

@@ -6,6 +6,8 @@
   --darkGray: #bebebe;
   --fontColor: #333;
   --btnColor: #19ddff;
+  --green: #4caf50;
+  --red: red;
 }
 
 * {
@@ -40,7 +42,7 @@ a {
 .error {
   font-size: 1.6rem;
   font-weight: 600;
-  color: red;
+  color: var(--red);
 }
 
 /* Navbar */
@@ -248,7 +250,7 @@ a {
 }
 
 .logout {
-  color: red;
+  color: var(--red);
   cursor: pointer;
 }
 
@@ -400,23 +402,31 @@ a {
 .my-recipe .actions {
   position: absolute;
   top: 1rem;
-  right: 1rem;
+  right: 2rem;
   display: flex;
   gap: 0.8rem;
 }
 
-.my-recipe .delete-btn {
-  background-color: red;
-  color: var(--white);
+.my-recipe .delete-btn,
+.my-recipe .edit-btn {
   border: none;
   border-radius: 0.6rem;
   padding: 0.8rem 1.2rem;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease-in;
 }
 
-.my-recipe .delete-btn:hover {
+.my-recipe .delete-btn {
+  background-color: var(--red);
+  color: var(--white);
+}
+.my-recipe .edit-btn {
+  background-color: var(--btnColor);
+}
+
+.my-recipe .delete-btn:hover,
+.my-recipe .edit-btn:hover {
   transform: scale(1.05);
 }
 
@@ -764,7 +774,7 @@ button {
 }
 
 .delete-btn {
-  background-color: red;
+  background-color: var(--red);
 }
 
 .form-actions button {

@@ -27,6 +27,9 @@ function MyRecipe({ recipe, onDelete }) {
         <button className="delete-btn" onClick={handleDelete}>
           Delete
         </button>
+        <Link to={`/edit-recipe/${recipe._id}`}>
+          <button className="edit-btn">Edit</button>
+        </Link>
       </div>
     </div>
   );

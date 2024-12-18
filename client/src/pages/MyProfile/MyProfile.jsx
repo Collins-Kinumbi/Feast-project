@@ -2,11 +2,13 @@ import { useContext, useState } from "react";
 import { authContext } from "../../contexts/Auth/authContext";
 import UpdateDetailsForm from "../../components/Update Details Form/UpdateDetailsForm";
 import UpdatePasswordForm from "../../components/Update Password Form/UpdatePasswordForm";
+import UpdateAvatarForm from "../../components/Update Avatar Form/UpdateAvatarForm";
 
 function MyProfile() {
   const { user, logout } = useContext(authContext);
   const [showUpdateDetails, setShowUpdateDetails] = useState(false);
   const [showUpdatePassword, setShowUpdatePassword] = useState(false);
+  const [showUpdateAvatar, setShowUpdateAvatar] = useState(false);
 
   const handleDeactivateAccount = async () => {
     const confimDeactivate = window.confirm(
@@ -40,32 +42,51 @@ function MyProfile() {
       <div>
         <h1>My Profile</h1>
         <div className="profile-card">
-          <p>
-            <strong>Username:</strong> {user.username}
-          </p>
-          <p>
-            <strong>Email:</strong> {user.email}
-          </p>
+          <div>
+            {user.avatar && (
+              <img src={user.avatar} alt="User Avatar" className="avatar" />
+            )}
+          </div>
+          <div>
+            <p>
+              <strong>Username:</strong> {user.username}
+            </p>
+            <p>
+              <strong>Email:</strong> {user.email}
+            </p>
+          </div>
         </div>
       </div>
       <div className="profile-actions">
+        {/* Upload/Update Avatar */}
+        <button onClick={() => setShowUpdateAvatar(!showUpdateAvatar)}>
+          Upload Avatar
+        </button>
+        {showUpdateAvatar && (
+          <UpdateAvatarForm closeForm={() => setShowUpdateAvatar(false)} />
+        )}
+
+        {/* Update details */}
         <button onClick={() => setShowUpdateDetails(!showUpdateDetails)}>
           Edit Profile
         </button>
+        {showUpdateDetails && (
+          <UpdateDetailsForm closeForm={() => setShowUpdateDetails(false)} />
+        )}
+
+        {/* Update password */}
         <button onClick={() => setShowUpdatePassword(!showUpdatePassword)}>
           Update Password
         </button>
+        {showUpdatePassword && (
+          <UpdatePasswordForm closeForm={() => setShowUpdatePassword(false)} />
+        )}
+
+        {/* Deactivate account */}
         <button className="delete-btn" onClick={handleDeactivateAccount}>
           Deactivate Account
         </button>
       </div>
-
-      {showUpdateDetails && (
-        <UpdateDetailsForm closeForm={() => setShowUpdateDetails(false)} />
-      )}
-      {showUpdatePassword && (
-        <UpdatePasswordForm closeForm={() => setShowUpdatePassword(false)} />
-      )}
     </div>
   );
 }

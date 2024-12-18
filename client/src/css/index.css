@@ -666,6 +666,18 @@ a {
   margin-bottom: 1.5rem;
 }
 
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.profile-card .avatar {
+  width: 12rem;
+  border-radius: 2rem;
+  object-fit: cover;
+}
+
 .form-card hr {
   margin: 1rem 0;
 }

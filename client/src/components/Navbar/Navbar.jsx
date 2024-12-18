@@ -37,10 +37,12 @@ function Navbar() {
                   src={user.avatar}
                   alt={user.username}
                 />
-              ) : user.username.length > 10 ? (
-                `${user.username.substring(0, 10)}...`
               ) : (
-                user.username
+                <span className="username">
+                  {user.username.length > 10
+                    ? `${user.username.substring(0, 10)}...`
+                    : user.username}
+                </span>
               )}
             </p>
           ) : (

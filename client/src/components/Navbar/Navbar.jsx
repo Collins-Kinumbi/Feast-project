@@ -30,7 +30,19 @@ function Navbar() {
           {isLoading ? (
             <p></p>
           ) : user ? (
-            <p onClick={() => toggleModal("profile")}>{user.username}</p>
+            <p onClick={() => toggleModal("profile")}>
+              {user.avatar ? (
+                <img
+                  className="nav-avatar"
+                  src={user.avatar}
+                  alt={user.username}
+                />
+              ) : user.username.length > 10 ? (
+                `${user.username.substring(0, 10)}...`
+              ) : (
+                user.username
+              )}
+            </p>
           ) : (
             <>
               <p className="login" onClick={() => toggleModal("login")}>

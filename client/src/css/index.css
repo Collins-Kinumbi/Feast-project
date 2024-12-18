@@ -80,6 +80,12 @@ a {
   cursor: pointer;
 }
 
+.navbar .nav-avatar {
+  width: 4rem;
+  border-radius: 2rem;
+  object-fit: cover;
+}
+
 .navbar .about,
 .navbar .login,
 .navbar .signup {

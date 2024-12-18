@@ -117,7 +117,7 @@ export const updateDetails = asyncErrorHandler(async function (req, res, next) {
     });
     return newObj;
   }
-  const filterObj = filterReqObj(req.body, "username", "email", "avatar"); //Only fields that will be updated
+  const filterObj = filterReqObj(req.body, "username", "email", "bio"); //Only fields that will be updated
 
   const user = await User.findByIdAndUpdate(req.user._id, filterObj, {
     runValidators: true,

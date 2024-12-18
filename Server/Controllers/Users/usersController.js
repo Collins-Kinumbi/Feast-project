@@ -2,6 +2,8 @@ import User from "../../Models/User/userModel.js";
 import asyncErrorHandler from "../../Utils/asyncErrorHandler.js";
 import CustomError from "../../Utils/CustomError.js";
 import { response } from "../Auth/authController.js";
+import multer from "multer";
+import { storage } from "../../Utils/cloudinary.js";
 
 // Get all users
 export const getAllUsers = asyncErrorHandler(async function (req, res, next) {
@@ -16,12 +18,41 @@ export const getAllUsers = asyncErrorHandler(async function (req, res, next) {
   });
 });
 
+// Update user avatar
+const upload = multer({ storage });
+
+export const updateAvatar = asyncErrorHandler(async (req, res) => {
+  // Ensure an image file was uploaded
+  if (!req.file) {
+    return res.status(400).json({
+      status: "Error",
+      message: "No file uploaded. Please upload an image.",
+    });
+  }
+
+  const userId = req.user._id;
+  const imageUrl = req.file.path;
+
+  // Update user's avatar in the database
+  const user = await User.findByIdAndUpdate(
+    userId,
+    { avatar: imageUrl },
+    { new: true, runValidators: true }
+  );
+
+  res.status(200).json({
+    status: "Success!",
+    message: "Avatar updated successfully.",
+    data: { avatar: user.avatar },
+  });
+});
+
 // Get a user
-export const getUser=asyncErrorHandler(async function (req,res,next) {
-  const { id } = req.params
-  const user = await User.findById(id)
+export const getUser = asyncErrorHandler(async function (req, res, next) {
+  const { id } = req.params;
+  const user = await User.findById(id);
   // console.log(user)
-  if(!user){
+  if (!user) {
     const error = new CustomError("User not found!", 404);
     return next(error);
   }
@@ -33,8 +64,7 @@ export const getUser=asyncErrorHandler(async function (req,res,next) {
       user,
     },
   });
-  
-})
+});
 
 // Update user password functionality
 export const updatePassword = asyncErrorHandler(async function (

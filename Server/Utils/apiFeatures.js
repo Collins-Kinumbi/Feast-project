@@ -5,31 +5,40 @@ class ApiFeatures {
   }
 
   filter() {
-    // Fields to exclude from query object
-    const excludedFields = ["sort", "page", "limit", "fields", "search"];
+    const excludedFields = [
+      "sort",
+      "page",
+      "limit",
+      "fields",
+      "search",
+      "userId",
+    ];
 
-    // making a shallow copy of the req query object
+    // Make a copy of the query string object
     let queryObject = { ...this.queryStr };
 
-    // Delete any fields in excludeFields from queryObject
-    excludedFields.forEach((field) => {
-      delete queryObject[field];
-    });
+    // Exclude specific fields
+    excludedFields.forEach((field) => delete queryObject[field]);
 
-    // Turn query object into a string
+    // Handle advanced filtering (e.g., gte, lte)
     let queryString = JSON.stringify(queryObject);
-
-    // Use regex to replace targated strings
-    queryString = queryString.replace(/(\bgte|gt|lte|lt)\b/g, (match) => {
-      return `$${match}`;
-    });
-
+    queryString = queryString.replace(
+      /(\bgte|gt|lte|lt)\b/g,
+      (match) => `$${match}`
+    );
     queryObject = JSON.parse(queryString);
 
+    // Add the filtered query object
     this.queryObj = this.queryObj.find(queryObject);
+
+    // Apply userId filtering
+    if (this.queryStr.userId) {
+      this.queryObj = this.queryObj.find({ user: this.queryStr.userId });
+    }
 
     return this;
   }
+
   sort() {
     if (this.queryStr.sort) {
       const sortBy = this.queryStr.sort.split(",").join(" ");

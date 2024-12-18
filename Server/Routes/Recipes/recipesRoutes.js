@@ -7,13 +7,18 @@ import {
   addRecipe,
   updateRecipe,
   deleteRecipe,
+  getUserRecipes,
 } from "../../Controllers/Recipes/recipesController.js";
 
 import { protect, restrictTo } from "../../Controllers/Auth/authController.js";
 
 /* API recipe routes */
-// All recipes
 const router = express.Router();
+
+//Get recipes by user id
+router.route("/my-recipes").get(protect, getUserRecipes);
+
+// All recipes
 
 const upload = multer({ storage });
 

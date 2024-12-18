@@ -34,7 +34,7 @@ export const getRecipes = asyncErrorHandler(async (req, res, next) => {
   res.status(200).json({
     status: "Success!",
     page, // Current page
-    items: recipes.length,// total Items on this page
+    items: recipes.length, // total Items on this page
     totalPages: Math.ceil(recipeCount / limit), // Total pages
     itemsPerPage: limit, // Items per page
     totalItems: recipeCount, // Total recipes
@@ -64,6 +64,61 @@ export const getRecipe = asyncErrorHandler(async function (req, res, next) {
     requestedAt: new Date().toISOString(),
     data: {
       recipe,
+    },
+  });
+});
+
+export const getUserRecipes = asyncErrorHandler(async (req, res, next) => {
+  // Check if the user is authenticated
+  if (!req.user) {
+    return res.status(401).json({
+      status: "Failed!",
+      message: "Not authorized.",
+    });
+  }
+
+  const features = new ApiFeatures(
+    Recipe.find({ user: req.user.id }), // Filter recipes by user ID
+    req.query
+  )
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate()
+    .search();
+
+  const { queryObj: query } = features;
+  const recipes = await query;
+
+  const recipeCount = await Recipe.countDocuments({ user: req.user.id });
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  if (req.query.page && skip >= recipeCount) {
+    return res.status(404).json({
+      status: "Failed!",
+      message: "Page not found!",
+    });
+  }
+
+  if (req.query.page && skip >= recipeCount) {
+    return res.status(404).json({
+      status: "Failed!",
+      message: "Page not found!",
+    });
+  }
+
+  res.status(200).json({
+    status: "Success!",
+    page,
+    items: recipes.length,
+    totalPages: Math.ceil(recipeCount / limit),
+    itemsPerPage: limit,
+    totalItems: recipeCount,
+    requestedAt: new Date().toISOString(),
+    data: {
+      recipes,
     },
   });
 });

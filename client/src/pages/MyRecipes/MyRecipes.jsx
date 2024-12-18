@@ -15,7 +15,7 @@ function MyRecipes() {
         const response = await fetch("http://localhost:4000/api/v1/recipes", {
           method: "GET",
           credentials: "include",
-        }); // Adjust the endpoint as per your setup
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch your recipes");
         }
@@ -33,6 +33,33 @@ function MyRecipes() {
     fetchMyRecipes();
   }, []);
 
+  const deleteRecipe = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/v1/recipes/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete recipe");
+      }
+
+      //state to manage recipes in the UI
+      setMyRecipes((prevRecipes) =>
+        prevRecipes.filter((recipe) => recipe._id !== id)
+      );
+      alert("Recipe deleted successfully");
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
   if (loading) return <p>Loading your recipes...</p>;
   if (error) return <p>{error}</p>;
 
@@ -42,7 +69,11 @@ function MyRecipes() {
       <div className="recipes-container">
         {myRecipes.length > 0 ? (
           myRecipes.map((recipe) => (
-            <MyRecipe key={recipe._id} recipe={recipe} />
+            <MyRecipe
+              key={recipe._id}
+              recipe={recipe}
+              onDelete={deleteRecipe}
+            />
           ))
         ) : (
           <p>You haven't uploaded any recipes yet.</p>

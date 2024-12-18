@@ -317,11 +317,11 @@ a {
 
 .pagination button.active {
   background-color: var(--btnColor);
-  color: white;
+  color: var(--white);
 }
 
 .pagination button:disabled {
-  background-color: #ccc;
+  background-color: var(--darkGray);
   cursor: not-allowed;
 }
 
@@ -391,6 +391,33 @@ a {
 .my-recipe:hover {
   transform: translateY(-0.5rem);
   box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.2);
+}
+
+.my-recipe {
+  position: relative;
+}
+
+.my-recipe .actions {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.my-recipe .delete-btn {
+  background-color: red;
+  color: var(--white);
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.my-recipe .delete-btn:hover {
+  transform: scale(1.05);
 }
 
 /* Search*/

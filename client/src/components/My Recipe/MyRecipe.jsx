@@ -1,10 +1,19 @@
 import { Link } from "react-router-dom";
 import formatDate from "../../utils/Date";
 
-function MyRecipe({ recipe }) {
+function MyRecipe({ recipe, onDelete }) {
+  const handleDelete = () => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete the recipe "${recipe.name}"?`
+    );
+    if (confirmed) {
+      onDelete(recipe._id);
+    }
+  };
+
   return (
-    <Link to={`/recipe/${recipe._id}`}>
-      <div className="my-recipe">
+    <div className="my-recipe">
+      <Link to={`/recipe/${recipe._id}`}>
         <img src={recipe.image} alt={`${recipe.name}`} />
         <div className="content">
           <p className="uploadedOn">
@@ -13,8 +22,13 @@ function MyRecipe({ recipe }) {
           <p className="recipeName">{recipe.name}</p>
           <p className="description">{recipe.description}</p>
         </div>
+      </Link>
+      <div className="actions">
+        <button className="delete-btn" onClick={handleDelete}>
+          Delete
+        </button>
       </div>
-    </Link>
+    </div>
   );
 }
 

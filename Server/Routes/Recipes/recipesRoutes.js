@@ -15,11 +15,10 @@ import { protect, restrictTo } from "../../Controllers/Auth/authController.js";
 /* API recipe routes */
 const router = express.Router();
 
-//Get recipes by user id
+// Get recipes by user id
 router.route("/my-recipes").get(protect, getUserRecipes);
 
 // All recipes
-
 const upload = multer({ storage });
 
 router
@@ -29,14 +28,19 @@ router
   // POST/ADD a recipe
   .post(protect, upload.single("image"), addRecipe);
 
-//Single recipe
+// Single recipe
 router
   .route("/:id")
   // GET a recipe
   .get(getRecipe)
   // UPDATE a recipe
-  .patch(protect, restrictTo("admin", "user"), updateRecipe)
-  // Delete a recipe
+  .patch(
+    protect,
+    restrictTo("admin", "user"),
+    upload.single("image"),
+    updateRecipe
+  )
+  // DELETE a recipe
   .delete(protect, restrictTo("admin", "user"), deleteRecipe);
 
 export default router;

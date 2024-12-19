@@ -164,14 +164,12 @@ export const addRecipe = asyncErrorHandler(async function (req, res, next) {
 export const updateRecipe = asyncErrorHandler(async function (req, res, next) {
   const { id } = req.params;
 
-  // 1. Find recipe by ID
+  // 1. Find the recipe by ID
   const recipe = await Recipe.findById(id);
 
-  // 2. Check if recipe is falsy
+  // 2. Check if recipe exists
   if (!recipe) {
     const error = new CustomError("Recipe not found!", 404);
-
-    // Return in order stop code execution below
     return next(error);
   }
 
@@ -185,13 +183,24 @@ export const updateRecipe = asyncErrorHandler(async function (req, res, next) {
     );
   }
 
-  // 4. If authorized update recipe
-  const updatedRecipe = await Recipe.findByIdAndUpdate(id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  // 4. If an image is uploaded, update the recipe image
+  if (req.file) {
+    recipe.image = req.file.path;
+    await recipe.save(); // Save the updated image to the database
+  }
 
-  // Successfull
+  // 5. If the formData was passed as JSON (through `req.body.data`), parse and update other fields
+  const updatedData = req.body.data ? JSON.parse(req.body.data) : {}; // Extract and parse the other fields
+
+  const updatedRecipe = await Recipe.findByIdAndUpdate(
+    id,
+    { ...updatedData, image: recipe.image },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  // Return success response
   res.status(200).json({
     status: "Success!",
     data: {

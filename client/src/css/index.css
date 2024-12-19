@@ -535,8 +535,8 @@ a {
 
 .create-recipe .categories .check {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  align-items: start;
+  gap: 0.5rem;
 }
 
 .create-recipe textarea {
@@ -547,6 +547,7 @@ a {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+  border: none;
 }
 
 .create-recipe button {
@@ -853,13 +854,18 @@ input {
 .edit-recipe .categories {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  align-items: center;
   gap: 1rem;
 }
 
 .edit-recipe .categories .check {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  align-items: start;
+  flex-direction: row;
+}
+
+.edit-recipe .categories .check label {
+  margin: 0;
 }
 
 .edit-recipe textarea {

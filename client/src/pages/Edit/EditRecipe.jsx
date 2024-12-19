@@ -243,7 +243,7 @@ function EditRecipe() {
           <div className="categories">
             {[...new Set([...categoriesList, ...recipe.categories])].map(
               (category) => (
-                <div key={category}>
+                <div key={category} className="check">
                   <input
                     type="checkbox"
                     value={category}

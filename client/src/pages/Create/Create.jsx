@@ -16,7 +16,7 @@ function Create() {
     serving: "",
     servingYield: "",
   });
-  const [image, setImage] = useState(null); //Image state
+  const [image, setImage] = useState(null);
 
   const categoriesList = [
     "Appetizer",
@@ -81,6 +81,13 @@ function Create() {
 
   const addIngredient = () => {
     setFormData({ ...formData, ingredients: [...formData.ingredients, ""] });
+  };
+
+  const removeIngredient = (index) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      ingredients: prevFormData.ingredients.filter((_, i) => i !== index),
+    }));
   };
 
   const handleCategoryChange = (e) => {
@@ -174,14 +181,18 @@ function Create() {
         <div className="section">
           <label htmlFor="ingredients">Ingredients</label>
           {formData.ingredients.map((ingredient, index) => (
-            <input
-              className="ingredients"
-              key={index}
-              type="text"
-              value={ingredient}
-              onChange={(e) => handleIngredientsChange(index, e.target.value)}
-              required
-            />
+            <div className="ingredient-item" key={index}>
+              <input
+                className="ingredients"
+                type="text"
+                value={ingredient}
+                onChange={(e) => handleIngredientsChange(index, e.target.value)}
+                required
+              />
+              <button type="button" onClick={() => removeIngredient(index)}>
+                Remove
+              </button>
+            </div>
           ))}
           <button type="button" onClick={addIngredient}>
             Add Ingredient

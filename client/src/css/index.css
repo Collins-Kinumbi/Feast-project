@@ -527,6 +527,27 @@ a {
   margin-bottom: 1rem;
 }
 
+.create-recipe .ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.create-recipe .ingredient-item input {
+  flex-grow: 1;
+}
+
+.create-recipe .ingredient-item button {
+  background-color: var(--btnColor);
+  color: var(--fontColor);
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1.4rem;
+  border-radius: 0.4rem;
+  transition: 0.3s ease;
+}
+
 .create-recipe .categories {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));

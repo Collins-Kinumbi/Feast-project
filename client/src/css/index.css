@@ -434,6 +434,7 @@ a {
 .search-form {
   padding: 2rem;
   margin-bottom: 2rem;
+  display: flex;
 }
 
 .search-form .field {
@@ -459,6 +460,7 @@ a {
 }
 
 .search-form .button {
+  width: 12rem;
   background-color: var(--btnColor);
   border: none;
   color: var(--fontColor);

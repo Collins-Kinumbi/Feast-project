@@ -12,10 +12,13 @@ function MyRecipes() {
       setError(null);
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:4000/api/v1/recipes", {
-          method: "GET",
-          credentials: "include",
-        });
+        const response = await fetch(
+          "http://localhost:4000/api/v1/recipes/my-recipes",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch your recipes");
         }

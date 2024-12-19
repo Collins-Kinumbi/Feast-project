@@ -8,6 +8,7 @@ import RecipeDetails from "./pages/Recipe/RecipeDetails";
 import ProtectedRoute from "./components/Protected Routes/ProtectedRoutes";
 import MyProfile from "./pages/MyProfile/MyProfile";
 import MyRecipes from "./pages/MyRecipes/MyRecipes";
+import EditRecipe from "./pages/Edit/EditRecipe";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/create" element={<Create />} />
                 <Route path="/profile" element={<MyProfile />} />
                 <Route path="/my-recipes" element={<MyRecipes />} />
+                <Route path="edit-recipe/:id" element={<EditRecipe />} />
               </Route>
             </Routes>
           </div>

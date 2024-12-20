@@ -95,14 +95,7 @@ export const getUserRecipes = asyncErrorHandler(async (req, res, next) => {
   const limit = parseInt(req.query.limit) || 10;
   const skip = (page - 1) * limit;
 
-  if (req.query.page && skip >= recipeCount) {
-    return res.status(404).json({
-      status: "Failed!",
-      message: "Page not found!",
-    });
-  }
-
-  if (req.query.page && skip >= recipeCount) {
+  if (req.query.page && skip >= recipeCount && recipeCount > 0) {
     return res.status(404).json({
       status: "Failed!",
       message: "Page not found!",

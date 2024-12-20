@@ -7,7 +7,7 @@ const userCache = new Map(); // Local cache for user data
 function RecipeDetails() {
   const { id } = useParams(); // Get id from URL
   const [recipe, setRecipe] = useState(null);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -97,11 +97,9 @@ function RecipeDetails() {
             <div className="instructions">
               <h2>Instructions:</h2>
               <ul>
-                {recipe.instructions
-                  .match(/(\d+\.\s.+?)(?=(\d+\.\s)|$)/g) // Using regex to turn instructions string into an array
-                  .map((instruction) => {
-                    return <li key={instruction}>{instruction}</li>;
-                  })}
+                {recipe.instructions.map((instruction) => {
+                  return <li key={instruction}>{instruction}</li>;
+                })}
               </ul>
             </div>
             <div className="nutrition">

@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 
 import MyRecipe from "../../components/My Recipe/MyRecipe";
+import Pagination from "../../components/Pagination/Pagination";
 
 function MyRecipes() {
   const [myRecipes, setMyRecipes] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     async function fetchMyRecipes() {
@@ -13,7 +17,7 @@ function MyRecipes() {
       setLoading(true);
       try {
         const response = await fetch(
-          "http://localhost:4000/api/v1/recipes/my-recipes",
+          `http://localhost:4000/api/v1/recipes/my-recipes?page=${currentPage}`,
           {
             method: "GET",
             credentials: "include",
@@ -25,7 +29,9 @@ function MyRecipes() {
         const data = await response.json();
 
         setMyRecipes(data.data.recipes);
-        console.log(data.data.recipes);
+        // console.log(data.data.recipes);
+        setTotalPages(data.totalPages);
+        console.log(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -34,7 +40,11 @@ function MyRecipes() {
     }
 
     fetchMyRecipes();
-  }, []);
+  }, [currentPage]);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   const deleteRecipe = async (id) => {
     try {
@@ -67,22 +77,33 @@ function MyRecipes() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h1>My Recipes</h1>
-      <div className="recipes-container">
-        {myRecipes.length > 0 ? (
-          myRecipes.map((recipe) => (
-            <MyRecipe
-              key={recipe._id}
-              recipe={recipe}
-              onDelete={deleteRecipe}
-            />
-          ))
-        ) : (
-          <p>You haven't uploaded any recipes yet.</p>
-        )}
+    <>
+      <div>
+        <h1>My Recipes</h1>
+        <div className="recipes-container">
+          {myRecipes.length > 0 ? (
+            myRecipes.map((recipe) => (
+              <MyRecipe
+                key={recipe._id}
+                recipe={recipe}
+                onDelete={deleteRecipe}
+              />
+            ))
+          ) : (
+            <p>You haven't uploaded any recipes yet.</p>
+          )}
+        </div>
       </div>
-    </div>
+      {myRecipes.length > 0 && (
+        <div className="pagination-container">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      )}
+    </>
   );
 }
 

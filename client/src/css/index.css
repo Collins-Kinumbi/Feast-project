@@ -615,6 +615,9 @@ a {
 .recipe-container img {
   display: block;
   width: 100%;
+  height: 40rem;
+  object-fit: cover;
+  display: block;
   margin: auto;
   border-radius: 1rem;
   margin-bottom: 2rem;

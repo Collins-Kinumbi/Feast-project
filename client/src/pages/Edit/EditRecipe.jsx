@@ -94,6 +94,12 @@ function EditRecipe() {
     setRecipe({ ...recipe, ingredients: newIngredients });
   };
 
+  const handleInstructionsChange = (index, value) => {
+    const newInstructions = [...recipe.instructions];
+    newInstructions[index] = value;
+    setRecipe({ ...recipe, instructions: newInstructions });
+  };
+
   const addIngredient = () => {
     setRecipe({ ...recipe, ingredients: [...recipe.ingredients, ""] });
   };
@@ -101,6 +107,15 @@ function EditRecipe() {
   const removeIngredient = (index) => {
     const newIngredients = recipe.ingredients.filter((_, i) => i !== index);
     setRecipe({ ...recipe, ingredients: newIngredients });
+  };
+
+  const addInstruction = () => {
+    setRecipe({ ...recipe, instructions: [...recipe.instructions, ""] });
+  };
+
+  const removeInstruction = (index) => {
+    const newInstructions = recipe.instructions.filter((_, i) => i !== index);
+    setRecipe({ ...recipe, instructions: newInstructions });
   };
 
   const handleCategoryChange = (e) => {
@@ -155,7 +170,6 @@ function EditRecipe() {
     return (
       <div className="loading">
         <p>Loading recipe...</p>
-        {/* Add a spinner here for better UI */}
       </div>
     );
 
@@ -229,13 +243,24 @@ function EditRecipe() {
         <hr />
         <div className="section">
           <label htmlFor="instructions">Instructions</label>
-          <textarea
-            id="instructions"
-            name="instructions"
-            value={recipe.instructions}
-            onChange={handleInputChange}
-            required
-          />
+          {recipe.instructions.map((instruction, index) => (
+            <div key={index} className="instruction-item">
+              <input
+                type="text"
+                value={instruction}
+                onChange={(e) =>
+                  handleInstructionsChange(index, e.target.value)
+                }
+                required
+              />
+              <button type="button" onClick={() => removeInstruction(index)}>
+                Remove
+              </button>
+            </div>
+          ))}
+          <button type="button" onClick={addInstruction}>
+            Add Instruction
+          </button>
         </div>
         <hr />
         <div className="section">

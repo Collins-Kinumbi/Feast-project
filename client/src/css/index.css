@@ -83,9 +83,14 @@ a {
 }
 
 .navbar .nav-avatar {
-  width: 3rem;
-  border-radius: 2rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 0.2rem solid var(--btnColor);
   object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.2);
 }
 
 .navbar .username {
@@ -760,9 +765,12 @@ a {
 }
 
 .profile-card .avatar {
-  width: 12rem;
-  border-radius: 2rem;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
   object-fit: cover;
+  display: block;
+  margin: 0 auto;
 }
 
 .form-card hr {

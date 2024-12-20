@@ -5,7 +5,7 @@ function Create() {
     name: "",
     description: "",
     ingredients: [""],
-    instructions: "",
+    instructions: [""],
     categories: [],
     nutrition: {
       calories: "",
@@ -90,6 +90,21 @@ function Create() {
     }));
   };
 
+  const handleInstructionsChange = (index, value) => {
+    const newInstructions = [...formData.instructions];
+    newInstructions[index] = value;
+    setFormData({ ...formData, instructions: newInstructions });
+  };
+
+  const addInstruction = () => {
+    setFormData({ ...formData, instructions: [...formData.instructions, ""] });
+  };
+
+  const removeInstruction = (index) => {
+    const newInstructions = formData.instructions.filter((_, i) => i !== index);
+    setFormData({ ...formData, instructions: newInstructions });
+  };
+
   const handleCategoryChange = (e) => {
     const value = e.target.value;
     const selectedCategories = formData.categories.includes(value)
@@ -105,13 +120,16 @@ function Create() {
     formDataToSend.append("image", image); // Append the image file
     formDataToSend.append("name", formData.name);
     formDataToSend.append("description", formData.description);
-    formDataToSend.append("instructions", formData.instructions);
     formDataToSend.append("serving", formData.serving);
     formDataToSend.append("servingYield", formData.servingYield);
 
     formData.ingredients.forEach((ingredient) => {
       formDataToSend.append("ingredients[]", ingredient);
     });
+    formData.instructions.forEach((instruction) => {
+      formDataToSend.append("instructions[]", instruction);
+    });
+
     formData.categories.forEach((category) => {
       formDataToSend.append("categories[]", category);
     });
@@ -201,14 +219,26 @@ function Create() {
         <hr />
         <div className="section">
           <label htmlFor="instructions">Instructions</label>
-          <textarea
-            id="instructions"
-            name="instructions"
-            value={formData.instructions}
-            onChange={handleInputChange}
-            required
-          ></textarea>
+          {formData.instructions.map((instruction, index) => (
+            <div className="instruction-item" key={index}>
+              <input
+                type="text"
+                value={instruction}
+                onChange={(e) =>
+                  handleInstructionsChange(index, e.target.value)
+                }
+                required
+              />
+              <button type="button" onClick={() => removeInstruction(index)}>
+                Remove
+              </button>
+            </div>
+          ))}
+          <button type="button" onClick={addInstruction}>
+            Add Instruction
+          </button>
         </div>
+
         <hr />
         <div className="section">
           <label>Categories</label>

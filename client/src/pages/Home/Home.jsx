@@ -58,19 +58,21 @@ function Home() {
         {isLoading && <p className="loading">Loading recipes...</p>}
         {error && <p className="error">{error}</p>}
         <div className="recipes-container">
-          {recipes &&
+          {recipes.length > 0 &&
             recipes.map((recipe) => {
               return <Recipe recipe={recipe} key={recipe._id} />;
             })}
         </div>
       </div>
-      <div className="pagination-container">
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
-      </div>
+      {recipes.length > 0 && (
+        <div className="pagination-container">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      )}
     </>
   );
 }

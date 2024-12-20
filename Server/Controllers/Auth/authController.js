@@ -238,7 +238,10 @@ export const forgotPassword = asyncErrorHandler(async function (
   const user = await User.findOne({ email: email });
 
   if (!user) {
-    const error = new CustomError(`User with given email: ${email}`, 404);
+    const error = new CustomError(
+      `User with given email: ${email} does not exist`,
+      404
+    );
 
     return next(error);
   }

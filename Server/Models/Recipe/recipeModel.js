@@ -31,7 +31,7 @@ const recipeSchema = new mongoose.Schema(
       required: [true, "Ingredients field is required!"],
     },
     instructions: {
-      type: String,
+      type: [String],
       required: [true, "Instructions field is required!"],
     },
     ratings: {

@@ -45,7 +45,14 @@ function Login() {
 
               <div className="queries">
                 <p className="forgot-password">
-                  Forgot <span>Password?</span>
+                  Forgot{" "}
+                  <span
+                    onClick={() => {
+                      toggleModal("forgotPassoword");
+                    }}
+                  >
+                    Password?
+                  </span>
                 </p>
 
                 <p className="no-account">

@@ -87,8 +87,8 @@ function AuthContextProvider({ children }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
         credentials: "include", //include cookies
+        body: JSON.stringify(userData),
       });
       // console.log(response);
 
@@ -130,7 +130,7 @@ function AuthContextProvider({ children }) {
   }
   return (
     <authContext.Provider
-      value={{ user, isLoading, error, login, signup, logout }}
+      value={{ user, setUser, isLoading, error, login, signup, logout }}
     >
       {children}
     </authContext.Provider>

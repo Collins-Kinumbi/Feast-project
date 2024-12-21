@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/Protected Routes/ProtectedRoutes";
 import MyProfile from "./pages/MyProfile/MyProfile";
 import MyRecipes from "./pages/MyRecipes/MyRecipes";
 import EditRecipe from "./pages/Edit/EditRecipe";
+import ResetPassword from "./pages/Reset Password/ResetPassword";
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
               <Route path="/about" element={<About />} />
 
               <Route path="/recipe/:id" element={<RecipeDetails />} />
+
+              <Route path="/resetPassword/:token" element={<ResetPassword />} />
 
               <Route element={<ProtectedRoute />}>
                 <Route path="/create" element={<Create />} />

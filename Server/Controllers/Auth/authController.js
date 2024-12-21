@@ -252,9 +252,10 @@ export const forgotPassword = asyncErrorHandler(async function (
   await user.save({ validateBeforeSave: false });
 
   // 3. send email with reset token to user
-  const resetURL = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/auth/resetPassword/${resetToken}`;
+  // const resetURL = `${req.protocol}://${req.get(
+  //   "host"
+  // )}/api/v1/auth/resetPassword/${resetToken}`;
+  const resetURL = `http://localhost:3000/resetPassword/${resetToken}`;
 
   const message = `We have recieved a password reset request, please use the link below to reset your password\n\n${resetURL}\n\nThis reset password link will only be valid for 10 minutes`;
 

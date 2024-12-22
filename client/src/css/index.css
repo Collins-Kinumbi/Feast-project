@@ -981,3 +981,15 @@ input {
   font-size: 1.8rem;
   margin: 2rem auto;
 }
+
+/* Footer */
+footer {
+  background-color: var(--darkGray);
+  padding: 2rem;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+footer span {
+  font-weight: 600;
+}

@@ -39,6 +39,11 @@ function App() {
           </div>
         </main>
       </BrowserRouter>
+      <footer>
+        <p>
+          <span>Collins Kinumbi</span> Feast App @ {new Date().getFullYear()}
+        </p>
+      </footer>
     </div>
   );
 }

@@ -299,7 +299,7 @@ main {
   margin-bottom: 2rem;
 }
 
-/* Home */
+/* Home page */
 .home {
   display: flex;
   flex-direction: column;
@@ -335,7 +335,7 @@ main {
   font-weight: 600;
 }
 
-/* Pagination */
+/* Pagination component*/
 .pagination-container {
   display: flex;
   justify-content: center;
@@ -477,7 +477,7 @@ main {
   transform: scale(1.05);
 }
 
-/* Search*/
+/* Search page*/
 .search-form {
   padding: 2rem;
   padding-left: 0;
@@ -792,6 +792,24 @@ main {
 .recipe-container .serving span {
   font-weight: 500;
   font-size: 1.8rem;
+}
+
+/* Forgot password page */
+.forgot-password {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forgot-password h2 {
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
+}
+
+.forgot-password .form-content {
+  background-color: var(--white);
+  padding: 3rem;
+  border-radius: 1rem;
 }
 
 /* My profile */

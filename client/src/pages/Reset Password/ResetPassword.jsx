@@ -53,29 +53,31 @@ function ResetPassword() {
   };
 
   return (
-    <div className="form-content">
+    <div className="forgot-password">
       <h2>Reset Password</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          placeholder="New Password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          required
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        {error && <p className="error">{error}</p>}
-        {success && <p className="success">{success}</p>}
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Submitting..." : "Reset Password"}
-        </button>
-      </form>
+      <div className="form-content">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            placeholder="New Password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          {error && <p className="error">{error}</p>}
+          {success && <p className="success">{success}</p>}
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Submitting..." : "Reset Password"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

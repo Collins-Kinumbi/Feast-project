@@ -1,0 +1,12 @@
+.recipe-card-skeleton {
+  width: 100%;
+  /* height: 100%; */
+  background-color: var(--white);
+  border-radius: 1.2rem;
+}
+
+.recipe-card-skeleton .content {
+  width: 60%;
+  padding: 2rem;
+  padding-left: 1rem;
+}

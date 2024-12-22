@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import formatDate from "../../utils/Date";
 import { useEffect, useState } from "react";
+import RecipeCard from "../skeletons/Recipe/RecipeCard";
 
 const userCache = new Map(); // Local cache for user data
 
@@ -36,7 +37,9 @@ function Recipe({ recipe }) {
     })();
   }, [recipe.user]);
 
-  return (
+  return isLoading ? (
+    <RecipeCard />
+  ) : (
     <Link to={`/recipe/${recipe._id}`}>
       <div className="recipe">
         <img src={recipe.image} alt={`${recipe.name}`} />

@@ -13,7 +13,7 @@ import ResetPassword from "./pages/Reset Password/ResetPassword";
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <BrowserRouter>
         <Navbar />
         <main>

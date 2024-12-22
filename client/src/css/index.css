@@ -35,6 +35,16 @@ a {
   color: var(--fontColor);
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
 .no-scroll {
   overflow: hidden;
 }
@@ -53,7 +63,6 @@ a {
   align-items: center;
   padding: 2rem 4rem;
   font-size: 1.6rem;
-  /* background-color: red; */
   box-shadow: 0 1rem 2rem 0.1rem rgba(0, 0, 0, 0.35);
   margin-bottom: 2rem;
   background-color: var(--white);
@@ -120,7 +129,7 @@ a {
   background-color: var(--lightGray);
 }
 
-/* Modlas */
+/* Modals */
 .btn-modal {
   padding: 1rem 2rem;
   display: block;
@@ -270,7 +279,6 @@ a {
 
 /* Pages */
 .pages {
-  /* background-color: red; */
   max-width: 140rem;
   height: 100%;
   padding: 2rem;

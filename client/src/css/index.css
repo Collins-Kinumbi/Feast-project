@@ -45,7 +45,8 @@ button {
   border-radius: 0.5rem;
 }
 
-button:hover {
+button:hover,
+.not-found a:hover {
   opacity: 0.8;
 }
 
@@ -812,7 +813,7 @@ main {
   border-radius: 1rem;
 }
 
-/* My profile */
+/* My profile page */
 .profile-container {
   padding: 2rem;
   max-width: 60rem;
@@ -897,6 +898,30 @@ main {
   margin-top: 0.3rem;
   border: 0.1rem solid var(--darkGray);
   border-radius: 0.5rem;
+}
+
+/* Not found page */
+.not-found {
+  text-align: center;
+  padding: 2rem;
+  font-size: 2.4rem;
+}
+
+.not-found h1 {
+  font-size: 8rem;
+  color: var(--darkGray);
+}
+
+.not-found p {
+  margin: 2rem 0;
+}
+
+.not-found a {
+  background-color: var(--darkGray);
+  padding: 1rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  transition: 0.4s;
 }
 
 /* Footer */

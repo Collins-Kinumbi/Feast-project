@@ -10,6 +10,7 @@ import MyProfile from "./pages/MyProfile/MyProfile";
 import MyRecipes from "./pages/MyRecipes/MyRecipes";
 import EditRecipe from "./pages/Edit/EditRecipe";
 import ResetPassword from "./pages/Reset Password/ResetPassword";
+import NotFound from "./pages/Not Found/NotFound";
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
                 <Route path="/my-recipes" element={<MyRecipes />} />
                 <Route path="edit-recipe/:id" element={<EditRecipe />} />
               </Route>
+
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </main>

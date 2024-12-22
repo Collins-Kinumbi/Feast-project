@@ -161,7 +161,7 @@ function Create() {
       <h1>Create a Recipe</h1>
       <form onSubmit={handleSubmit}>
         <div className="section">
-          <label htmlFor="name">Recipe Name</label>
+          <p>Recipe Name</p>
           <input
             type="text"
             id="name"
@@ -173,7 +173,7 @@ function Create() {
         </div>
         <hr />
         <div className="section">
-          <label htmlFor="image">Upload Image</label>
+          <p>Upload Image</p>
           <input
             type="file"
             id="image"
@@ -185,7 +185,7 @@ function Create() {
         </div>
         <hr />
         <div className="section">
-          <label htmlFor="description">Description</label>
+          <p>Description</p>
           <textarea
             id="description"
             name="description"
@@ -197,11 +197,10 @@ function Create() {
         </div>
         <hr />
         <div className="section">
-          <label htmlFor="ingredients">Ingredients</label>
+          <p>Ingredients</p>
           {formData.ingredients.map((ingredient, index) => (
             <div className="ingredient-item" key={index}>
               <input
-                className="ingredients"
                 type="text"
                 value={ingredient}
                 onChange={(e) => handleIngredientsChange(index, e.target.value)}
@@ -218,7 +217,7 @@ function Create() {
         </div>
         <hr />
         <div className="section">
-          <label htmlFor="instructions">Instructions</label>
+          <p>Instructions</p>
           {formData.instructions.map((instruction, index) => (
             <div className="instruction-item" key={index}>
               <input
@@ -241,7 +240,7 @@ function Create() {
 
         <hr />
         <div className="section">
-          <label>Categories</label>
+          <p>Categories</p>
           <div className="categories">
             {categoriesList.map((category) => (
               <div key={category} className="check">
@@ -257,7 +256,7 @@ function Create() {
         </div>
         <hr />
         <div className="section">
-          <label>Nutrition Information</label>
+          <p>Nutrition Information</p>
           {Object.keys(formData.nutrition).map((key) => (
             <div key={key} className="nutrition">
               <label htmlFor={key}>
@@ -275,27 +274,32 @@ function Create() {
         </div>
         <hr />
         <div className="section">
-          <label htmlFor="serving">Serving Size</label>
-          <input
-            type="number"
-            id="serving"
-            name="serving"
-            value={formData.serving}
-            onChange={handleInputChange}
-            required
-          />
+          <p>Serving</p>
+          <div className="serving">
+            <label htmlFor="serving">Serving Size</label>
+            <input
+              type="number"
+              id="serving"
+              name="serving"
+              value={formData.serving}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
         </div>
-        <hr />
+
         <div className="section">
-          <label htmlFor="servingYield">Serving Yield</label>
-          <input
-            type="number"
-            id="servingYield"
-            name="servingYield"
-            value={formData.servingYield}
-            onChange={handleInputChange}
-            required
-          />
+          <div className="serving-yield">
+            <label htmlFor="servingYield">Serving Yield</label>
+            <input
+              type="number"
+              id="servingYield"
+              name="servingYield"
+              value={formData.servingYield}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
         </div>
 
         <button type="submit">Create Recipe</button>

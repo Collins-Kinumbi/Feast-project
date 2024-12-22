@@ -15,7 +15,9 @@ import NotFound from "./pages/Not Found/NotFound";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter
+        future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
+      >
         <Navbar />
         <main>
           <div className="pages">

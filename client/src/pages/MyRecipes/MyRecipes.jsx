@@ -31,7 +31,7 @@ function MyRecipes() {
         setMyRecipes(data.data.recipes);
         // console.log(data.data.recipes);
         setTotalPages(data.totalPages);
-        console.log(data);
+        // console.log(data);
       } catch (err) {
         setError(err.message);
       } finally {

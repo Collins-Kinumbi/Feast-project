@@ -107,7 +107,17 @@ export const updateDetails = asyncErrorHandler(async function (req, res, next) {
     );
   }
 
-  // 2. Update the user details
+  //2. Check if the new email is already in use by another user
+  if (req.body.email) {
+    const existingUser = await User.findOne({ email: req.body.email });
+
+    // Prevent changing to an email already used by another user
+    if (existingUser && existingUser._id !== req.user._id.toString()) {
+      return next(new CustomError("This email is already in use!", 400));
+    }
+  }
+
+  // 3. Update the user details
   function filterReqObj(obj, ...allowedFields) {
     const newObj = {};
     Object.keys(obj).forEach((property) => {

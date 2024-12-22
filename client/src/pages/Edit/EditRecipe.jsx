@@ -186,7 +186,7 @@ function EditRecipe() {
       <h1>Edit Recipe</h1>
       <form onSubmit={handleSubmit}>
         <div className="section">
-          <label htmlFor="name">Recipe Name</label>
+          <p>Recipe Name</p>
           <input
             type="text"
             id="name"
@@ -198,7 +198,7 @@ function EditRecipe() {
         </div>
         <hr />
         <div className="section">
-          <label htmlFor="image">Upload New Image (Optional)</label>
+          <p>Upload New Image (Optional)</p>
           <input
             type="file"
             id="image"
@@ -210,7 +210,7 @@ function EditRecipe() {
         </div>
         <hr />
         <div className="section">
-          <label htmlFor="description">Description</label>
+          <p>Description</p>
           <textarea
             id="description"
             name="description"
@@ -222,7 +222,7 @@ function EditRecipe() {
         </div>
         <hr />
         <div className="section">
-          <label htmlFor="ingredients">Ingredients</label>
+          <p>Ingredients</p>
           {recipe.ingredients.map((ingredient, index) => (
             <div key={index} className="ingredient-item">
               <input
@@ -242,7 +242,7 @@ function EditRecipe() {
         </div>
         <hr />
         <div className="section">
-          <label htmlFor="instructions">Instructions</label>
+          <p>Instructions</p>
           {recipe.instructions.map((instruction, index) => (
             <div key={index} className="instruction-item">
               <input
@@ -264,7 +264,7 @@ function EditRecipe() {
         </div>
         <hr />
         <div className="section">
-          <label>Categories</label>
+          <p>Categories</p>
           <div className="categories">
             {[...new Set([...categoriesList, ...recipe.categories])].map(
               (category) => (
@@ -283,9 +283,9 @@ function EditRecipe() {
         </div>
         <hr />
         <div className="section">
-          <label>Nutrition Information</label>
+          <p>Nutrition Information</p>
           {Object.keys(recipe.nutrition).map((key) => (
-            <div key={key}>
+            <div key={key} className="nutrition">
               <label htmlFor={key}>
                 {key.charAt(0).toUpperCase() + key.slice(1)}
               </label>
@@ -301,27 +301,31 @@ function EditRecipe() {
         </div>
         <hr />
         <div className="section">
-          <label htmlFor="serving">Serving Size</label>
-          <input
-            type="number"
-            id="serving"
-            name="serving"
-            value={recipe.serving}
-            onChange={handleInputChange}
-            required
-          />
+          <p>Serving</p>
+          <div className="serving">
+            <label htmlFor="serving">Serving Size</label>
+            <input
+              type="number"
+              id="serving"
+              name="serving"
+              value={recipe.serving}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
         </div>
-        <hr />
         <div className="section">
-          <label htmlFor="servingYield">Serving Yield</label>
-          <input
-            type="number"
-            id="servingYield"
-            name="servingYield"
-            value={recipe.servingYield}
-            onChange={handleInputChange}
-            required
-          />
+          <div className="serving-yield">
+            <label htmlFor="servingYield">Serving Yield</label>
+            <input
+              type="number"
+              id="servingYield"
+              name="servingYield"
+              value={recipe.servingYield}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
         </div>
         <button type="submit">Save Changes</button>
       </form>

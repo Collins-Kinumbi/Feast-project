@@ -507,9 +507,14 @@ main {
   cursor: not-allowed;
 }
 
-/* Create page /Edit page*/
-.create-recipe,
-.edit-recipe {
+/*Recipe form*/
+.recipe-form h1 {
+  font-size: 3.2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.recipe-form {
   max-width: 70rem;
   font-size: 1.8rem;
   margin: 2rem auto;
@@ -520,120 +525,98 @@ main {
   box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
 }
 
-.create-recipe h1,
-.edit-recipe h1 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.create-recipe form,
-.edit-recipe form {
+.recipe-form {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.create-recipe form .section,
-.edit-recipe .section {
+.recipe-form .section {
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
 }
 
-.create-recipe form .section p:first-child,
-.edit-recipe form .section p:first-child {
+.recipe-form .section p:first-child {
   margin-bottom: 2rem;
   font-size: 2.2rem;
   font-weight: 650;
 }
 
-.create-recipe button,
-.edit-recipe button {
+.recipe-form button {
   padding: 0.8rem;
 }
 
-.create-recipe input,
-.edit-recipe input {
+.recipe-form input {
   padding: 0.8rem;
   font-size: 1.6rem;
   border: 0.1rem solid var(--darkGray);
   border-radius: 0.5rem;
 }
 
-.create-recipe textarea,
-.edit-recipe textarea {
-  height: 9rem;
+.recipe-form textarea {
+  height: 10rem;
   padding: 1rem;
   font-family: inherit;
   font-size: 1.5rem;
 }
 
-.create-recipe .ingredient-item,
-.edit-recipe .ingredient-item,
-.create-recipe .instruction-item,
-.edit-recipe .instruction-item {
+.recipe-form .ingredient-item,
+.recipe-form .instruction-item {
   margin-bottom: 1rem;
   display: flex;
 }
 
-.create-recipe .ingredient-item input,
-.edit-recipe .ingredient-item input,
-.create-recipe .instruction-item input,
-.edit-recipe .instruction-item input {
+.recipe-form .ingredient-item input,
+.recipe-form .instruction-item input {
   width: 100%;
   margin-right: 1rem;
 }
 
-.create-recipe .categories,
-.edit-recipe .categories {
+.recipe-form .categories {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 1rem;
 }
 
-.create-recipe .categories .check,
-.edit-recipe .categories .check {
+.recipe-form .categories .check {
   display: flex;
   align-items: center;
 }
 
-.create-recipe .categories .check input,
-.edit-recipe .categories .check input {
+.recipe-form .check input {
   margin-right: 0.5rem;
   cursor: pointer;
 }
 
-.create-recipe .nutrition,
-.edit-recipe .nutrition,
-.create-recipe .serving,
-.edit-recipe .serving,
-.create-recipe .serving-yield,
-.edit-recipe .serving-yield {
+.recipe-form .nutrition,
+.recipe-form .serving,
+.recipe-form .serving-yield {
   display: grid;
   grid-template-columns: repeat(2, 20rem);
   align-items: center;
 }
 
-.create-recipe .nutrition:not(:last-child),
-.edit-recipe .nutrition:not(:last-child) {
+.recipe-form .nutrition:not(:last-child),
+.recipe-form .serving:not(:last-child) {
   margin-bottom: 2rem;
 }
 
-/*Edit form image section */
-.edit-recipe .section img {
+/*Recipe form image section */
+.recipe-form .section img {
   width: 100%;
   max-width: 30rem;
   border-radius: 0.5rem;
   margin-top: 1rem;
 }
 
-.edit-recipe .loading {
+.recipe-form .loading {
   text-align: center;
   font-size: 1.8rem;
   margin: 2rem auto;
 }
 
-.edit-recipe .error {
+.recipe-form .error {
   text-align: center;
   color: var(--red);
   font-size: 1.8rem;

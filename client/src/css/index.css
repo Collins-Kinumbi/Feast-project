@@ -336,6 +336,19 @@ main {
   font-weight: 600;
 }
 
+/* My recipes page */
+.my-recipes {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  font-size: 1.6rem;
+  padding: 2rem;
+}
+
+.my-recipes h1 {
+  margin-bottom: 2rem;
+}
+
 /* Pagination component*/
 .pagination-container {
   display: flex;
@@ -364,18 +377,6 @@ main {
 }
 
 /* Recipe/my-recipes */
-.my-recipes {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  font-size: 1.6rem;
-  padding: 2rem;
-}
-
-.my-recipes h1 {
-  margin-bottom: 2rem;
-}
-
 .recipes-container {
   display: grid;
   column-gap: 4.8rem;
@@ -384,8 +385,10 @@ main {
   width: 100%;
 }
 
-.recipe,
-.my-recipe {
+.recipe-wrapper {
+  position: relative;
+}
+.recipe {
   border-radius: 1.2rem;
   overflow: hidden;
   cursor: pointer;
@@ -394,35 +397,24 @@ main {
   box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.3);
 }
 
-.recipe img,
-.my-recipe img {
+.recipe img {
   width: 100%;
   height: 20rem;
   margin-bottom: 2rem;
   object-fit: cover;
 }
 
-.recipe .content,
-.my-recipe .content {
+.recipe .content {
   padding: 2rem;
   padding-top: 0;
 }
 
-.recipe .uploadedOn,
-.my-recipe .uploadedOn {
+.recipe .uploaded-on {
   margin-bottom: 1rem;
   font-size: 1.4rem;
 }
 
-.my-recipe .description {
-  font-size: 1.6rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.recipe .recipeName,
-.my-recipe .recipeName {
+.recipe .recipe-name {
   font-size: 1.8rem;
   font-weight: 800;
   margin-bottom: 1rem;
@@ -433,21 +425,16 @@ main {
 }
 
 .recipe .user span,
-.recipe .uploadedOn span {
+.recipe .uploaded-on span {
   font-weight: 600;
 }
 
-.recipe:hover,
-.my-recipe:hover {
+.recipe:hover {
   transform: translateY(-0.5rem);
   box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.2);
 }
 
-.my-recipe {
-  position: relative;
-}
-
-.my-recipe .actions {
+.recipe-wrapper .actions {
   position: absolute;
   top: 1rem;
   right: 2rem;
@@ -455,8 +442,8 @@ main {
   gap: 0.8rem;
 }
 
-.my-recipe .delete-btn,
-.my-recipe .edit-btn {
+.recipe-wrapper .delete-btn,
+.recipe-wrapper .edit-btn {
   border: none;
   border-radius: 0.6rem;
   padding: 0.8rem 1.2rem;
@@ -465,16 +452,17 @@ main {
   transition: 0.3s ease-in;
 }
 
-.my-recipe .delete-btn {
+.recipe-wrapper .delete-btn {
   background-color: var(--red);
   color: var(--white);
 }
-.my-recipe .edit-btn {
+
+.recipe-wrapper .edit-btn {
   background-color: var(--btnColor);
 }
 
-.my-recipe .delete-btn:hover,
-.my-recipe .edit-btn:hover {
+.recipe-wrapper .delete-btn:hover,
+.recipe-wrapper .edit-btn:hover {
   transform: scale(1.05);
 }
 

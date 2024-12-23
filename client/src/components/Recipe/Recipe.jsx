@@ -5,10 +5,15 @@ import RecipeCard from "../skeletons/Recipe/RecipeCard";
 
 const userCache = new Map(); // Local cache for user data
 
-function Recipe({ recipes, loading }) {
+function Recipe({
+  recipes,
+  loading = false,
+  showUsername = true,
+  showActions = false,
+  onDelete = null,
+}) {
   const [usernames, setUsernames] = useState({});
 
-  // Fetch username for a given user ID
   const fetchUsername = async (userId) => {
     if (userCache.has(userId)) return userCache.get(userId);
 
@@ -39,39 +44,63 @@ function Recipe({ recipes, loading }) {
       }
     };
 
-    if (recipes.length > 0) {
+    if (recipes.length > 0 && showUsername) {
       loadUsernames();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipes]);
+  }, [recipes, showUsername]);
+
+  const handleDelete = (recipe) => {
+    if (!onDelete) return;
+    const confirmed = window.confirm(
+      `Are you sure you want to delete the recipe "${recipe.name}"?`
+    );
+    if (confirmed) {
+      onDelete(recipe._id);
+    }
+  };
 
   return (
     <div className="recipes-container">
       {recipes.length > 0 &&
         recipes.map((recipe) => (
-          <Link to={`/recipe/${recipe._id}`} key={recipe._id}>
-            <div className="recipe">
-              {loading ? (
-                <RecipeCard />
-              ) : (
-                <>
-                  <img src={recipe.image} alt={recipe.name} />
-                  <div className="content">
-                    <p className="uploadedOn">
-                      Uploaded on:{" "}
-                      <span>{formatDate(recipe.createdAt) || new Date()}</span>
-                    </p>
-                    <p className="recipeName">{recipe.name}</p>
-                    {usernames && (
-                      <p className="user">
-                        By <span>{usernames[recipe.user] || "Unknown"}</span>
+          <div className="recipe-wrapper" key={recipe._id}>
+            <Link to={`/recipe/${recipe._id}`}>
+              <div className="recipe">
+                {loading ? (
+                  <RecipeCard />
+                ) : (
+                  <>
+                    <img src={recipe.image} alt={recipe.name} />
+                    <div className="content">
+                      <p className="uploaded-on">
+                        Uploaded on: <span>{formatDate(recipe.createdAt)}</span>
                       </p>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
-          </Link>
+                      <p className="recipe-name">{recipe.name}</p>
+                      {showUsername && usernames && (
+                        <p className="user">
+                          By <span>{usernames[recipe.user] || "Unknown"}</span>
+                        </p>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+            </Link>
+            {showActions && (
+              <div className="actions">
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(recipe)}
+                >
+                  Delete
+                </button>
+                <Link to={`/edit-recipe/${recipe._id}`}>
+                  <button className="edit-btn">Edit</button>
+                </Link>
+              </div>
+            )}
+          </div>
         ))}
     </div>
   );

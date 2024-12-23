@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-
-import MyRecipe from "../../components/My Recipe/MyRecipe";
 import Pagination from "../../components/Pagination/Pagination";
+import Recipe from "../../components/Recipe/Recipe";
 
 function MyRecipes() {
   const [myRecipes, setMyRecipes] = useState([]);
@@ -80,19 +79,17 @@ function MyRecipes() {
     <>
       <div className="my-recipes">
         <h1>My Recipes</h1>
-        <div className="recipes-container">
-          {myRecipes.length > 0 ? (
-            myRecipes.map((recipe) => (
-              <MyRecipe
-                key={recipe._id}
-                recipe={recipe}
-                onDelete={deleteRecipe}
-              />
-            ))
-          ) : (
-            <p>You haven't uploaded any recipes yet.</p>
-          )}
-        </div>
+        {myRecipes.length > 0 ? (
+          <Recipe
+            recipes={myRecipes}
+            loading={loading}
+            showUsername={false}
+            showActions={true}
+            onDelete={deleteRecipe}
+          />
+        ) : (
+          <p>You haven't uploaded any recipes yet.</p>
+        )}
       </div>
       {myRecipes.length > 0 && (
         <div className="pagination-container">

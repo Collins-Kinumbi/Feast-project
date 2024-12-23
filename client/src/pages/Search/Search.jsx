@@ -78,12 +78,7 @@ function Search() {
       {error && <p className="error">{error}</p>}
       {notFound && <p className="error">{notFound}</p>}
 
-      <div className="recipes-container">
-        {recipes &&
-          recipes.map((recipe) => {
-            return <Recipe recipe={recipe} key={recipe._id} />;
-          })}
-      </div>
+      <Recipe recipes={recipes} loading={isLoading} />
     </>
   );
 }

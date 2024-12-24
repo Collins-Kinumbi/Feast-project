@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import categoriesList from "../../utils/Categories";
 import RecipeForm from "../../components/Recipe Form/RecipeForm";
 import { useParams } from "react-router-dom";
 
@@ -8,47 +9,6 @@ function EditRecipe() {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const categoriesList = [
-    "Appetizer",
-    "Baked",
-    "BBQ",
-    "Beverage",
-    "Breakfast",
-    "Carnivore",
-    "Comfort Food",
-    "Dairy-Free",
-    "Dessert",
-    "Dinner",
-    "Frozen",
-    "Gluten-Free",
-    "Grilled",
-    "Healthy",
-    "High-Protein",
-    "Holiday",
-    "Instant Pot",
-    "Kid-Friendly",
-    "Keto",
-    "Lunch",
-    "Low-Carb",
-    "Low-Fat",
-    "Main Course",
-    "Nutrient-Dense",
-    "Paleo",
-    "Party",
-    "Quick",
-    "Quick & Easy",
-    "Raw",
-    "Salad",
-    "Side Dish",
-    "Slow Cooker",
-    "Snack",
-    "Soup",
-    "Spicy",
-    "Sugar-Free",
-    "Vegan",
-    "Vegetarian",
-    "Whole30",
-  ];
 
   // Fetch Recipe Data
   useEffect(() => {

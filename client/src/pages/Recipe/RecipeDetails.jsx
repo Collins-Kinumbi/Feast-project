@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import formatDate from "../../utils/Date";
-import UsenameCard from "../../components/Username/UsenameCard";
+import UsernameCard from "../../components/Username/UsernameCard";
 
 function RecipeDetails() {
   const { id } = useParams(); // Get id from URL
@@ -46,7 +46,7 @@ function RecipeDetails() {
             <h1>{recipe.name}</h1>
             <p className="description">{recipe.description}</p>
             <div>
-              <UsenameCard userId={recipe.user} />
+              <UsernameCard userId={recipe.user} />
               <p className="created-on">
                 Created on : <span>{formatDate(recipe.createdAt)}</span>
               </p>

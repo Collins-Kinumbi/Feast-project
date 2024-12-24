@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import formatDate from "../../utils/Date";
 import RecipeCard from "../skeletons/Recipe/RecipeCard";
-import UsenameCard from "../Username/UsenameCard";
+import UsernameCard from "../Username/UsernameCard";
 
 function Recipe({
   recipes,
@@ -37,7 +37,7 @@ function Recipe({
                         Uploaded on: <span>{formatDate(recipe.createdAt)}</span>
                       </p>
                       <p className="recipe-name">{recipe.name}</p>
-                      {showUsername && <UsenameCard userId={recipe.user} />}
+                      {showUsername && <UsernameCard userId={recipe.user} />}
                     </div>
                   </>
                 )}

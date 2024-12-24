@@ -662,11 +662,11 @@ main {
   margin-bottom: 2rem;
 }
 
-.recipe-container .poster {
+.recipe-container .user {
   margin-bottom: 2rem;
 }
 
-.recipe-container .poster span {
+.recipe-container .user span {
   font-weight: 600;
 }
 

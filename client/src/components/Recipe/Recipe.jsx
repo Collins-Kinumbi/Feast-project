@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import formatDate from "../../utils/Date";
-import { useEffect, useState } from "react";
 import RecipeCard from "../skeletons/Recipe/RecipeCard";
-
-const userCache = new Map(); // Local cache for user data
+import UsenameCard from "../Username/UsenameCard";
 
 function Recipe({
   recipes,
@@ -12,44 +10,6 @@ function Recipe({
   showActions = false,
   onDelete = null,
 }) {
-  const [usernames, setUsernames] = useState({});
-
-  const fetchUsername = async (userId) => {
-    if (userCache.has(userId)) return userCache.get(userId);
-
-    const response = await fetch(
-      `http://localhost:4000/api/v1/users/${userId}`
-    );
-    if (!response.ok) throw new Error("Something went wrong.");
-    const resData = await response.json();
-    const username = resData.data.user.username;
-
-    // Save to cache
-    userCache.set(userId, username);
-    return username;
-  };
-
-  useEffect(() => {
-    const loadUsernames = async () => {
-      try {
-        const fetchAll = recipes.map(async (recipe) => {
-          if (!usernames[recipe.user]) {
-            const username = await fetchUsername(recipe.user);
-            setUsernames((prev) => ({ ...prev, [recipe.user]: username }));
-          }
-        });
-        await Promise.all(fetchAll);
-      } catch (error) {
-        console.error("Error loading usernames:", error);
-      }
-    };
-
-    if (recipes.length > 0 && showUsername) {
-      loadUsernames();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipes, showUsername]);
-
   const handleDelete = (recipe) => {
     if (!onDelete) return;
     const confirmed = window.confirm(
@@ -77,11 +37,7 @@ function Recipe({
                         Uploaded on: <span>{formatDate(recipe.createdAt)}</span>
                       </p>
                       <p className="recipe-name">{recipe.name}</p>
-                      {showUsername && usernames && (
-                        <p className="user">
-                          By <span>{usernames[recipe.user] || "Unknown"}</span>
-                        </p>
-                      )}
+                      {showUsername && <UsenameCard userId={recipe.user} />}
                     </div>
                   </>
                 )}

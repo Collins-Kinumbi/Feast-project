@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import formatDate from "../../utils/Date";
-
-const userCache = new Map(); // Local cache for user data
+import UsenameCard from "../../components/Username/UsenameCard";
 
 function RecipeDetails() {
   const { id } = useParams(); // Get id from URL
   const [recipe, setRecipe] = useState(null);
-  const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -25,25 +23,6 @@ function RecipeDetails() {
         const resData = await response.json();
         const { recipe } = resData.data;
         setRecipe(recipe);
-
-        // Fetch username if not cached
-        if (recipe.user && !userCache.has(recipe.user)) {
-          const userResponse = await fetch(
-            `http://localhost:4000/api/v1/users/${recipe.user}`
-          );
-          if (!userResponse.ok) {
-            throw new Error("Failed to fetch user data");
-          }
-          const userData = await userResponse.json();
-          const username = userData.data.user.username;
-
-          // Set username in state and cache it
-          setUsername(username);
-          userCache.set(recipe.user, username);
-        } else {
-          // Use cached username if available
-          setUsername(userCache.get(recipe.user) || "Unknown");
-        }
       } catch (error) {
         setError(error.message);
       } finally {
@@ -56,8 +35,8 @@ function RecipeDetails() {
 
   return (
     <div className="recipe-page">
-      {isLoading && <p className="loading">Loading recipe...</p>}
-      {error && <p className="error">{error}</p>}
+      {isLoading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       {recipe && (
         <div className="recipe-container">
           <div>
@@ -67,39 +46,35 @@ function RecipeDetails() {
             <h1>{recipe.name}</h1>
             <p className="description">{recipe.description}</p>
             <div>
-              <p className="poster">
-                By: <span>{username || "Loading..."}</span>
-              </p>
+              <UsenameCard userId={recipe.user} />
               <p className="created-on">
                 Created on : <span>{formatDate(recipe.createdAt)}</span>
               </p>
               <div className="categories">
                 <h2>Categories:</h2>
                 <ul>
-                  {recipe.categories.map((category) => {
-                    return (
-                      <li key={category}>
-                        <p>{category}</p>
-                      </li>
-                    );
-                  })}
+                  {recipe.categories.map((category) => (
+                    <li key={category}>
+                      <p>{category}</p>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
             <div className="ingredients">
               <h2>Ingredients:</h2>
               <ul>
-                {recipe.ingredients.map((ingredient) => {
-                  return <li key={ingredient}>{ingredient}</li>;
-                })}
+                {recipe.ingredients.map((ingredient) => (
+                  <li key={ingredient}>{ingredient}</li>
+                ))}
               </ul>
             </div>
             <div className="instructions">
               <h2>Instructions:</h2>
               <ul>
-                {recipe.instructions.map((instruction) => {
-                  return <li key={instruction}>{instruction}</li>;
-                })}
+                {recipe.instructions.map((instruction) => (
+                  <li key={instruction}>{instruction}</li>
+                ))}
               </ul>
             </div>
             <div className="nutrition">

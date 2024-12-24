@@ -12,6 +12,7 @@ class ApiFeatures {
       "fields",
       "search",
       "userId",
+      "category",
     ];
 
     // Make a copy of the query string object
@@ -87,6 +88,16 @@ class ApiFeatures {
       const query = this.queryStr.search;
       this.queryObj = this.queryObj.find({
         name: { $regex: query, $options: "i" },
+      });
+    }
+
+    return this;
+  }
+  category() {
+    if (this.queryStr.category) {
+      const query = this.queryStr.category;
+      this.queryObj = this.queryObj.find({
+        categories: { $regex: query, $options: "i" },
       });
     }
 

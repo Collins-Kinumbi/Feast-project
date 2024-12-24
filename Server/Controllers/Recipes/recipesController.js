@@ -10,7 +10,8 @@ export const getRecipes = asyncErrorHandler(async (req, res, next) => {
     .sort()
     .limitFields()
     .paginate()
-    .search();
+    .search()
+    .category();
 
   // console.log(features);
 

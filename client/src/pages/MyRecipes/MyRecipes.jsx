@@ -78,7 +78,7 @@ function MyRecipes() {
   return (
     <>
       <div className="my-recipes">
-        <h1>My Recipes</h1>
+        <h1 className="heading">My Recipes</h1>
         {myRecipes.length > 0 ? (
           <Recipe
             recipes={myRecipes}

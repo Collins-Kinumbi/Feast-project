@@ -12,6 +12,7 @@ import EditRecipe from "./pages/Edit/EditRecipe";
 import ResetPassword from "./pages/Reset Password/ResetPassword";
 import NotFound from "./pages/Not Found/NotFound";
 import { SkeletonTheme } from "react-loading-skeleton";
+import Categories from "./pages/Categories/Categories";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
             <div className="pages">
               <Routes>
                 <Route path="/" element={<Home />} />
-
+                <Route path="/categories/:category" element={<Categories />} />
                 <Route path="/search" element={<Search />} />
 
                 <Route path="/about" element={<About />} />

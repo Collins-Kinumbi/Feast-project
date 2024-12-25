@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import categoriesList from "../../utils/Categories";
 import { useState, useRef } from "react";
 
@@ -28,9 +29,13 @@ function Categories() {
       {/* Category List */}
       <div className="categories-container" ref={scrollContainerRef}>
         {categoriesList.map((category, index) => (
-          <div key={index} className="category-item">
+          <Link
+            key={index}
+            to={`/categories/${category}`}
+            className="category-item"
+          >
             {category}
-          </div>
+          </Link>
         ))}
       </div>
 

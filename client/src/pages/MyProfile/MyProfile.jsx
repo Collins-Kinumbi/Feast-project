@@ -41,7 +41,7 @@ function MyProfile() {
   return (
     <div className="profile-container">
       <div>
-        <h1>My Profile</h1>
+        <h1 className="heading">My Profile</h1>
         <ProfileCard />
       </div>
       <div className="profile-actions">

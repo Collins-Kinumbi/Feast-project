@@ -371,6 +371,11 @@ main {
   margin-bottom: 2rem;
 }
 
+.pages .heading {
+  margin-bottom: 2rem;
+  font-size: 3.4rem;
+}
+
 /* Home page */
 .home {
   display: flex;
@@ -416,8 +421,9 @@ main {
   padding: 2rem;
 }
 
-.my-recipes h1 {
-  margin-bottom: 2rem;
+/* Categories page */
+.categories-page p {
+  font-size: 2rem;
 }
 
 /* Pagination component*/

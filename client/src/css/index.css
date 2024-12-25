@@ -291,6 +291,77 @@ main {
   cursor: pointer;
 }
 
+/* Category component */
+.category-carousel {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--white);
+  padding: 1rem 2.4rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.categories-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.categories-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.category-item {
+  white-space: nowrap;
+  padding: 1rem 1.5rem;
+  background-color: var(--lightGray);
+  border-radius: 2rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-item:hover {
+  background-color: var(--btnColor);
+  color: var(--white);
+}
+
+.arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #333;
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow-btn.left {
+  left: 0;
+}
+
+.arrow-btn.right {
+  right: 0;
+}
+
+.arrow-btn:hover {
+  opacity: 0.9;
+}
+
 /* Pages */
 .pages {
   max-width: 140rem;

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Recipe from "../../components/Recipe/Recipe";
 import Pagination from "../../components/Pagination/Pagination";
+import Categories from "../../components/Categories/Categories";
 
 function Home() {
   const [recipes, setRecipes] = useState([]);
@@ -47,6 +48,7 @@ function Home() {
   return (
     <>
       <div className="home">
+        <Categories />
         <Link to="/create" className="create">
           <span>+</span> Create
         </Link>

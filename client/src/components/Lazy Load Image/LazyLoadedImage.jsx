@@ -8,7 +8,7 @@ function LazyLoadedImage({ src, alt, className }) {
         src={src || "images/placeholder/placeholder.jpg"}
         alt={alt}
         loading="lazy"
-        className={`lazy-image ${isLoaded ? "loaded" : "loading"} ${className}`}
+        className={`lazy-image ${isLoaded ? "loaded" : ""} ${className}`}
         onLoad={() => setIsLoaded(true)}
       />
     </div>

@@ -5,40 +5,50 @@ import asyncErrorHandler from "../../Utils/asyncErrorHandler.js";
 
 // Route handlers
 export const getRecipes = asyncErrorHandler(async (req, res, next) => {
+  // Create an ApiFeatures instance and apply features
   const features = new ApiFeatures(Recipe.find(), req.query)
     .filter()
     .sort()
     .limitFields()
-    .paginate()
     .search()
     .category();
 
-  // console.log(features);
+  // Count recipes after filtering but before pagination
+  const filteredRecipeCount = await features.queryObj.clone().countDocuments();
 
-  const { queryObj: query } = features;
+  // Apply pagination after filtering
+  features.paginate();
+  const recipes = await features.queryObj;
 
-  const recipes = await query;
-
-  const recipeCount = await Recipe.countDocuments();
+  // Total pages calculation
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
-  const skip = (page - 1) * limit;
+  const totalPages = Math.ceil(filteredRecipeCount / limit);
 
-  if (req.query.page && skip >= recipeCount) {
-    return res.status(404).json({
-      status: "Failed!",
-      message: "Page not found!",
+  // If results are empty, return success with an empty array
+  if (recipes.length === 0) {
+    return res.status(200).json({
+      status: "Success!",
+      page,
+      items: 0, // Items on this page
+      totalPages, // Total pages for the filtered query
+      itemsPerPage: limit,
+      totalItems: filteredRecipeCount,
+      requestedAt: new Date().toISOString(),
+      data: {
+        recipes: [],
+      },
     });
   }
 
-  // Successfull
+  // Otherwise, return results
   res.status(200).json({
     status: "Success!",
-    page, // Current page
-    items: recipes.length, // total Items on this page
-    totalPages: Math.ceil(recipeCount / limit), // Total pages
-    itemsPerPage: limit, // Items per page
-    totalItems: recipeCount, // Total recipes
+    page,
+    items: recipes.length,
+    totalPages,
+    itemsPerPage: limit,
+    totalItems: filteredRecipeCount,
     requestedAt: new Date().toISOString(),
     data: {
       recipes,

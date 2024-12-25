@@ -544,6 +544,16 @@ main {
 }
 
 /* Search page*/
+.search-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 65vh;
+}
+
+.search-page .content {
+  flex: 1;
+}
+
 .search-form {
   padding: 2rem;
   padding-left: 0;

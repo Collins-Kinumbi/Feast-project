@@ -3,9 +3,10 @@ import { authContext } from "../../contexts/Auth/authContext";
 import UpdateDetailsForm from "../../components/Update Details Form/UpdateDetailsForm";
 import UpdatePasswordForm from "../../components/Update Password Form/UpdatePasswordForm";
 import UpdateAvatarForm from "../../components/Update Avatar Form/UpdateAvatarForm";
+import ProfileCard from "../../components/Profile card/ProfileCard";
 
 function MyProfile() {
-  const { user, logout } = useContext(authContext);
+  const { logout } = useContext(authContext);
   const [showUpdateDetails, setShowUpdateDetails] = useState(false);
   const [showUpdatePassword, setShowUpdatePassword] = useState(false);
   const [showUpdateAvatar, setShowUpdateAvatar] = useState(false);
@@ -41,24 +42,7 @@ function MyProfile() {
     <div className="profile-container">
       <div>
         <h1>My Profile</h1>
-        <div className="profile-card">
-          <div>
-            {user.avatar && (
-              <img src={user.avatar} alt="User Avatar" className="avatar" />
-            )}
-          </div>
-          <div>
-            <p>
-              <strong>Username:</strong> {user.username}
-            </p>
-            <p>
-              <strong>Bio:</strong> {user.bio || "No bio added yet."}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-          </div>
-        </div>
+        <ProfileCard />
       </div>
       <div className="profile-actions">
         {/* Upload/Update Avatar */}

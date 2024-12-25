@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import formatDate from "../../utils/Date";
 import RecipeCard from "../skeletons/Recipe/RecipeCard";
 import UsernameCard from "../Username/UsernameCard";
+import LazyLoadedImage from "../Lazy Load Image/LazyLoadedImage";
 
 function Recipe({
   recipes,
@@ -31,7 +32,8 @@ function Recipe({
                   <RecipeCard />
                 ) : (
                   <>
-                    <img src={recipe.image} alt={recipe.name} />
+                    <LazyLoadedImage src={recipe.image} alt={recipe.name} />
+
                     <div className="content">
                       <p className="uploaded-on">
                         Uploaded on: <span>{formatDate(recipe.createdAt)}</span>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import formatDate from "../../utils/Date";
 import UsernameCard from "../../components/Username/UsernameCard";
+import LazyLoadedImage from "../../components/Lazy Load Image/LazyLoadedImage";
 
 function RecipeDetails() {
   const { id } = useParams(); // Get id from URL
@@ -40,7 +41,7 @@ function RecipeDetails() {
       {recipe && (
         <div className="recipe-container">
           <div>
-            <img src={recipe.image} alt={recipe.name} />
+            <LazyLoadedImage src={recipe.image} alt={recipe.name} />
           </div>
           <div className="content">
             <h1>{recipe.name}</h1>

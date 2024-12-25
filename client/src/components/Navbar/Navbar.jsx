@@ -6,6 +6,7 @@ import Profile from "../Modals/Profile/Profile";
 import { modalContext } from "../../contexts/Modal/modalContext";
 import { authContext } from "../../contexts/Auth/authContext";
 import ForgotPassword from "../Modals/Forgot Password/ForgotPassword";
+import LazyLoadedImage from "../Lazy Load Image/LazyLoadedImage";
 
 function Navbar() {
   const { openModal, toggleModal } = useContext(modalContext);
@@ -33,7 +34,7 @@ function Navbar() {
           ) : user ? (
             <p onClick={() => toggleModal("profile")}>
               {user.avatar ? (
-                <img
+                <LazyLoadedImage
                   className="nav-avatar"
                   src={user.avatar}
                   alt={user.username}

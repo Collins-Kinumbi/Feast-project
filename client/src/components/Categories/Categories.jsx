@@ -3,6 +3,7 @@ import categoriesList from "../../utils/Categories";
 import { useState, useRef } from "react";
 
 function Categories() {
+  // eslint-disable-next-line
   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollContainerRef = useRef(null);
 

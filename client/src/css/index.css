@@ -152,6 +152,10 @@ main {
   font-size: 1.8rem;
 }
 
+.modal {
+  z-index: 10;
+}
+
 .modal,
 .overlay {
   width: 100vw;

@@ -23,7 +23,9 @@ function ModalContextProvider({ children }) {
   }
 
   return (
-    <modalContext.Provider value={{ openModal, toggleModal, closeModal }}>
+    <modalContext.Provider
+      value={{ openModal, toggleModal, closeModal, setOpenModal }}
+    >
       {children}
     </modalContext.Provider>
   );

@@ -2,7 +2,7 @@
   width: 100%;
   height: auto;
   transition: filter 0.3s ease, opacity 0.3s ease;
-  filter: blur(10px);
+  filter: blur(1rem);
   opacity: 0.5;
 }
 

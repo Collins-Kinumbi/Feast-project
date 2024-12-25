@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
 import Recipe from "../../components/Recipe/Recipe";
 
@@ -7,7 +8,8 @@ function MyRecipes() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get("page")) || 1; // Get current page from URL
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
@@ -28,9 +30,7 @@ function MyRecipes() {
         const data = await response.json();
 
         setMyRecipes(data.data.recipes);
-        // console.log(data.data.recipes);
         setTotalPages(data.totalPages);
-        // console.log(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -42,7 +42,7 @@ function MyRecipes() {
   }, [currentPage]);
 
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
+    setSearchParams({ page: newPage }); // Update URL with new page number
   };
 
   const deleteRecipe = async (id) => {
@@ -62,7 +62,7 @@ function MyRecipes() {
         throw new Error("Failed to delete recipe");
       }
 
-      //state to manage recipes in the UI
+      // Update recipes in the UI
       setMyRecipes((prevRecipes) =>
         prevRecipes.filter((recipe) => recipe._id !== id)
       );

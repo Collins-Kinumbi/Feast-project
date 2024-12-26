@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Recipe from "../../components/Recipe/Recipe";
 import Pagination from "../../components/Pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
+import SearchForm from "../../components/Search Form/SearchForm";
 
 function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -80,22 +81,12 @@ function Search() {
   return (
     <div className="search-page">
       <div className="content">
-        <form className="search-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            required
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="field"
-          />
-          <input
-            type="submit"
-            value="Search"
-            className="button"
-            disabled={isLoading}
-          />
-        </form>
+        <SearchForm
+          searchTerm={searchTerm}
+          onSearchTermChange={setSearchTerm}
+          onSubmit={handleSubmit}
+          isLoading={isLoading}
+        />
 
         {isLoading && <p className="loading">Searching...</p>}
         {error && <p className="error">{error}</p>}

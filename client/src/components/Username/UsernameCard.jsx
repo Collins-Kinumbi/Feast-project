@@ -1,6 +1,6 @@
 import useFetchUsername from "../../Hooks/Fetch Username/useFetchUsername";
 
-function UsenameCard({ userId }) {
+function UsernameCard({ userId }) {
   const { username } = useFetchUsername(userId);
   return (
     <p className="user">
@@ -9,4 +9,4 @@ function UsenameCard({ userId }) {
   );
 }
 
-export default UsenameCard;
+export default UsernameCard;

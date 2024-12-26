@@ -1,0 +1,32 @@
+.recipe-details-skeleton {
+  background-color: var(--white);
+  padding: 3rem 2rem;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  max-width: 70rem;
+  width: 100%;
+}
+
+.recipe-details-skeleton .content {
+  margin-top: 2rem;
+  /* width: 40rem; */
+}
+
+.recipe-details-skeleton .name {
+  width: 40rem;
+}
+
+.recipe-details-skeleton .categories {
+  margin: 2rem 0;
+  width: 20rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.recipe-details-skeleton .skeleton-wrapper {
+  flex: 1;
+}
+
+.recipe-details-skeleton .ingredients {
+  width: 30rem;
+}

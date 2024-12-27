@@ -7,6 +7,7 @@ import { modalContext } from "../../contexts/Modal/modalContext";
 import { authContext } from "../../contexts/Auth/authContext";
 import ForgotPassword from "../Modals/Forgot Password/ForgotPassword";
 import LazyLoadedImage from "../Lazy Load Image/LazyLoadedImage";
+import Feedback from "../Modals/Feedback/Feedback";
 
 function Navbar() {
   const { openModal, toggleModal } = useContext(modalContext);
@@ -62,6 +63,7 @@ function Navbar() {
       {openModal === "forgotPassoword" && <ForgotPassword />}
       {openModal === "signup" && <Signup />}
       {openModal === "profile" && <Profile />}
+      {openModal === "feedback" && <Feedback />}
     </header>
   );
 }

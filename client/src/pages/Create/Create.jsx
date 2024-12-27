@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import categoriesList from "../../utils/Categories";
 import RecipeForm from "../../components/Recipe Form/RecipeForm";
+import { modalContext } from "../../contexts/Modal/modalContext";
 
 function CreateRecipe() {
+  const { toggleModal } = useContext(modalContext);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -58,9 +60,17 @@ function CreateRecipe() {
         throw new Error(data.message);
       }
 
-      alert("Recipe created successfully!");
-    } catch (error) {
-      console.error("Error creating recipe:", error.message);
+      toggleModal("feedback", {
+        title: "Success",
+        message: "Recipe created successfully!",
+        class: "success",
+      });
+    } catch (err) {
+      toggleModal("feedback", {
+        title: "Error",
+        message: `Failed to create recipe: ${err.message}`,
+        class: "error",
+      });
     }
   }
 

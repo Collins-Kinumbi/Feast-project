@@ -20,54 +20,53 @@ function Login() {
           <button className="close-modal" onClick={onClose}>
             X
           </button>
-          <div className="form-content">
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="email"
-                required
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
 
-              <input
-                type="password"
-                required
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {error && <p className="error">{error}</p>}
-              <button type="submit" className="button" disabled={isLoading}>
-                {isLoading ? "Logging in..." : "Login"}
-              </button>
+          <h2>Login</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              required
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-              <div className="queries">
-                <p className="forgot-password">
-                  Forgot{" "}
-                  <span
-                    onClick={() => {
-                      toggleModal("forgotPassoword");
-                    }}
-                  >
-                    Password?
-                  </span>
-                </p>
+            <input
+              type="password"
+              required
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {error && <p className="error">{error}</p>}
+            <button type="submit" className="button" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
+            </button>
 
-                <p className="no-account">
-                  Don't have an account?{" "}
-                  <span
-                    onClick={() => {
-                      toggleModal("signup");
-                    }}
-                  >
-                    Sign up
-                  </span>
-                </p>
-              </div>
-            </form>
-          </div>
+            <div className="queries">
+              <p className="forgot-password">
+                Forgot{" "}
+                <span
+                  onClick={() => {
+                    toggleModal("forgotPassoword");
+                  }}
+                >
+                  Password?
+                </span>
+              </p>
+
+              <p className="no-account">
+                Don't have an account?{" "}
+                <span
+                  onClick={() => {
+                    toggleModal("signup");
+                  }}
+                >
+                  Sign up
+                </span>
+              </p>
+            </div>
+          </form>
         </div>
       </div>
     </>

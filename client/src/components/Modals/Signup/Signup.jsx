@@ -25,44 +25,43 @@ function Signup() {
           <button className="close-modal" onClick={onClose}>
             X
           </button>
-          <div className="form-content">
-            <h2>Sign up</h2>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="email"
-                required
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <input
-                type="text"
-                required
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
 
-              <input
-                type="password"
-                required
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <input
-                type="password"
-                required
-                placeholder="Confirm password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-              {error && <p className="error">{error}</p>}
-              <button type="submit" className="button" disabled={isLoading}>
-                {isLoading ? "Signing up..." : "Sign up"}
-              </button>
-            </form>
-          </div>
+          <h2>Sign up</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              required
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="text"
+              required
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+
+            <input
+              type="password"
+              required
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              required
+              placeholder="Confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            {error && <p className="error">{error}</p>}
+            <button type="submit" className="button" disabled={isLoading}>
+              {isLoading ? "Signing up..." : "Sign up"}
+            </button>
+          </form>
         </div>
       </div>
     </>

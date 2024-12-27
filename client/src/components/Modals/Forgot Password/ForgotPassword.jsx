@@ -54,23 +54,21 @@ function ForgotPassword() {
         <button className="close-modal" onClick={onClose}>
           X
         </button>
-        <div className="form-content">
-          <h2>Forgot password</h2>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              required
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            {error && <p className="error">{error}</p>}
-            {success && <p className="success">{success}</p>}
-            <button type="submit" className="button" disabled={isLoading}>
-              {isLoading ? "Sending..." : "Send"}
-            </button>
-          </form>
-        </div>
+        <h2>Forgot password</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            required
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {error && <p className="error">{error}</p>}
+          {success && <p className="success">{success}</p>}
+          <button type="submit" className="button" disabled={isLoading}>
+            {isLoading ? "Sending..." : "Send"}
+          </button>
+        </form>
       </div>
     </div>
   );

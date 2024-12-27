@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import categoriesList from "../../utils/Categories";
 import RecipeForm from "../../components/Recipe Form/RecipeForm";
 import { useParams } from "react-router-dom";
+import { modalContext } from "../../contexts/Modal/modalContext";
 
 function EditRecipe() {
+  const { toggleModal } = useContext(modalContext);
+
   const { id } = useParams();
   const [formData, setFormData] = useState(null);
   const [image, setImage] = useState(null);
@@ -30,6 +33,11 @@ function EditRecipe() {
         setFormData(data.data.recipe);
       } catch (err) {
         setError(err.message);
+        toggleModal("feedback", {
+          title: "Error",
+          message: `${err.message}`,
+          class: "error",
+        });
       } finally {
         setLoading(false);
       }
@@ -78,10 +86,17 @@ function EditRecipe() {
         throw new Error(data.message || "Failed to update recipe");
       }
 
-      alert("Recipe updated successfully!");
+      toggleModal("feedback", {
+        title: "Success",
+        message: "Recipe updated successfully!",
+        class: "success",
+      });
     } catch (err) {
-      console.error("Error updating recipe:", err.message);
-      alert("Error updating recipe: " + err.message);
+      toggleModal("feedback", {
+        title: "Error",
+        message: `Failed to update recipe: ${err.message}`,
+        class: "error",
+      });
     }
   };
 

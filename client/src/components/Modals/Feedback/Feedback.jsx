@@ -18,15 +18,25 @@ function Feedback() {
         <p className={`message ${modalContent.class}`}>
           {modalContent.message || ""}
         </p>
-        {modalContent.actions?.map((action, idx) => (
-          <button
-            key={idx}
-            className="button"
-            onClick={action.onClick || closeModal}
-          >
-            {action.label}
+
+        {/* Render dynamic actions */}
+        {modalContent.actions ? (
+          <div className="modal-actions">
+            {modalContent.actions.map((action, idx) => (
+              <button
+                key={idx}
+                className="button"
+                onClick={action.onClick || closeModal}
+              >
+                {action.label}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <button className="button" onClick={closeModal}>
+            Close
           </button>
-        ))}
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { authContext } from "../../contexts/Auth/authContext";
+import { modalContext } from "../../contexts/Modal/modalContext";
 import UpdateDetailsForm from "../../components/Update Details Form/UpdateDetailsForm";
 import UpdatePasswordForm from "../../components/Update Password Form/UpdatePasswordForm";
 import UpdateAvatarForm from "../../components/Update Avatar Form/UpdateAvatarForm";
@@ -7,35 +8,58 @@ import ProfileCard from "../../components/Profile card/ProfileCard";
 
 function MyProfile() {
   const { logout } = useContext(authContext);
+  const { toggleModal } = useContext(modalContext);
   const [showUpdateDetails, setShowUpdateDetails] = useState(false);
   const [showUpdatePassword, setShowUpdatePassword] = useState(false);
   const [showUpdateAvatar, setShowUpdateAvatar] = useState(false);
 
   const handleDeactivateAccount = async () => {
-    const confimDeactivate = window.confirm(
-      "Are you sure you want to Deactivate your account? You can login again to reactive it."
-    );
-    if (confimDeactivate) {
-      try {
-        const response = await fetch(
-          "http://localhost:4000/api/v1/users/deleteAccount",
-          {
-            method: "DELETE",
-            credentials: "include", // to send cookies
-          }
-        );
-        const data = await response.json();
-        if (data.status === "Success!") {
-          alert("Your account has been deactivated successfully.");
-          logout();
-        } else {
-          alert("Failed to deactivate account.");
-        }
-      } catch (error) {
-        console.error("Error deactivate account:", error);
-        alert("Something went wrong while deactivating the account.");
-      }
-    }
+    toggleModal("feedback", {
+      title: "Confirm Deactivation",
+      message:
+        "Are you sure you want to deactivate your account? You can log in again to reactivate it.",
+      actions: [
+        {
+          label: "Cancel",
+          onClick: () => toggleModal(null), // Close modal
+        },
+        {
+          label: "Deactivate",
+          onClick: async () => {
+            try {
+              const response = await fetch(
+                "http://localhost:4000/api/v1/users/deleteAccount",
+                {
+                  method: "DELETE",
+                  credentials: "include", // to send cookies
+                }
+              );
+              const data = await response.json();
+              if (data.status === "Success!") {
+                toggleModal("feedback", {
+                  title: "Success",
+                  message: "Your account has been deactivated successfully.",
+                });
+                logout();
+              } else {
+                toggleModal("feedback", {
+                  title: "Error",
+                  message: "Failed to deactivate account.",
+                  class: "error",
+                });
+              }
+            } catch (error) {
+              console.error("Error deactivating account:", error);
+              toggleModal("feedback", {
+                title: "Error",
+                message: "Something went wrong while deactivating the account.",
+                class: "error",
+              });
+            }
+          },
+        },
+      ],
+    });
   };
 
   return (
@@ -45,7 +69,6 @@ function MyProfile() {
         <ProfileCard />
       </div>
       <div className="profile-actions">
-        {/* Upload/Update Avatar */}
         <button onClick={() => setShowUpdateAvatar(!showUpdateAvatar)}>
           Upload Avatar
         </button>
@@ -53,7 +76,6 @@ function MyProfile() {
           <UpdateAvatarForm closeForm={() => setShowUpdateAvatar(false)} />
         )}
 
-        {/* Update details */}
         <button onClick={() => setShowUpdateDetails(!showUpdateDetails)}>
           Edit Profile
         </button>
@@ -61,7 +83,6 @@ function MyProfile() {
           <UpdateDetailsForm closeForm={() => setShowUpdateDetails(false)} />
         )}
 
-        {/* Update password */}
         <button onClick={() => setShowUpdatePassword(!showUpdatePassword)}>
           Update Password
         </button>
@@ -69,7 +90,6 @@ function MyProfile() {
           <UpdatePasswordForm closeForm={() => setShowUpdatePassword(false)} />
         )}
 
-        {/* Deactivate account */}
         <button className="delete-btn" onClick={handleDeactivateAccount}>
           Deactivate Account
         </button>

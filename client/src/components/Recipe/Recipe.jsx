@@ -3,6 +3,8 @@ import formatDate from "../../utils/Date";
 import RecipeCard from "../skeletons/Recipe/RecipeCard";
 import UsernameCard from "../Username/UsernameCard";
 import LazyLoadedImage from "../Lazy Load Image/LazyLoadedImage";
+import { modalContext } from "../../contexts/Modal/modalContext";
+import { useContext } from "react";
 
 function Recipe({
   recipes,
@@ -11,14 +13,29 @@ function Recipe({
   showActions = false,
   onDelete = null,
 }) {
+  const { toggleModal } = useContext(modalContext);
+
   const handleDelete = (recipe) => {
     if (!onDelete) return;
-    const confirmed = window.confirm(
-      `Are you sure you want to delete the recipe "${recipe.name}"?`
-    );
-    if (confirmed) {
-      onDelete(recipe._id);
-    }
+
+    // Use Feedback modal for confirmation
+    toggleModal("feedback", {
+      title: "Confirm Deletion",
+      message: `Are you sure you want to delete the recipe "${recipe.name}"?`,
+      actions: [
+        {
+          label: "Cancel",
+          onClick: () => toggleModal(null), // Close the modal
+        },
+        {
+          label: "Delete",
+          onClick: () => {
+            toggleModal(null); // Close the modal
+            onDelete(recipe._id); // Perform the delete action
+          },
+        },
+      ],
+    });
   };
 
   return (

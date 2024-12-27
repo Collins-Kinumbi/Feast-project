@@ -243,6 +243,40 @@ main {
   margin-bottom: 2rem;
 }
 
+/* Feedback modal */
+.feedback hr {
+  margin-bottom: 2rem;
+}
+
+.feedback h2.success {
+  color: var(--success);
+}
+
+.feedback h2.error {
+  color: var(--red);
+}
+
+.feedback .message {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.feedback .actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedback .actions button {
+  padding: 1rem 2rem;
+}
+
+.feedback .actions .deactivate-btn,
+.feedback .actions .delete {
+  background-color: var(--red);
+  color: var(--white);
+}
+
 /* Profile modal */
 .profile-modal {
   position: absolute;

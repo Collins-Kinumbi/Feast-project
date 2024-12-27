@@ -29,6 +29,7 @@ function Recipe({
         },
         {
           label: "Delete",
+          className: "delete",
           onClick: () => {
             toggleModal(null); // Close the modal
             onDelete(recipe._id); // Perform the delete action

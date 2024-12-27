@@ -63,13 +63,13 @@ function CreateRecipe() {
       toggleModal("feedback", {
         title: "Success",
         message: "Recipe created successfully!",
-        class: "success",
+        className: "success",
       });
     } catch (err) {
       toggleModal("feedback", {
         title: "Error",
         message: `Failed to create recipe: ${err.message}`,
-        class: "error",
+        className: "error",
       });
     }
   }

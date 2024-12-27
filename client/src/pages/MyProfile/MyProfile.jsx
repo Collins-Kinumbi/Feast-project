@@ -25,6 +25,7 @@ function MyProfile() {
         },
         {
           label: "Deactivate",
+          className: "deactivate-btn",
           onClick: async () => {
             try {
               const response = await fetch(

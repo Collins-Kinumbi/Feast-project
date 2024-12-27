@@ -7,7 +7,7 @@ function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { signup, isLoading, error } = useContext(authContext);
+  const { signup, isLoading, signupError } = useContext(authContext);
   const { closeModal: onClose } = useContext(modalContext);
 
   function handleSubmit(e) {
@@ -57,8 +57,8 @@ function Signup() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            {error && <p className="error">{error}</p>}
-            <button type="submit" className="button" disabled={isLoading}>
+            {signupError && <p className="error">{signupError}</p>}
+            <button type="submit" disabled={isLoading} className="sign-up-btn">
               {isLoading ? "Signing up..." : "Sign up"}
             </button>
           </form>

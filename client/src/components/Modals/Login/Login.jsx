@@ -6,7 +6,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { closeModal: onClose, toggleModal } = useContext(modalContext);
-  const { login, isLoading, error } = useContext(authContext);
+  const { login, isLoading, loginError } = useContext(authContext);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -38,33 +38,36 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {error && <p className="error">{error}</p>}
-            <button type="submit" className="button" disabled={isLoading}>
+            {loginError && <p className="error">{loginError}</p>}
+            <button type="submit" disabled={isLoading}>
               {isLoading ? "Logging in..." : "Login"}
             </button>
 
             <div className="queries">
-              <p className="forgot-password">
-                Forgot{" "}
-                <span
-                  onClick={() => {
-                    toggleModal("forgotPassoword");
-                  }}
-                >
-                  Password?
-                </span>
-              </p>
-
-              <p className="no-account">
-                Don't have an account?{" "}
-                <span
-                  onClick={() => {
-                    toggleModal("signup");
-                  }}
-                >
-                  Sign up
-                </span>
-              </p>
+              <div>
+                <p className="forgot-password">
+                  Forgot{" "}
+                  <span
+                    onClick={() => {
+                      toggleModal("forgotPassoword");
+                    }}
+                  >
+                    Password?
+                  </span>
+                </p>
+              </div>
+              <div>
+                <p className="no-account">
+                  Don't have an account?{" "}
+                  <span
+                    onClick={() => {
+                      toggleModal("signup");
+                    }}
+                  >
+                    Sign up
+                  </span>
+                </p>
+              </div>
             </div>
           </form>
         </div>

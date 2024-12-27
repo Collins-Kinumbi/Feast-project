@@ -5,7 +5,9 @@ export const authContext = createContext();
 function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loginError, setLoginError] = useState(null);
+  const [signupError, setSignupError] = useState(null);
+
   const { closeModal } = useContext(modalContext);
 
   // Persistent login
@@ -40,7 +42,7 @@ function AuthContextProvider({ children }) {
 
   // Login
   async function login(email, password) {
-    setError(null); //Reset any existing errors
+    setLoginError(null); //Reset any existing errors
     setIsLoading(true);
     try {
       const response = await fetch("http://localhost:4000/api/v1/auth/login", {
@@ -64,8 +66,8 @@ function AuthContextProvider({ children }) {
       setUser(user);
       closeModal();
     } catch (error) {
-      console.log(error);
-      setError(error.message);
+      // console.log(error);
+      setLoginError(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -73,7 +75,7 @@ function AuthContextProvider({ children }) {
 
   // Signup
   async function signup(email, username, password, confirmPassword) {
-    setError(null);
+    setSignupError(null);
     setIsLoading(true);
     const userData = {
       email,
@@ -103,7 +105,7 @@ function AuthContextProvider({ children }) {
       closeModal();
     } catch (error) {
       // console.log(error);
-      setError(error.message);
+      setSignupError(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -130,7 +132,16 @@ function AuthContextProvider({ children }) {
   }
   return (
     <authContext.Provider
-      value={{ user, setUser, isLoading, error, login, signup, logout }}
+      value={{
+        user,
+        setUser,
+        isLoading,
+        loginError,
+        signupError,
+        login,
+        signup,
+        logout,
+      }}
     >
       {children}
     </authContext.Provider>

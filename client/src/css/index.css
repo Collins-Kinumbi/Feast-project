@@ -69,6 +69,7 @@ main {
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--red);
+  text-align: center;
 }
 
 /* Navbar */
@@ -146,13 +147,6 @@ main {
 }
 
 /* Modals */
-.btn-modal {
-  padding: 1rem 2rem;
-  display: block;
-  margin: 10rem auto 0;
-  font-size: 1.8rem;
-}
-
 .modal {
   z-index: 10;
 }
@@ -192,16 +186,6 @@ main {
   margin-bottom: 2rem;
 }
 
-.modal-content .message {
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: 550;
-}
-
-.modal-content .message .error {
-  color: var(--red);
-}
-
 .close-modal {
   padding: 0.5rem 0.7rem;
   align-self: end;
@@ -227,31 +211,12 @@ main {
   border-radius: 0.4rem;
 }
 
-.modal .success {
-  font-weight: 600;
-  color: var(--success);
-}
-.modal .modal-content .success,
-.modal .modal-content .error {
-  font-size: 2rem;
-  text-align: center;
-}
-
-.modal .modal-content .error {
-  color: var(--red);
-}
-
 .modal form button[type="submit"] {
-  background-color: var(--btnColor);
   padding: 1rem;
-  font-size: 1.8rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
 }
 
 .modal form button[type="submit"]:disabled {
-  background-color: #ccc;
+  background-color: var(--darkGray);
   cursor: not-allowed;
 }
 
@@ -260,8 +225,12 @@ main {
   font-size: 1.4rem;
 }
 
-.modal form .queries p {
+.modal form .queries div {
   margin-bottom: 2rem;
+}
+
+.modal form .queries p {
+  display: inline;
 }
 
 .modal form .queries p span {

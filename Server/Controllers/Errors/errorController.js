@@ -44,7 +44,7 @@ function validationError(error) {
   const errors = Object.values(error.errors).map((value) => {
     return value.message;
   });
-  const message = `Invalid input data: ${errors.join(". ")}`;
+  const message = `${errors.join(". ")}`;
 
   return new CustomError(message, 400);
 }

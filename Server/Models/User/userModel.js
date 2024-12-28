@@ -23,11 +23,9 @@ const userSchema = new mongoose.Schema(
     avatar: {
       url: {
         type: String,
-        required: [true, "Image URL is required!"],
       },
       publicId: {
         type: String,
-        required: [true, "Image public ID is required!"],
       },
     },
     bio: {

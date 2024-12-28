@@ -33,10 +33,19 @@ function invalidId(error) {
 
 // Duplicate unique key error handler
 function duplicateKey(error) {
-  const name = error.keyValue.name;
-  const message = `Sorry there is already a recipe with the name: ${name}, please try another name...`;
+  let name = error.keyValue.name;
+  let email = error.keyValue.email;
+  let username = error.keyValue.username;
+  if (name) {
+    let message = `Sorry there is already a recipe with the name: ${name}, please try another name...`;
 
-  return new CustomError(message, 400);
+    return new CustomError(message, 400);
+  }
+  if (email || username) {
+    let message = `Sorry ${email || username} is already in use...`;
+
+    return new CustomError(message, 400);
+  }
 }
 
 // Mongoose validation error handler

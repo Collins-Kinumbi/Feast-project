@@ -2,6 +2,7 @@ import Recipe from "../../Models/Recipe/recipeModel.js";
 import ApiFeatures from "../../Utils/apiFeatures.js";
 import CustomError from "../../Utils/CustomError.js";
 import asyncErrorHandler from "../../Utils/asyncErrorHandler.js";
+import cloudinary from "cloudinary";
 
 // Route handlers
 export const getRecipes = asyncErrorHandler(async (req, res, next) => {
@@ -140,29 +141,39 @@ export const addRecipe = asyncErrorHandler(async function (req, res, next) {
     servingYield,
   } = req.body;
 
-  // Cloudinary image URL
-  const imageUrl = req.file.path;
+  // Cloudinary image info
+  const imageUrl = req.file.path; //Img url
+  const publicId = req.file.filename; // Unique ID used for cleanup
 
-  const recipe = await Recipe.create({
-    name,
-    image: imageUrl,
-    description,
-    nutrition,
-    ingredients,
-    instructions,
-    categories,
-    serving,
-    servingYield,
-    user: req.user._id, //Associate recipe with user's ID
-  });
+  try {
+    const recipe = await Recipe.create({
+      name,
+      image: imageUrl,
+      description,
+      nutrition,
+      ingredients,
+      instructions,
+      categories,
+      serving,
+      servingYield,
+      user: req.user._id, //Associate recipe with user's ID
+    });
 
-  // Successfull
-  res.status(200).json({
-    status: "Success!",
-    data: {
-      recipe,
-    },
-  });
+    // Successfull
+    res.status(200).json({
+      status: "Success!",
+      data: {
+        recipe,
+      },
+    });
+  } catch (error) {
+    // Cleanup the uploaded image if an error occurs
+    if (publicId) {
+      await cloudinary.v2.uploader.destroy(publicId); // Remove the image
+    }
+
+    next(error);
+  }
 });
 
 export const updateRecipe = asyncErrorHandler(async function (req, res, next) {

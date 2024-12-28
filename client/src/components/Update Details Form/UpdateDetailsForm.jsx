@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { modalContext } from "../../contexts/Modal/modalContext";
 
 function UpdateDetailsForm({ closeForm }) {
+  const { toggleModal } = useContext(modalContext);
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
@@ -25,11 +28,19 @@ function UpdateDetailsForm({ closeForm }) {
         alert(`${field.charAt(0).toUpperCase() + field.slice(1)} updated!`);
         window.location.reload(); // Refresh to reflect changes
       } else {
-        alert(`Failed to update ${field}.`);
+        toggleModal("feedback", {
+          title: "Error",
+          message: `Failed to update ${field}. ${data.message}`,
+          className: "error",
+        });
       }
     } catch (error) {
-      console.error(`Error updating ${field}:`, error);
-      alert(`Something went wrong while updating the ${field}.`);
+      // console.error(`Error updating ${field}:`, error);
+      toggleModal("feedback", {
+        title: "Error",
+        message: `Something went wrong while updating the ${field}.`,
+        className: "error",
+      });
     } finally {
       setLoading(false);
     }

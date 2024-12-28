@@ -14,37 +14,41 @@ function EditRecipe() {
   const [error, setError] = useState(null);
 
   // Fetch Recipe Data
-  useEffect(() => {
-    const fetchRecipe = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:4000/api/v1/recipes/${id}`,
-          {
-            method: "GET",
-            credentials: "include",
+  useEffect(
+    () => {
+      const fetchRecipe = async () => {
+        try {
+          const response = await fetch(
+            `http://localhost:4000/api/v1/recipes/${id}`,
+            {
+              method: "GET",
+              credentials: "include",
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch recipe");
           }
-        );
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch recipe");
+          const data = await response.json();
+          setFormData(data.data.recipe);
+        } catch (err) {
+          setError(err.message);
+          toggleModal("feedback", {
+            title: "Error",
+            message: `${err.message}`,
+            class: "error",
+          });
+        } finally {
+          setLoading(false);
         }
+      };
 
-        const data = await response.json();
-        setFormData(data.data.recipe);
-      } catch (err) {
-        setError(err.message);
-        toggleModal("feedback", {
-          title: "Error",
-          message: `${err.message}`,
-          class: "error",
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRecipe();
-  }, [id]);
+      fetchRecipe();
+    },
+    // eslint-disable-next-line
+    [id]
+  );
 
   // Handle Form Submit
   const handleSubmit = async (e) => {

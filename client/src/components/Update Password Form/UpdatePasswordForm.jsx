@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { modalContext } from "../../contexts/Modal/modalContext";
 
 function UpdatePasswordForm({ closeForm }) {
+  const { toggleModal } = useContext(modalContext);
+
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -8,6 +11,10 @@ function UpdatePasswordForm({ closeForm }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (newPassword !== confirmNewPassword) {
+        throw new Error("New password and confirm new password do not match!");
+      }
+
       const response = await fetch(
         "http://localhost:4000/api/v1/users/updatePassword",
         {
@@ -24,14 +31,25 @@ function UpdatePasswordForm({ closeForm }) {
       const data = await response.json();
 
       if (data.status === "Success!") {
-        alert("Password updated successfully!");
+        toggleModal("feedback", {
+          title: "Success",
+          message: "Password updated!",
+          className: "success",
+        });
         closeForm();
       } else {
-        alert(data.message || "Failed to update password.");
+        toggleModal("feedback", {
+          title: "Error",
+          message: `${data.message}`,
+          className: "error",
+        });
       }
     } catch (error) {
-      console.error("Update password error:", error);
-      alert("Something went wrong!");
+      toggleModal("feedback", {
+        title: "Error",
+        message: `${error.message}`,
+        className: "error",
+      });
     }
   };
 

@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { modalContext } from "../../contexts/Modal/modalContext";
 
 function UpdateAvatarForm({ closeForm }) {
+  const { toggleModal } = useContext(modalContext);
+
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -29,15 +32,21 @@ function UpdateAvatarForm({ closeForm }) {
       const data = await response.json();
 
       if (data.status === "Success!") {
-        alert("Avatar updated successfully!");
         closeForm();
         window.location.reload();
       } else {
-        alert("Failed to update avatar.");
+        toggleModal("feedback", {
+          title: "Error",
+          message: "Failed to update avatar!",
+          className: "error",
+        });
       }
     } catch (error) {
-      console.error("Error uploading avatar:", error);
-      alert("Something went wrong while uploading the avatar.");
+      toggleModal("feedback", {
+        title: "Error",
+        message: `${error.message}`,
+        className: "error",
+      });
     } finally {
       setLoading(false);
     }

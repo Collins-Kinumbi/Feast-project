@@ -68,7 +68,7 @@ function CreateRecipe() {
     } catch (err) {
       toggleModal("feedback", {
         title: "Error",
-        message: `Failed to create recipe: ${err.message}`,
+        message: `${err.message}`,
         className: "error",
       });
     }

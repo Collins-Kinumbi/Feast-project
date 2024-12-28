@@ -3,6 +3,7 @@ import ApiFeatures from "../../Utils/apiFeatures.js";
 import CustomError from "../../Utils/CustomError.js";
 import asyncErrorHandler from "../../Utils/asyncErrorHandler.js";
 import cloudinary from "cloudinary";
+import { cleanupImage } from "../../Utils/cleanupImage.js";
 
 // Route handlers
 export const getRecipes = asyncErrorHandler(async (req, res, next) => {
@@ -129,7 +130,7 @@ export const getUserRecipes = asyncErrorHandler(async (req, res, next) => {
 });
 
 export const addRecipe = asyncErrorHandler(async function (req, res, next) {
-  // Create a new recipe
+  // Extract necessary fields from the request
   const {
     name,
     description,
@@ -141,14 +142,22 @@ export const addRecipe = asyncErrorHandler(async function (req, res, next) {
     servingYield,
   } = req.body;
 
-  // Cloudinary image info
-  const imageUrl = req.file.path; //Img url
-  const publicId = req.file.filename; // Unique ID used for cleanup
+  // Validate Cloudinary upload fields
+  const imageUrl = req.file?.path; // Image URL
+  const publicId = req.file?.filename; // Unique ID for cleanup
 
+  if (!imageUrl || !publicId) {
+    return next(new CustomError("Image upload failed. Please try again!", 400));
+  }
+
+  // Create a new recipe in the database
   try {
     const recipe = await Recipe.create({
       name,
-      image: imageUrl,
+      image: {
+        url: imageUrl,
+        publicId,
+      },
       description,
       nutrition,
       ingredients,
@@ -156,10 +165,10 @@ export const addRecipe = asyncErrorHandler(async function (req, res, next) {
       categories,
       serving,
       servingYield,
-      user: req.user._id, //Associate recipe with user's ID
+      user: req.user._id, // Associate recipe with the user's ID
     });
 
-    // Successfull
+    // Return a successful response
     res.status(200).json({
       status: "Success!",
       data: {
@@ -167,12 +176,9 @@ export const addRecipe = asyncErrorHandler(async function (req, res, next) {
       },
     });
   } catch (error) {
-    // Cleanup the uploaded image if an error occurs
-    if (publicId) {
-      await cloudinary.v2.uploader.destroy(publicId); // Remove the image
-    }
-
-    next(error);
+    // Cleanup uploaded image if an error occurs
+    await cleanupImage(publicId);
+    throw error; // Let the error propagate to the asyncErrorHandler
   }
 });
 
@@ -182,10 +188,9 @@ export const updateRecipe = asyncErrorHandler(async function (req, res, next) {
   // 1. Find the recipe by ID
   const recipe = await Recipe.findById(id);
 
-  // 2. Check if recipe exists
+  // 2. Check if the recipe exists
   if (!recipe) {
-    const error = new CustomError("Recipe not found!", 404);
-    return next(error);
+    return next(new CustomError("Recipe not found!", 404));
   }
 
   // 3. Check if the user is admin or owns the recipe
@@ -198,24 +203,37 @@ export const updateRecipe = asyncErrorHandler(async function (req, res, next) {
     );
   }
 
-  // 4. If an image is uploaded, update the recipe image
+  // 4. If a new image is uploaded
   if (req.file) {
-    recipe.image = req.file.path;
-    await recipe.save(); // Save the updated image to the database
+    // If an old image exists, delete it from Cloudinary
+    if (recipe.image?.publicId) {
+      await cleanupImage(recipe.image.publicId);
+    }
+
+    // Update the recipe's image field
+    recipe.image = {
+      url: req.file.path, // New image URL
+      publicId: req.file.filename, // New public ID
+    };
   }
 
-  // 5. If the formData was passed as JSON (through `req.body.data`), parse and update other fields
-  const updatedData = req.body.data ? JSON.parse(req.body.data) : {}; // Extract and parse the other fields
+  // 5. Parse and update other fields (if provided)
+  const updatedData = req.body.data ? JSON.parse(req.body.data) : {};
 
+  // 6. Update other fields in the database while preserving the updated image
   const updatedRecipe = await Recipe.findByIdAndUpdate(
     id,
-    { ...updatedData, image: recipe.image },
+    {
+      ...updatedData,
+      image: recipe.image,
+    },
     {
       new: true,
       runValidators: true,
     }
   );
-  // Return success response
+
+  // 7. Return the success response
   res.status(200).json({
     status: "Success!",
     data: {
@@ -251,7 +269,10 @@ export const deleteRecipe = asyncErrorHandler(async function (req, res, next) {
     );
   }
 
-  // 4. Proceed with deletion if authorized
+  // 4. Delete the associated image from Cloudinary
+  await cleanupImage(recipe.image.publicId);
+
+  // 5. Proceed with deletion if authorized
   await Recipe.findByIdAndDelete(id);
 
   // Successfull

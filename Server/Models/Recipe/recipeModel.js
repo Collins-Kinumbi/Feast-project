@@ -11,8 +11,14 @@ const recipeSchema = new mongoose.Schema(
       minlength: [2, "Recipe name must not be less that 2 characters long"],
     },
     image: {
-      type: String,
-      required: [true, "Image field is required!"],
+      url: {
+        type: String,
+        required: [true, "Image URL is required!"],
+      },
+      publicId: {
+        type: String,
+        required: [true, "Image public ID is required!"],
+      },
     },
     description: {
       type: String,

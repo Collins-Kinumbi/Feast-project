@@ -2,8 +2,7 @@ import User from "../../Models/User/userModel.js";
 import asyncErrorHandler from "../../Utils/asyncErrorHandler.js";
 import CustomError from "../../Utils/CustomError.js";
 import { response } from "../Auth/authController.js";
-import multer from "multer";
-import { storage } from "../../Utils/cloudinary.js";
+import { cleanupImage } from "../../Utils/cleanupImage.js";
 
 // Get all users
 export const getAllUsers = asyncErrorHandler(async function (req, res, next) {
@@ -19,31 +18,46 @@ export const getAllUsers = asyncErrorHandler(async function (req, res, next) {
 });
 
 // Update user avatar
-const upload = multer({ storage });
-
 export const updateAvatar = asyncErrorHandler(async (req, res) => {
   // Ensure an image file was uploaded
   if (!req.file) {
     return res.status(400).json({
       status: "Error",
-      message: "No file uploaded. Please upload an image.",
+      message: "Please upload an image.",
     });
   }
 
   const userId = req.user._id;
   const imageUrl = req.file.path;
+  const publicId = req.file.filename;
 
-  // Update user's avatar in the database
-  const user = await User.findByIdAndUpdate(
+  // Find the current user and check if they have an existing avatar
+  const user = await User.findById(userId);
+
+  if (!user) {
+    return res.status(404).json({
+      status: "Error",
+      message: "User not found.",
+    });
+  }
+
+  // If the user already has an avatar, clean up the old image from Cloudinary
+  if (user.avatar && user.avatar.publicId) {
+    await cleanupImage(user.avatar.publicId); // Delete old avatar
+  }
+
+  // Update user's avatar in the database with new image info
+  const updatedUser = await User.findByIdAndUpdate(
     userId,
-    { avatar: imageUrl },
+    { avatar: { url: imageUrl, publicId } },
     { new: true, runValidators: true }
   );
 
+  // Return success response with the updated avatar
   res.status(200).json({
     status: "Success!",
     message: "Avatar updated successfully.",
-    data: { avatar: user.avatar },
+    data: { avatar: updatedUser.avatar },
   });
 });
 

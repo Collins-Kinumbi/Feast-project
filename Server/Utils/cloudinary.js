@@ -11,7 +11,8 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "feast_recipes",
-    allowed_formats: ["jpeg", "png", "jpg"],
+    // allowed_formats: ["jpeg", "png", "jpg"],
+    allowed_formats: [],
   },
 });
 

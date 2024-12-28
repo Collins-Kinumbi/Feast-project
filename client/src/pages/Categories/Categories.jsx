@@ -45,22 +45,26 @@ function Categories() {
   return (
     <div className="categories-page">
       <h1 className="heading">{category} Recipes</h1>
-      {error && <p className="error">{error}</p>}
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : recipes.length > 0 ? (
-        <>
-          <Recipe recipes={recipes} loading={isLoading} />
-          <div className="pagination-container">
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
-          </div>
-        </>
-      ) : (
-        <p>OOOPS guess there are no {category} recipes yet.</p>
+      <div className="content">
+        {error && <p className="error">{error}</p>}
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : recipes.length > 0 ? (
+          <>
+            <Recipe recipes={recipes} loading={isLoading} />
+          </>
+        ) : (
+          <p>OOOPS! guess there are no {category} recipes yet.</p>
+        )}
+      </div>
+      {recipes.length > 0 && (
+        <div className="pagination-container">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </div>
       )}
     </div>
   );

@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
 import Recipe from "../../components/Recipe/Recipe";
+import { modalContext } from "../../contexts/Modal/modalContext";
 
 function MyRecipes() {
+  const { toggleModal } = useContext(modalContext);
+
   const [myRecipes, setMyRecipes] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -66,9 +69,17 @@ function MyRecipes() {
       setMyRecipes((prevRecipes) =>
         prevRecipes.filter((recipe) => recipe._id !== id)
       );
-      alert("Recipe deleted successfully");
+      toggleModal("feedback", {
+        title: "Success",
+        message: "Recipe deleted successfully",
+        className: "success",
+      });
     } catch (err) {
-      alert(err.message);
+      toggleModal("feedback", {
+        title: "Error",
+        message: err.message,
+        className: "error",
+      });
     }
   };
 

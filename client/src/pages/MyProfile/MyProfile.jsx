@@ -40,13 +40,14 @@ function MyProfile() {
                 toggleModal("feedback", {
                   title: "Success",
                   message: "Your account has been deactivated successfully.",
+                  className: "success",
                 });
                 logout();
               } else {
                 toggleModal("feedback", {
                   title: "Error",
                   message: "Failed to deactivate account.",
-                  class: "error",
+                  className: "error",
                 });
               }
             } catch (error) {
@@ -54,7 +55,7 @@ function MyProfile() {
               toggleModal("feedback", {
                 title: "Error",
                 message: "Something went wrong while deactivating the account.",
-                class: "error",
+                className: "error",
               });
             }
           },

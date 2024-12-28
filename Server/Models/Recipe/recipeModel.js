@@ -7,8 +7,8 @@ const recipeSchema = new mongoose.Schema(
       type: String,
       required: [true, "Title field is required!"],
       unique: true,
-      maxlength: [100, "Recipe name must not be more that 100 characters"],
-      minlength: [2, "Recipe name must not be more that 2 characters"],
+      maxlength: [100, "Recipe name must not be more that 100 characters long"],
+      minlength: [2, "Recipe name must not be less that 2 characters long"],
     },
     image: {
       type: String,

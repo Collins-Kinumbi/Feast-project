@@ -25,7 +25,7 @@ function UpdateDetailsForm({ closeForm }) {
       const data = await response.json();
 
       if (data.status === "Success!") {
-        alert(`${field.charAt(0).toUpperCase() + field.slice(1)} updated!`);
+        // alert(`${field.charAt(0).toUpperCase() + field.slice(1)} updated!`);
         window.location.reload(); // Refresh to reflect changes
       } else {
         toggleModal("feedback", {

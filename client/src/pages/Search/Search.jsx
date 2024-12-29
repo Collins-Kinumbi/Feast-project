@@ -88,7 +88,6 @@ function Search() {
           isLoading={isLoading}
         />
 
-        {isLoading && <p className="loading">Searching...</p>}
         {error && <p className="error">{error}</p>}
         {notFound && <p>{notFound}</p>}
         <Recipe recipes={recipes} loading={isLoading} />

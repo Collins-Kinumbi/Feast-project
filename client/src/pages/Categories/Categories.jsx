@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import Recipe from "../../components/Recipe/Recipe";
 import Pagination from "../../components/Pagination/Pagination";
+import Loading from "../../components/Loading/Loading";
 
 function Categories() {
   const { category } = useParams(); // Get category from URL params
@@ -48,7 +49,7 @@ function Categories() {
       <div className="content">
         {error && <p className="error">{error}</p>}
         {isLoading ? (
-          <p>Loading...</p>
+          <Loading />
         ) : recipes.length > 0 ? (
           <>
             <Recipe recipes={recipes} loading={isLoading} />

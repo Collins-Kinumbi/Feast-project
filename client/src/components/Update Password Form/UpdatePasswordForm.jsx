@@ -3,13 +3,14 @@ import { modalContext } from "../../contexts/Modal/modalContext";
 
 function UpdatePasswordForm({ closeForm }) {
   const { toggleModal } = useContext(modalContext);
-
+  const [loading, setLoading] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (newPassword !== confirmNewPassword) {
         throw new Error("New password and confirm new password do not match!");
@@ -50,6 +51,8 @@ function UpdatePasswordForm({ closeForm }) {
         message: `${error.message}`,
         className: "error",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,7 +90,9 @@ function UpdatePasswordForm({ closeForm }) {
         />
       </label>
       <div className="form-actions">
-        <button type="submit">Update Password</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Updating..." : "Update Password"}
+        </button>
         <button type="button" onClick={closeForm}>
           Cancel
         </button>

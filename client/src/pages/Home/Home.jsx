@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Recipe from "../../components/Recipe/Recipe";
 import Pagination from "../../components/Pagination/Pagination";
 import Categories from "../../components/Categories/Categories";
+import Loading from "../../components/Loading/Loading";
 
 function Home() {
   const [recipes, setRecipes] = useState([]);
@@ -56,7 +57,7 @@ function Home() {
         <Link to="/create" className="create">
           <span>+</span> Create
         </Link>
-        {isLoading && <p className="loading">Loading recipes...</p>}
+        {isLoading && <Loading />}
         {error && <p className="error">{error}</p>}
         <Recipe recipes={recipes} loading={isLoading} />
       </div>

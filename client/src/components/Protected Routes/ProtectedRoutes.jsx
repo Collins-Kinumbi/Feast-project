@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { authContext } from "../../contexts/Auth/authContext";
 import { modalContext } from "../../contexts/Modal/modalContext";
+import Loading from "../Loading/Loading";
 
 function ProtectedRoute() {
   const { user, isLoading } = useContext(authContext);
@@ -14,7 +15,7 @@ function ProtectedRoute() {
   }, [isLoading, user, setOpenModal]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (!user) {

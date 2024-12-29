@@ -3,6 +3,7 @@ import categoriesList from "../../utils/Categories";
 import RecipeForm from "../../components/Recipe Form/RecipeForm";
 import { useParams } from "react-router-dom";
 import { modalContext } from "../../contexts/Modal/modalContext";
+import Loading from "../../components/Loading/Loading";
 
 function EditRecipe() {
   const { toggleModal } = useContext(modalContext);
@@ -106,7 +107,7 @@ function EditRecipe() {
 
   return (
     <div>
-      {loading && <p>Loading...</p>}
+      {loading && <Loading />}
       {error && <p>Error: {error}</p>}
       {formData && (
         <RecipeForm

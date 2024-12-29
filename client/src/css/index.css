@@ -46,6 +46,11 @@ button {
   border-radius: 0.5rem;
 }
 
+button:disabled {
+  background-color: var(--darkGray);
+  cursor: not-allowed;
+}
+
 button:hover,
 .not-found a:hover {
   opacity: 0.8;

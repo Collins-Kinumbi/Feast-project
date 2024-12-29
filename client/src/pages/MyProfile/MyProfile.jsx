@@ -54,7 +54,7 @@ function MyProfile() {
               console.error("Error deactivating account:", error);
               toggleModal("feedback", {
                 title: "Error",
-                message: "Something went wrong while deactivating the account.",
+                message: `Something went wrong while deactivating the account.${error.message}`,
                 className: "error",
               });
             }

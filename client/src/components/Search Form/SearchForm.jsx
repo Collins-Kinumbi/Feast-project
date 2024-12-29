@@ -11,7 +11,7 @@ function SearchForm({ searchTerm, onSearchTermChange, onSubmit, isLoading }) {
       />
       <input
         type="submit"
-        value="Search"
+        value={isLoading ? "Searching..." : "Search"}
         className="button"
         disabled={isLoading}
       />

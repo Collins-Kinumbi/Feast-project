@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
 import Recipe from "../../components/Recipe/Recipe";
 import { modalContext } from "../../contexts/Modal/modalContext";
+import Loading from "../../components/Loading/Loading";
 
 function MyRecipes() {
   const { toggleModal } = useContext(modalContext);
@@ -83,13 +84,12 @@ function MyRecipes() {
     }
   };
 
-  if (loading) return <p>Loading your recipes...</p>;
-  if (error) return <p>{error}</p>;
-
   return (
     <>
       <div className="my-recipes">
         <h1 className="heading">My Recipes</h1>
+        {loading && <Loading />}
+        {error && <p>{error}</p>}
         {myRecipes.length > 0 ? (
           <Recipe
             recipes={myRecipes}
@@ -99,7 +99,7 @@ function MyRecipes() {
             onDelete={deleteRecipe}
           />
         ) : (
-          <p>You haven't uploaded any recipes yet.</p>
+          !loading && !error && <p>You haven't uploaded any recipes yet.</p>
         )}
       </div>
       {myRecipes.length > 0 && (

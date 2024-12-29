@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RecipeDetailsCard from "../../components/Recipe Details Card/RecipeDetailsCard";
+import Loading from "../../components/Loading/Loading";
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -31,11 +32,9 @@ function RecipeDetails() {
     fetchRecipe();
   }, [id]);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-
   return (
     <div className="recipe-page">
+      {error && <p>{error}</p>}
       <RecipeDetailsCard recipe={recipe} loading={isLoading} />
     </div>
   );

@@ -55,9 +55,7 @@ function Categories() {
         {isLoading ? (
           <Loading />
         ) : recipes.length > 0 ? (
-          <>
-            <Recipe recipes={recipes} loading={isLoading} />
-          </>
+          <Recipe recipes={recipes} loading={isLoading} />
         ) : (
           !isLoading &&
           !error && <p className="no-recipes">OOOPS! nothing here yet...</p>

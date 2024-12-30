@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import categoriesList from "../../utils/Categories";
 import RecipeForm from "../../components/Recipe Form/RecipeForm";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { modalContext } from "../../contexts/Modal/modalContext";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 
 function EditRecipe() {
   const { toggleModal } = useContext(modalContext);
-
+  const navigate = useNavigate();
   const { id } = useParams();
   const [formData, setFormData] = useState(null);
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [sending, setSending] = useState(false);
   const [error, setError] = useState(null);
 
   // Fetch Recipe Data
@@ -50,6 +51,7 @@ function EditRecipe() {
   // Handle Form Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSending(true);
 
     const formDataToSend = new FormData();
 
@@ -92,12 +94,15 @@ function EditRecipe() {
         message: "Recipe updated successfully!",
         className: "success",
       });
+      navigate("/my-recipes", { replace: true });
     } catch (err) {
       toggleModal("feedback", {
         title: "Error",
         message: `Failed to update recipe: ${err.message}`,
         className: "error",
       });
+    } finally {
+      setSending(false);
     }
   };
 
@@ -108,6 +113,7 @@ function EditRecipe() {
       {formData && (
         <RecipeForm
           formData={formData}
+          sending={sending}
           setFormData={setFormData}
           handleSubmit={handleSubmit}
           image={image}

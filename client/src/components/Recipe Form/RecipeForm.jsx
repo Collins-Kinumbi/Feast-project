@@ -1,8 +1,9 @@
-import React from "react";
+import LazyLoadedImage from "../../components/Lazy Load Image/LazyLoadedImage";
 
 function RecipeForm({
   formData,
   setFormData,
+  sending = false,
   handleSubmit,
   setImage,
   categoriesList,
@@ -89,7 +90,7 @@ function RecipeForm({
           onChange={(e) => setImage(e.target.files[0])}
         />
         {isEditing && formData.image && (
-          <img src={formData.image} alt={formData.name} />
+          <LazyLoadedImage src={formData.image} alt={formData.name} />
         )}
       </div>
       <hr />
@@ -205,7 +206,7 @@ function RecipeForm({
           />
         </div>
       </div>
-      <button type="submit">
+      <button type="submit" disabled={sending}>
         {isEditing ? "Save Changes" : "Create Recipe"}
       </button>
     </form>

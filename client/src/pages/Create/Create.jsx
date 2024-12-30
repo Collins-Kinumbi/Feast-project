@@ -2,9 +2,12 @@ import React, { useContext, useState } from "react";
 import categoriesList from "../../utils/Categories";
 import RecipeForm from "../../components/Recipe Form/RecipeForm";
 import { modalContext } from "../../contexts/Modal/modalContext";
+import { useNavigate } from "react-router-dom";
 
 function CreateRecipe() {
   const { toggleModal } = useContext(modalContext);
+  const navigate = useNavigate();
+  const [sending, setSending] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -25,6 +28,7 @@ function CreateRecipe() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setSending(true);
 
     const formDataToSend = new FormData(); //FormData instance
     formDataToSend.append("image", image); // Append the image file
@@ -65,12 +69,15 @@ function CreateRecipe() {
         message: "Recipe created successfully!",
         className: "success",
       });
+      navigate("/", { replace: true });
     } catch (err) {
       toggleModal("feedback", {
         title: "Error",
         message: `${err.message}`,
         className: "error",
       });
+    } finally {
+      setSending(false);
     }
   }
 
@@ -79,6 +86,7 @@ function CreateRecipe() {
       <RecipeForm
         formData={formData}
         setFormData={setFormData}
+        sending={sending}
         handleSubmit={handleSubmit}
         setImage={setImage}
         categoriesList={categoriesList}

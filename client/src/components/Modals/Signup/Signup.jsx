@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { modalContext } from "../../../contexts/Modal/modalContext";
 import { authContext } from "../../../contexts/Auth/authContext";
+import Error from "../../Error/Error";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -57,7 +58,7 @@ function Signup() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            {signupError && <p className="error">{signupError}</p>}
+            {signupError && <Error message={signupError} />}
             <button type="submit" disabled={isLoading} className="sign-up-btn">
               {isLoading ? "Signing up..." : "Sign up"}
             </button>

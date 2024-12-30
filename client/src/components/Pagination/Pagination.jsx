@@ -36,34 +36,36 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
   }
 
   return (
-    <div className="pagination">
-      <button
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        &#8249;
-      </button>
-      {pages.map((page, index) =>
-        page === "..." ? (
-          <button key={index} disabled className="dots">
-            ...
-          </button>
-        ) : (
-          <button
-            key={page}
-            onClick={() => onPageChange(page)}
-            className={currentPage === page ? "active" : ""}
-          >
-            {page}
-          </button>
-        )
-      )}
-      <button
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        &#8250;
-      </button>
+    <div className="pagination-container">
+      <div className="pagination">
+        <button
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          &#8249;
+        </button>
+        {pages.map((page, index) =>
+          page === "..." ? (
+            <button key={index} disabled className="dots">
+              ...
+            </button>
+          ) : (
+            <button
+              key={page}
+              onClick={() => onPageChange(page)}
+              className={currentPage === page ? "active" : ""}
+            >
+              {page}
+            </button>
+          )
+        )}
+        <button
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          &#8250;
+        </button>
+      </div>
     </div>
   );
 }

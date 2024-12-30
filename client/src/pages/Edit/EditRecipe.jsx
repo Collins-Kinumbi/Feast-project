@@ -4,6 +4,7 @@ import RecipeForm from "../../components/Recipe Form/RecipeForm";
 import { useParams } from "react-router-dom";
 import { modalContext } from "../../contexts/Modal/modalContext";
 import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error";
 
 function EditRecipe() {
   const { toggleModal } = useContext(modalContext);
@@ -15,41 +16,36 @@ function EditRecipe() {
   const [error, setError] = useState(null);
 
   // Fetch Recipe Data
-  useEffect(
-    () => {
-      const fetchRecipe = async () => {
-        try {
-          const response = await fetch(
-            `http://localhost:4000/api/v1/recipes/${id}`,
-            {
-              method: "GET",
-              credentials: "include",
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error("Failed to fetch recipe");
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+    const fetchRecipe = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:4000/api/v1/recipes/${id}`,
+          {
+            method: "GET",
+            credentials: "include",
           }
+        );
 
-          const data = await response.json();
-          setFormData(data.data.recipe);
-        } catch (err) {
-          setError(err.message);
-          toggleModal("feedback", {
-            title: "Error",
-            message: `${err.message}`,
-            class: "error",
-          });
-        } finally {
-          setLoading(false);
+        const data = await response.json();
+
+        if (!response.ok) {
+          setError(data.message);
+          return;
         }
-      };
 
-      fetchRecipe();
-    },
-    // eslint-disable-next-line
-    [id]
-  );
+        setFormData(data.data.recipe);
+      } catch (err) {
+        setError(err.message || "A network error occurred. Please try again");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecipe();
+  }, [id]);
 
   // Handle Form Submit
   const handleSubmit = async (e) => {
@@ -108,7 +104,7 @@ function EditRecipe() {
   return (
     <div>
       {loading && <Loading />}
-      {error && <p>Error: {error}</p>}
+      {error && <Error message={error} />}
       {formData && (
         <RecipeForm
           formData={formData}

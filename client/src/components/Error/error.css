@@ -1,0 +1,30 @@
+.error-component {
+  text-align: center;
+  color: #b00020;
+  padding: 2rem;
+  border: 0.1rem solid #f5c6cb;
+  background-color: #f8d7da;
+  border-radius: 0.5rem;
+  margin: 0.5rem auto;
+  max-width: 50rem;
+}
+
+.error-message {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.retry-button {
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+  color: white;
+  background-color: #d9534f;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.retry-button:hover {
+  background-color: #c9302c;
+}

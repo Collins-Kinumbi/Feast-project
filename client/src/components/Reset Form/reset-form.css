@@ -1,0 +1,30 @@
+.forgot-password-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 20rem;
+  background-color: var(--white);
+  padding: 3rem;
+  border-radius: 1rem;
+}
+
+.forgot-password-form input {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.6rem;
+  border: 0.1rem solid var(--darkGray);
+  border-radius: 0.5rem;
+}
+
+.forgot-password-form input:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.forgot-password-form .success {
+  font-size: 1.6rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.forgot-password-form button {
+  padding: 1rem;
+}

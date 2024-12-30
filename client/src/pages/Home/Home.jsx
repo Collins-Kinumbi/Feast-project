@@ -1,9 +1,10 @@
 import { Link, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Recipe from "../../components/Recipe/Recipe";
 import Pagination from "../../components/Pagination/Pagination";
 import Categories from "../../components/Categories/Categories";
 import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error";
 
 function Home() {
   const [recipes, setRecipes] = useState([]);
@@ -11,39 +12,37 @@ function Home() {
   const [error, setError] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const ITEMS_PER_PAGE = 10;
 
   // Get current page from URL params or default to 1
   const currentPage = Number(searchParams.get("page")) || 1;
   const [totalPages, setTotalPages] = useState(0);
 
-  // Fetch recipes when `currentPage` changes
-  useEffect(() => {
-    async function fetchRecipes() {
-      setIsLoading(true);
-      try {
-        setError(null);
-        const response = await fetch(
-          `http://localhost:4000/api/v1/recipes?page=${currentPage}&limit=${ITEMS_PER_PAGE}`
-        );
+  const fetchRecipes = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/v1/recipes?page=${currentPage}`
+      );
 
-        if (!response.ok) {
-          return setError("Sorry something went wrong...");
-        }
-        const resData = await response.json();
-        const { recipes } = resData.data;
+      const resData = await response.json();
+      const { recipes } = resData.data;
 
-        setRecipes(recipes);
-        setTotalPages(resData.totalPages); // Extract `totalPages` from API response
-      } catch (error) {
-        setError(error.message);
-        setRecipes([]);
-      } finally {
-        setIsLoading(false);
-      }
+      setRecipes(recipes || []);
+      setTotalPages(resData.totalPages);
+    } catch (error) {
+      setError(
+        error.message || "A network error occurred. Please try again..."
+      );
+      setRecipes([]);
+    } finally {
+      setIsLoading(false);
     }
-    fetchRecipes();
   }, [currentPage]);
+
+  useEffect(() => {
+    fetchRecipes();
+  }, [fetchRecipes]);
 
   // Handle page change and update URL parameter
   const handlePageChange = (newPage) => {
@@ -58,17 +57,20 @@ function Home() {
           <span>+</span> Create
         </Link>
         {isLoading && <Loading />}
-        {error && <p className="error">{error}</p>}
-        <Recipe recipes={recipes} loading={isLoading} />
+        {error && <Error message={error} onRetry={() => fetchRecipes()} />}
+        {recipes.length > 0 ? (
+          <Recipe recipes={recipes} loading={isLoading} />
+        ) : (
+          !isLoading &&
+          !error && <p className="no-recipes">Opps! no recipes here...</p>
+        )}
       </div>
       {recipes.length > 0 && (
-        <div className="pagination-container">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       )}
     </>
   );

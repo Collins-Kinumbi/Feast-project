@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { authContext } from "../../../contexts/Auth/authContext";
+import Error from "../../Error/Error";
 import { modalContext } from "../../../contexts/Modal/modalContext";
 
 function Login() {
@@ -38,7 +39,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {loginError && <p className="error">{loginError}</p>}
+            {loginError && <Error message={loginError} />}
             <button type="submit" disabled={isLoading}>
               {isLoading ? "Logging in..." : "Login"}
             </button>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RecipeDetailsCard from "../../components/Recipe Details Card/RecipeDetailsCard";
-import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error";
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -12,17 +12,20 @@ function RecipeDetails() {
   useEffect(() => {
     async function fetchRecipe() {
       setIsLoading(true);
+      setError(null);
       try {
-        setError(null);
         const response = await fetch(
           `http://localhost:4000/api/v1/recipes/${id}`
         );
+        const data = await response.json();
+
         if (!response.ok) {
-          throw new Error("Sorry something went wrong...");
+          setError(data.message);
+          return;
         }
-        const resData = await response.json();
-        setRecipe(resData.data.recipe);
+        setRecipe(data.data.recipe);
       } catch (error) {
+        console.log(error);
         setError(error.message);
       } finally {
         setIsLoading(false);
@@ -34,7 +37,7 @@ function RecipeDetails() {
 
   return (
     <div className="recipe-page">
-      {error && <p>{error}</p>}
+      {error && <Error message={error} />}
       <RecipeDetailsCard recipe={recipe} loading={isLoading} />
     </div>
   );

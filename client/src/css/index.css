@@ -77,6 +77,11 @@ main {
   text-align: center;
 }
 
+.no-recipes {
+  font-size: 2.4rem;
+  font-weight: 500;
+}
+
 /* Navbar */
 .navbar {
   position: relative;
@@ -172,7 +177,7 @@ main {
 }
 .modal-content {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
@@ -242,6 +247,12 @@ main {
   color: var(--btnColor);
   font-weight: bold;
   cursor: pointer;
+}
+
+.modal form .success {
+  font-size: 1.6rem;
+  text-align: center;
+  font-weight: 500;
 }
 
 .sign-up-btn {
@@ -412,6 +423,7 @@ main {
   align-items: end;
   font-size: 1.6rem;
   padding: 2rem;
+  min-height: 60vh;
 }
 
 .home .create {
@@ -434,11 +446,10 @@ main {
   opacity: 0.8;
 }
 
-.home .loading,
-.home .error {
+.home .no-recipes {
   align-self: center;
-  font-size: 2.4rem;
-  font-weight: 600;
+  justify-self: center;
+  margin-top: 6rem;
 }
 
 /* My recipes page */
@@ -459,10 +470,6 @@ main {
 
 .categories-page .content {
   flex: 1;
-}
-
-.categories-page p {
-  font-size: 2rem;
 }
 
 /* Pagination component*/
@@ -902,12 +909,6 @@ main {
 .forgot-password h2 {
   font-size: 2.4rem;
   margin-bottom: 2rem;
-}
-
-.forgot-password .form-content {
-  background-color: var(--white);
-  padding: 3rem;
-  border-radius: 1rem;
 }
 
 /* My profile page */

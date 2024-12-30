@@ -99,7 +99,10 @@ function MyRecipes() {
             onDelete={deleteRecipe}
           />
         ) : (
-          !loading && !error && <p>You haven't uploaded any recipes yet.</p>
+          !loading &&
+          !error && (
+            <p className="no-recipes">You haven't uploaded any recipes yet.</p>
+          )
         )}
       </div>
       {myRecipes.length > 0 && (

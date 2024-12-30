@@ -1,18 +1,19 @@
 import { useContext, useState } from "react";
 import { modalContext } from "../../../contexts/Modal/modalContext";
+import Error from "../../Error/Error";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const { closeModal: onClose } = useContext(modalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setError("");
-    setSuccess("");
+    setError(null);
+    setSuccess(null);
     setIsLoading(true);
 
     try {
@@ -30,7 +31,8 @@ function ForgotPassword() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Something went wrong!");
+        setError(data.message || "Something went wrong!");
+        return;
       }
 
       // Show success message
@@ -63,7 +65,7 @@ function ForgotPassword() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {error && <p className="error">{error}</p>}
+          {error && <Error message={error} />}
           {success && <p className="success">{success}</p>}
           <button type="submit" className="button" disabled={isLoading}>
             {isLoading ? "Sending..." : "Send"}

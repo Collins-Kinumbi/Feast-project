@@ -1,7 +1,8 @@
 .forgot-password-form {
   display: flex;
   flex-direction: column;
-  min-width: 20rem;
+  min-width: 40rem;
+  gap: 1rem;
   background-color: var(--white);
   padding: 3rem;
   border-radius: 1rem;

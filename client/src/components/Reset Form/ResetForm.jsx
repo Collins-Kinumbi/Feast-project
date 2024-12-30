@@ -65,7 +65,7 @@ export default function ResetForm({ token }) {
         />
         <input
           type="password"
-          placeholder="Confirm Password"
+          placeholder="Confirm New Password"
           required
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}

@@ -1,39 +1,74 @@
 function Pagination({ currentPage, totalPages, onPageChange }) {
-  const maxPagesToShow = 4; // Maximum number of page buttons to show
-  const pages = [];
-
-  // Generate a simple range of pages
-  if (totalPages <= maxPagesToShow) {
-    // If the total pages are less than or equal to the max, show all pages
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(i);
-    }
-  } else {
-    // Else generate an appropriate range, including ellipses
-    if (currentPage <= 3) {
-      // If the current page is in the first part, show 1-4
-      for (let i = 1; i <= 4; i++) {
-        pages.push(i);
-      }
-      pages.push("..."); // Show ellipsis after the first few pages
-    } else if (currentPage >= totalPages - 2) {
-      // If the current page is near the last part, show last 4 pages
-      pages.push(1); // Always show 1
-      pages.push("...");
-      for (let i = totalPages - 3; i <= totalPages; i++) {
-        pages.push(i);
-      }
+  const renderPageButtons = () => {
+    if (totalPages <= 4) {
+      // If 4 or fewer pages, show all
+      return Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        <button
+          key={page}
+          onClick={() => onPageChange(page)}
+          className={currentPage === page ? "active" : ""}
+        >
+          {page}
+        </button>
+      ));
     } else {
-      // Otherwise, display current page in the middle with ellipses on both sides
-      pages.push(1); // Always show 1
-      pages.push("...");
-      for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-        pages.push(i);
+      // More than 4 pages
+      const buttons = [];
+
+      // Always show first two pages
+      buttons.push(
+        <button
+          key={1}
+          onClick={() => onPageChange(1)}
+          className={currentPage === 1 ? "active" : ""}
+        >
+          1
+        </button>,
+        <button
+          key={2}
+          onClick={() => onPageChange(2)}
+          className={currentPage === 2 ? "active" : ""}
+        >
+          2
+        </button>
+      );
+
+      // Add ellipsis if needed
+      if (currentPage > 3) {
+        buttons.push(
+          <button key="ellipsis" disabled className="dots">
+            ...
+          </button>
+        );
       }
-      pages.push("...");
-      pages.push(totalPages); // Always show last page
+
+      // Add current page if it's not 1, 2, or the last page
+      if (currentPage > 2 && currentPage < totalPages) {
+        buttons.push(
+          <button
+            key={currentPage}
+            onClick={() => onPageChange(currentPage)}
+            className="active"
+          >
+            {currentPage}
+          </button>
+        );
+      }
+
+      // Always show last page
+      buttons.push(
+        <button
+          key={totalPages}
+          onClick={() => onPageChange(totalPages)}
+          className={currentPage === totalPages ? "active" : ""}
+        >
+          {totalPages}
+        </button>
+      );
+
+      return buttons;
     }
-  }
+  };
 
   return (
     <div className="pagination-container">
@@ -44,21 +79,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         >
           &#8249;
         </button>
-        {pages.map((page, index) =>
-          page === "..." ? (
-            <button key={index} disabled className="dots">
-              ...
-            </button>
-          ) : (
-            <button
-              key={page}
-              onClick={() => onPageChange(page)}
-              className={currentPage === page ? "active" : ""}
-            >
-              {page}
-            </button>
-          )
-        )}
+        {renderPageButtons()}
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}

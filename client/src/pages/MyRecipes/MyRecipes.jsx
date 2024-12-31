@@ -86,24 +86,28 @@ function MyRecipes() {
 
   return (
     <>
-      <div className="my-recipes">
+      <div className="my-recipes-page">
         <h1 className="heading">My Recipes</h1>
-        {loading && <Loading />}
-        {error && <p>{error}</p>}
-        {myRecipes.length > 0 ? (
-          <RecipeCard
-            recipes={myRecipes}
-            loading={loading}
-            showUsername={false}
-            showActions={true}
-            onDelete={deleteRecipe}
-          />
-        ) : (
-          !loading &&
-          !error && (
-            <p className="no-recipes">You haven't uploaded any recipes yet.</p>
-          )
-        )}
+        <div className="content">
+          {loading && <Loading />}
+          {error && <p>{error}</p>}
+          {myRecipes.length > 0 ? (
+            <RecipeCard
+              recipes={myRecipes}
+              loading={loading}
+              showUsername={false}
+              showActions={true}
+              onDelete={deleteRecipe}
+            />
+          ) : (
+            !loading &&
+            !error && (
+              <p className="no-recipes">
+                You haven't uploaded any recipes yet.
+              </p>
+            )
+          )}
+        </div>
       </div>
       {myRecipes.length > 0 && (
         <div className="pagination-container">

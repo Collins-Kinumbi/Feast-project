@@ -51,19 +51,23 @@ function Home() {
 
   return (
     <>
-      <div className="home">
-        <Categories />
-        <Link to="/create" className="create">
-          <span>+</span> Create
-        </Link>
-        {isLoading && <Loading />}
-        {error && <Error message={error} onRetry={() => fetchRecipes()} />}
-        {recipes.length > 0 ? (
-          <RecipeCard recipes={recipes} loading={isLoading} />
-        ) : (
-          !isLoading &&
-          !error && <p className="no-recipes">Opps! no recipes here...</p>
-        )}
+      <div className="home-page">
+        <div className="content">
+          <Categories />
+          <div className="create-wrapper">
+            <Link to="/create" className="create">
+              <span>+</span> Create
+            </Link>
+          </div>
+          {isLoading && <Loading />}
+          {error && <Error message={error} onRetry={() => fetchRecipes()} />}
+          {recipes.length > 0 ? (
+            <RecipeCard recipes={recipes} loading={isLoading} />
+          ) : (
+            !isLoading &&
+            !error && <p className="no-recipes">Opps! no recipes here...</p>
+          )}
+        </div>
       </div>
       {recipes.length > 0 && (
         <Pagination

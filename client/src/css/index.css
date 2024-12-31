@@ -97,16 +97,23 @@ main {
 }
 
 /* Home page */
-.home {
-  display: flex;
-  flex-direction: column;
-  align-items: end;
+.home-page {
   font-size: 1.6rem;
   padding: 2rem;
-  min-height: 60vh;
+  min-height: 70vh;
 }
 
-.home .create {
+.home-page .content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.home-page .content .create-wrapper {
+  align-self: flex-end;
+}
+
+.home-page .create {
   background-color: var(--btnColor);
   padding: 1rem 2rem;
   display: flex;
@@ -116,36 +123,40 @@ main {
   margin-bottom: 2rem;
   border-radius: 1rem;
 }
-.home .create span {
+.home-page .create span {
   font-size: 2.4rem;
 }
 
-.home .create:hover,
+.home-page .create:hover,
 .form-content form button[type="submit"]:hover,
 .search .button:hover {
   opacity: 0.8;
 }
 
-.home .no-recipes {
+.home-page .no-recipes {
   align-self: center;
   justify-self: center;
   margin-top: 6rem;
 }
 
 /* My recipes page */
-.my-recipes {
+.my-recipes-page {
   display: flex;
   flex-direction: column;
-  align-items: start;
   font-size: 1.6rem;
   padding: 2rem;
+  min-height: 70vh;
+}
+
+.my-recipes-page .content {
+  flex: 1;
 }
 
 /* Categories page */
 .categories-page {
   display: flex;
   flex-direction: column;
-  min-height: 65vh;
+  min-height: 70vh;
 }
 
 .categories-page .content {

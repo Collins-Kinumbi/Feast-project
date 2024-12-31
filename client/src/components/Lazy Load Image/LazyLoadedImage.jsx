@@ -1,3 +1,4 @@
+import "./lazy-load.css";
 import { useState } from "react";
 
 function LazyLoadedImage({ src, alt, className }) {

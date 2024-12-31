@@ -1,6 +1,7 @@
+import "./recipe-card-skeleton.css";
 import Skeleton from "react-loading-skeleton";
 
-function RecipeCard() {
+function RecipeCardSkeleton() {
   return (
     <div className="recipe-card-skeleton">
       <Skeleton width="100%" height="20rem" />
@@ -11,4 +12,4 @@ function RecipeCard() {
   );
 }
 
-export default RecipeCard;
+export default RecipeCardSkeleton;

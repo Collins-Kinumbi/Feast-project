@@ -1,0 +1,36 @@
+/* Profile modal */
+.profile-modal {
+  position: absolute;
+  top: 10rem;
+  right: 1rem;
+  background-color: var(--white);
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.2);
+  border-radius: 0.8rem;
+  padding: 0.8rem 1.6rem;
+  z-index: 2;
+  font-size: 1.6rem;
+}
+
+.profile-modal li {
+  margin: 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.2rem var(--darkGray) solid;
+}
+
+.profile-modal li:last-child {
+  border: none;
+  padding: 0;
+}
+
+.profile-modal a {
+  text-decoration: none;
+}
+
+.profile-modal a:hover {
+  color: var(--btnColor);
+}
+
+.logout {
+  color: var(--red);
+  cursor: pointer;
+}

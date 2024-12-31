@@ -1,3 +1,4 @@
+import "../modal.css";
 import { useContext, useState } from "react";
 import { modalContext } from "../../../contexts/Modal/modalContext";
 import { authContext } from "../../../contexts/Auth/authContext";

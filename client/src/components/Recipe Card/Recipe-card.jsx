@@ -1,12 +1,13 @@
+import "./recipe-card.css";
 import { Link } from "react-router-dom";
-import formatDate from "../../utils/Date";
-import RecipeCard from "../skeletons/Recipe/RecipeCard";
-import UsernameCard from "../Username/UsernameCard";
-import LazyLoadedImage from "../Lazy Load Image/LazyLoadedImage";
 import { modalContext } from "../../contexts/Modal/modalContext";
 import { useContext } from "react";
+import formatDate from "../../utils/Date";
+import UsernameCard from "../Username/UsernameCard";
+import LazyLoadedImage from "../Lazy Load Image/LazyLoadedImage";
+import RecipeCardSkeleton from "../skeletons/Recipe/RecipeCardSkeleton";
 
-function Recipe({
+function RecipeCard({
   recipes,
   loading = false,
   showUsername = true,
@@ -47,7 +48,7 @@ function Recipe({
             <Link to={`/recipe/${recipe._id}`}>
               <div className="recipe">
                 {loading ? (
-                  <RecipeCard />
+                  <RecipeCardSkeleton />
                 ) : (
                   <>
                     <LazyLoadedImage src={recipe.image} alt={recipe.name} />
@@ -82,4 +83,4 @@ function Recipe({
   );
 }
 
-export default Recipe;
+export default RecipeCard;

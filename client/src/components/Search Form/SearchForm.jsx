@@ -1,3 +1,5 @@
+import "./search-form.css";
+
 function SearchForm({ searchTerm, onSearchTermChange, onSubmit, isLoading }) {
   return (
     <form className="search-form" onSubmit={onSubmit}>
@@ -12,7 +14,6 @@ function SearchForm({ searchTerm, onSearchTermChange, onSubmit, isLoading }) {
       <input
         type="submit"
         value={isLoading ? "Searching..." : "Search"}
-        className="button"
         disabled={isLoading}
       />
     </form>

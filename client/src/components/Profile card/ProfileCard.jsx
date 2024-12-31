@@ -1,3 +1,4 @@
+import "./profile-card.css";
 import { useContext } from "react";
 import { authContext } from "../../contexts/Auth/authContext";
 import LazyLoadedImage from "../Lazy Load Image/LazyLoadedImage";

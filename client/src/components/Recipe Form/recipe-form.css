@@ -1,0 +1,115 @@
+/*Recipe form*/
+.recipe-form h1 {
+  font-size: 3.2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.recipe-form {
+  max-width: 70rem;
+  font-size: 1.8rem;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--white);
+  border: 0.1rem solid var(--lightGray);
+  border-radius: 0.8rem;
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+}
+
+.recipe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.recipe-form .section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.recipe-form .section p:first-child {
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: 650;
+}
+
+.recipe-form button {
+  padding: 0.8rem;
+}
+
+.recipe-form input {
+  padding: 0.8rem;
+  font-size: 1.6rem;
+  border: 0.1rem solid var(--darkGray);
+  border-radius: 0.5rem;
+}
+
+.recipe-form textarea {
+  height: 10rem;
+  padding: 1rem;
+  font-family: inherit;
+  font-size: 1.5rem;
+}
+
+.recipe-form .ingredient-item,
+.recipe-form .instruction-item {
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.recipe-form .ingredient-item input,
+.recipe-form .instruction-item input {
+  width: 100%;
+  margin-right: 1rem;
+}
+
+.recipe-form .categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+.recipe-form .categories .check {
+  display: flex;
+  align-items: center;
+}
+
+.recipe-form .check input {
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.recipe-form .nutrition,
+.recipe-form .serving,
+.recipe-form .serving-yield {
+  display: grid;
+  grid-template-columns: repeat(2, 20rem);
+  align-items: center;
+}
+
+.recipe-form .nutrition:not(:last-child),
+.recipe-form .serving:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+/*Recipe form image section */
+.recipe-form .section img {
+  width: 100%;
+  max-width: 30rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+.recipe-form .loading {
+  text-align: center;
+  font-size: 1.8rem;
+  margin: 2rem auto;
+}
+
+.recipe-form .error {
+  text-align: center;
+  color: var(--red);
+  font-size: 1.8rem;
+  margin: 2rem auto;
+}

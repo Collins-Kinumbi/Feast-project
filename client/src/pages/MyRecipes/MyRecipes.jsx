@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import Pagination from "../../components/Pagination/Pagination";
-import Recipe from "../../components/Recipe/Recipe";
 import { modalContext } from "../../contexts/Modal/modalContext";
 import Loading from "../../components/Loading/Loading";
+import RecipeCard from "../../components/Recipe Card/Recipe-card";
+import Pagination from "../../components/Pagination/Pagination";
 
 function MyRecipes() {
   const { toggleModal } = useContext(modalContext);
@@ -91,7 +91,7 @@ function MyRecipes() {
         {loading && <Loading />}
         {error && <p>{error}</p>}
         {myRecipes.length > 0 ? (
-          <Recipe
+          <RecipeCard
             recipes={myRecipes}
             loading={loading}
             showUsername={false}

@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import Recipe from "../../components/Recipe/Recipe";
-import Pagination from "../../components/Pagination/Pagination";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
+import RecipeCard from "../../components/Recipe Card/Recipe-card";
+import Pagination from "../../components/Pagination/Pagination";
 
 function Categories() {
   const { category } = useParams(); // Get category from URL params
@@ -55,7 +55,7 @@ function Categories() {
         {isLoading ? (
           <Loading />
         ) : recipes.length > 0 ? (
-          <Recipe recipes={recipes} loading={isLoading} />
+          <RecipeCard recipes={recipes} loading={isLoading} />
         ) : (
           !isLoading &&
           !error && <p className="no-recipes">OOOPS! nothing here yet...</p>

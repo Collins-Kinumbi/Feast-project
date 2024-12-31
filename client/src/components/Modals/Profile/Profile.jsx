@@ -1,3 +1,4 @@
+import "./profile.css";
 import { useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { modalContext } from "../../../contexts/Modal/modalContext";

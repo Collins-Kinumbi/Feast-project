@@ -1,3 +1,4 @@
+import "./categories.css";
 import { Link } from "react-router-dom";
 import categoriesList from "../../utils/Categories";
 import { useState, useRef } from "react";

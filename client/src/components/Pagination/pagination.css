@@ -1,0 +1,26 @@
+/* Pagination component*/
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.pagination button {
+  margin: 0 0.5rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  background-color: var(--darkGray);
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.pagination button.active {
+  background-color: var(--btnColor);
+  color: var(--white);
+}
+
+.pagination button:disabled {
+  background-color: var(--darkGray);
+  cursor: not-allowed;
+}

@@ -1,10 +1,10 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
-import Recipe from "../../components/Recipe/Recipe";
-import Pagination from "../../components/Pagination/Pagination";
 import Categories from "../../components/Categories/Categories";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
+import RecipeCard from "../../components/Recipe Card/Recipe-card";
+import Pagination from "../../components/Pagination/Pagination";
 
 function Home() {
   const [recipes, setRecipes] = useState([]);
@@ -59,7 +59,7 @@ function Home() {
         {isLoading && <Loading />}
         {error && <Error message={error} onRetry={() => fetchRecipes()} />}
         {recipes.length > 0 ? (
-          <Recipe recipes={recipes} loading={isLoading} />
+          <RecipeCard recipes={recipes} loading={isLoading} />
         ) : (
           !isLoading &&
           !error && <p className="no-recipes">Opps! no recipes here...</p>

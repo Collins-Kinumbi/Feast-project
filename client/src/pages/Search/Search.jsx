@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import Recipe from "../../components/Recipe/Recipe";
-import Pagination from "../../components/Pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
 import SearchForm from "../../components/Search Form/SearchForm";
+import RecipeCard from "../../components/Recipe Card/Recipe-card";
+import Pagination from "../../components/Pagination/Pagination";
 import Error from "../../components/Error/Error";
 
 function Search() {
@@ -94,7 +94,7 @@ function Search() {
 
         {error && <Error message={error} onRetry={() => fetchResults()} />}
         {notFound && <p className="no-recipes">{notFound}</p>}
-        <Recipe recipes={recipes} loading={isLoading} />
+        <RecipeCard recipes={recipes} loading={isLoading} />
       </div>
 
       {recipes.length > 0 && (

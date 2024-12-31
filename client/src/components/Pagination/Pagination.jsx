@@ -1,3 +1,5 @@
+import "./pagination.css";
+
 function Pagination({ currentPage, totalPages, onPageChange }) {
   const renderPageButtons = () => {
     if (totalPages <= 4) {

@@ -1,3 +1,4 @@
+import "./recipe-form.css";
 import LazyLoadedImage from "../../components/Lazy Load Image/LazyLoadedImage";
 
 function RecipeForm({

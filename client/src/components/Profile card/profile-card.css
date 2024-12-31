@@ -1,0 +1,24 @@
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background: var(--white);
+  border: 0.1rem solid var(--lightGray);
+  border-radius: 0.8rem;
+  padding: 1.5rem;
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.profile-card .avatar {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+.profile-card p:not(:last-child) {
+  margin-bottom: 1rem;
+}

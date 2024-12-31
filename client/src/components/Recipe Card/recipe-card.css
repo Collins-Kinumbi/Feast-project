@@ -1,0 +1,89 @@
+/* Recipe */
+.recipes-container {
+  display: grid;
+  column-gap: 4.8rem;
+  row-gap: 6.4rem;
+  grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+  width: 100%;
+}
+
+.recipe-wrapper {
+  position: relative;
+}
+.recipe {
+  border-radius: 1.2rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.4s;
+  background-color: var(--white);
+  box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.3);
+}
+
+.recipe img {
+  width: 100%;
+  height: 20rem;
+  margin-bottom: 2rem;
+  object-fit: cover;
+}
+
+.recipe .content {
+  padding: 2rem;
+  padding-top: 0;
+}
+
+.recipe .uploaded-on {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.recipe .recipe-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.recipe .user {
+  font-size: 1.4rem;
+}
+
+.recipe .user span,
+.recipe .uploaded-on span {
+  font-weight: 600;
+}
+
+.recipe:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.2);
+}
+
+.recipe-wrapper .actions {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.recipe-wrapper .delete-btn,
+.recipe-wrapper .edit-btn {
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s ease-in;
+}
+
+.recipe-wrapper .delete-btn {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+.recipe-wrapper .edit-btn {
+  background-color: var(--btnColor);
+}
+
+.recipe-wrapper .delete-btn:hover,
+.recipe-wrapper .edit-btn:hover {
+  transform: scale(1.05);
+}

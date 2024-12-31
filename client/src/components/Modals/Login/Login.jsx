@@ -1,3 +1,4 @@
+import "../modal.css";
 import { useContext, useState } from "react";
 import { authContext } from "../../../contexts/Auth/authContext";
 import Error from "../../Error/Error";

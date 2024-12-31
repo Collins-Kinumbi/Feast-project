@@ -1,3 +1,5 @@
+import "../modal.css";
+import "./feedback-modal.css";
 import { useContext } from "react";
 import { modalContext } from "../../../contexts/Modal/modalContext";
 

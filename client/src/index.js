@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./css/index.css";
-import "./css/skeleton.css";
-import "./css/lazy-load.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import App from "./App";
 

@@ -1,3 +1,4 @@
+import "./recipes-details.css";
 import formatDate from "../../utils/Date";
 import LazyLoadedImage from "../Lazy Load Image/LazyLoadedImage";
 import UsernameCard from "../Username/UsernameCard";

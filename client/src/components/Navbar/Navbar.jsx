@@ -1,3 +1,4 @@
+import "./navbar.css";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Login from "../Modals/Login/Login";
@@ -13,7 +14,7 @@ function Navbar() {
   const { openModal, toggleModal } = useContext(modalContext);
   const { user, isLoading } = useContext(authContext);
   return (
-    <header>
+    <header className="navbar-wrapper">
       <div className="navbar">
         <Link to="/" className="logo">
           Feast

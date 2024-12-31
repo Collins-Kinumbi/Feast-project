@@ -1,0 +1,16 @@
+/* Mobile phones */
+@media (max-width: 26.9em) {
+  .pages {
+    padding: 1rem;
+  }
+
+  .home-page {
+    padding: 0;
+  }
+}
+
+@media (max-width: 21.5em) {
+  .pages {
+    padding: 0.5rem;
+  }
+}

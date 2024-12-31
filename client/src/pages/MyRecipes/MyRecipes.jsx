@@ -4,6 +4,7 @@ import { modalContext } from "../../contexts/Modal/modalContext";
 import Loading from "../../components/Loading/Loading";
 import RecipeCard from "../../components/Recipe Card/Recipe-card";
 import Pagination from "../../components/Pagination/Pagination";
+import Error from "../../components/Error/Error";
 
 function MyRecipes() {
   const { toggleModal } = useContext(modalContext);
@@ -90,7 +91,7 @@ function MyRecipes() {
         <h1 className="heading">My Recipes</h1>
         <div className="content">
           {loading && <Loading />}
-          {error && <p>{error}</p>}
+          {error && <Error />}
           {myRecipes.length > 0 ? (
             <RecipeCard
               recipes={myRecipes}

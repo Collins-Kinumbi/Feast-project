@@ -78,3 +78,31 @@
   font-weight: 700;
   background-color: var(--lightGray);
 }
+
+/* Mobile phones */
+
+/*425px /16px = 26.5625em*/
+
+@media (max-width: 26.9em) {
+  .navbar {
+    padding: 1rem 2rem;
+  }
+  .navbar .logo {
+    font-size: 1.8rem;
+  }
+
+  .navbar img {
+    width: 2rem;
+  }
+
+  .navbar .nav-avatar {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+}
+
+@media (max-width: 21.5em) {
+  .navbar {
+    padding: 1rem;
+  }
+}

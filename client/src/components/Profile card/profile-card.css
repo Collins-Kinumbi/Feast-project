@@ -22,3 +22,11 @@
 .profile-card p:not(:last-child) {
   margin-bottom: 1rem;
 }
+
+/* Mobile phones */
+@media (max-width: 26.7em) {
+  .profile-card {
+    flex-direction: column;
+    padding: 2rem;
+  }
+}

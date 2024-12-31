@@ -17,11 +17,11 @@
   box-sizing: border-box;
 }
 
+body,
 html {
   font-size: 62.5%;
-}
-
-body {
+  scroll-behavior: smooth;
+  overflow: auto;
   font-family: "outfit", sans-serif;
   color: var(--fontColor);
   background-color: var(--lightGray);
@@ -409,6 +409,7 @@ main {
   padding: 2rem;
   margin: 0 auto;
   margin-bottom: 2rem;
+  overflow: auto;
 }
 
 .pages .heading {

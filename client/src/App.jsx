@@ -13,6 +13,7 @@ import ResetPassword from "./pages/Reset Password/ResetPassword";
 import NotFound from "./pages/Not Found/NotFound";
 import { SkeletonTheme } from "react-loading-skeleton";
 import Categories from "./pages/Categories/Categories";
+import ScrollToTop from "./components/Scroll/ScrollToTop";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
         >
           <Navbar />
+          <ScrollToTop />
           <main>
             <div className="pages">
               <Routes>

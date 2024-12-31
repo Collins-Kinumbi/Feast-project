@@ -139,6 +139,26 @@ main {
   margin-top: 6rem;
 }
 
+/* About page */
+.about-page {
+  font-size: 1.8rem;
+  background-color: var(--white);
+  padding: 2rem;
+  line-height: 1.6;
+  border-radius: 1rem;
+}
+
+.about-page span {
+  font-weight: 600;
+}
+
+.about-page a {
+  background-color: var(--btnColor);
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  font-weight: 500;
+}
+
 /* My recipes page */
 .my-recipes-page {
   display: flex;

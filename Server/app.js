@@ -21,7 +21,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
     credentials: true,
   })
 );
@@ -43,6 +43,11 @@ app.use(ExpressMongoSanitize()); //Sanitize against NoSQL query injection
 app.use(sanitizeRequestBody); //Sanitize against cross site scripting
 
 app.use(hpp({ whitelist: ["serving", "servingYield", "ratings"] })); //Preventing parameter pollution
+
+// Welcome
+app.get("/api/v1/welcome", (req, res) => {
+  res.status(200).send({ message: "Welcome to Feast..." });
+});
 
 // Recipes
 app.use("/api/v1/recipes", recipesRouter);

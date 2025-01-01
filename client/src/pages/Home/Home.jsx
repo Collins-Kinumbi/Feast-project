@@ -22,7 +22,7 @@ function Home() {
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost:4000/api/v1/recipes?page=${currentPage}`
+        `http://localhost:4000/api/v1/recipes?page=${currentPage}&limit=12`
       );
 
       const resData = await response.json();

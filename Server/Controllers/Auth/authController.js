@@ -255,7 +255,10 @@ export const forgotPassword = asyncErrorHandler(async function (
   // const resetURL = `${req.protocol}://${req.get(
   //   "host"
   // )}/api/v1/auth/resetPassword/${resetToken}`;
-  const resetURL = `http://localhost:3000/resetPassword/${resetToken}`;
+  const resetURL =
+    process.env.NODE_ENV === "development"
+      ? `http://localhost:3000/reset-password/${resetToken}`
+      : `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
   const message = `We have recieved a password reset request, please use the link below to reset your password\n\n${resetURL}\n\nThis reset password link will only be valid for 10 minutes`;
 

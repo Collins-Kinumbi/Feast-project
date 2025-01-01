@@ -37,7 +37,7 @@ const useFetchUsername = (userId) => {
     if (userId) {
       fetchUsername();
     }
-  }, [userId]);
+  }, [userId, error]);
 
   return { username };
 };

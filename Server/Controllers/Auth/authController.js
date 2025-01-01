@@ -24,6 +24,7 @@ export function response(res, statusCode, user) {
     maxAge: process.env.LOGIN_EXPIRES,
     // secure: true,
     httpOnly: true, //prevents offside scripting attacks
+    sameSite: "strict",
   };
 
   if (process.env.NODE_ENV === "production") {

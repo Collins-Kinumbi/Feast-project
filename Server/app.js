@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 import recipesRouter from "./Routes/Recipes/recipesRoutes.js";
 import authRouter from "./Routes/Auth/authRouter.js";
 import usersRouter from "./Routes/Users/usersRouter.js";
-import globalErrorHandler from "./Controllers/Errors/ErrorController.js";
+import globalErrorHandler from "./Controllers/Errors/errorController.js";
 import handleUncaughtExceptions from "./Middleware/handleUncaughtExceptions.js";
 import requestLogger from "./Middleware/requestLoger.js";
 import limiter from "./Middleware/rateLimiter.js";

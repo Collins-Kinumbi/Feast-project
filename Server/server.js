@@ -5,7 +5,11 @@ import mongoose from "mongoose";
 const port = process.env.PORT || 8000;
 
 async function connect() {
-  await mongoose.connect(process.env.CONNECTION_STRING);
+  await mongoose.connect(process.env.CONNECTION_STRING, {
+    ssl: true,
+    authSource: "admin",
+    retryWrites: true,
+  });
   console.log("Connection to database successfull...");
 }
 

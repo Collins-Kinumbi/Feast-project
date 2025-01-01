@@ -24,7 +24,7 @@ export function response(res, statusCode, user) {
     maxAge: process.env.LOGIN_EXPIRES,
     // secure: true,
     httpOnly: true, //prevents offside scripting attacks
-    sameSite: "strict",
+    sameSite: "None",
   };
 
   if (process.env.NODE_ENV === "production") {
@@ -39,7 +39,7 @@ export function response(res, statusCode, user) {
 
   return res.status(statusCode).json({
     status: "Success!",
-    token, //Sending the token back to the client
+    // token, //Sending the token back to the client
     data: {
       user,
     },

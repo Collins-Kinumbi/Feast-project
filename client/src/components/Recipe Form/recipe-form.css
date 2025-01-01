@@ -97,6 +97,7 @@
 
 /*Recipe form image section */
 .recipe-form .section img {
+  max-width: 30rem;
   border-radius: 0.5rem;
   margin-top: 1rem;
 }
@@ -111,6 +112,9 @@
 /* Mobile phones */
 
 @media (max-width: 26.9em) {
+  .recipe-form .section img {
+    max-width: 20rem;
+  }
   .recipe-form .nutrition,
   .recipe-form .serving,
   .recipe-form .serving-yield {

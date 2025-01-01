@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 const userCache = new Map();
 
 const useFetchUsername = (userId) => {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
   const [username, setUsername] = useState(null);
 
   const [error, setError] = useState(null);
@@ -16,9 +17,7 @@ const useFetchUsername = (userId) => {
       }
 
       try {
-        const response = await fetch(
-          `http://localhost:4000/api/v1/users/${userId}`
-        );
+        const response = await fetch(`${API_URL}/api/v1/users/${userId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch username");
         }
@@ -37,9 +36,9 @@ const useFetchUsername = (userId) => {
     if (userId) {
       fetchUsername();
     }
-  }, [userId, error]);
+  }, [userId, API_URL]);
 
-  return { username };
+  return { username, error };
 };
 
 export default useFetchUsername;

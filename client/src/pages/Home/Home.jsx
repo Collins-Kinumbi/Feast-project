@@ -7,6 +7,8 @@ import RecipeCard from "../../components/Recipe Card/Recipe-card";
 import Pagination from "../../components/Pagination/Pagination";
 
 function Home() {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
+
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -22,7 +24,7 @@ function Home() {
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost:4000/api/v1/recipes?page=${currentPage}&limit=12`
+        `${API_URL}/api/v1/recipes?page=${currentPage}&limit=12`
       );
 
       const resData = await response.json();
@@ -38,7 +40,7 @@ function Home() {
     } finally {
       setIsLoading(false);
     }
-  }, [currentPage]);
+  }, [currentPage, API_URL]);
 
   useEffect(() => {
     fetchRecipes();

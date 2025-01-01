@@ -7,6 +7,8 @@ import Pagination from "../../components/Pagination/Pagination";
 import Error from "../../components/Error/Error";
 
 function MyRecipes() {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
+
   const { toggleModal } = useContext(modalContext);
 
   const [myRecipes, setMyRecipes] = useState([]);
@@ -23,7 +25,7 @@ function MyRecipes() {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:4000/api/v1/recipes/my-recipes?page=${currentPage}`,
+          `${API_URL}/api/v1/recipes/my-recipes?page=${currentPage}`,
           {
             method: "GET",
             credentials: "include",
@@ -44,7 +46,7 @@ function MyRecipes() {
     }
 
     fetchMyRecipes();
-  }, [currentPage]);
+  }, [currentPage, API_URL]);
 
   const handlePageChange = (newPage) => {
     setSearchParams({ page: newPage }); // Update URL with new page number

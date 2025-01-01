@@ -6,6 +6,7 @@ import RecipeCard from "../../components/Recipe Card/Recipe-card";
 import Pagination from "../../components/Pagination/Pagination";
 
 function Categories() {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
   const { category } = useParams(); // Get category from URL params
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
@@ -20,7 +21,7 @@ function Categories() {
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost:4000/api/v1/recipes?category=${category}&page=${currentPage}`
+        `${API_URL}/api/v1/recipes?category=${category}&page=${currentPage}`
       );
 
       const resData = await response.json();
@@ -34,7 +35,7 @@ function Categories() {
     } finally {
       setIsLoading(false);
     }
-  }, [currentPage, category]);
+  }, [currentPage, category, API_URL]);
 
   useEffect(() => {
     fetchCategoryRecipes();

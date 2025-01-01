@@ -7,6 +7,8 @@ import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 
 function EditRecipe() {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
+
   const { toggleModal } = useContext(modalContext);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -22,13 +24,10 @@ function EditRecipe() {
     setError(null);
     const fetchRecipe = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:4000/api/v1/recipes/${id}`,
-          {
-            method: "GET",
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${API_URL}/api/v1/recipes/${id}`, {
+          method: "GET",
+          credentials: "include",
+        });
 
         const data = await response.json();
 
@@ -46,7 +45,7 @@ function EditRecipe() {
     };
 
     fetchRecipe();
-  }, [id]);
+  }, [id, API_URL]);
 
   // Handle Form Submit
   const handleSubmit = async (e) => {
@@ -74,14 +73,11 @@ function EditRecipe() {
     formDataToSend.append("data", JSON.stringify(recipeData));
 
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/v1/recipes/${id}`,
-        {
-          method: "PATCH",
-          credentials: "include",
-          body: formDataToSend,
-        }
-      );
+      const response = await fetch(`${API_URL}/api/v1/recipes/${id}`, {
+        method: "PATCH",
+        credentials: "include",
+        body: formDataToSend,
+      });
 
       const data = await response.json();
 

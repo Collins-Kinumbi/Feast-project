@@ -6,6 +6,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import Error from "../../components/Error/Error";
 
 function Search() {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
   const currentPage = Number(searchParams.get("page")) || 1; // Get current page from URL
@@ -28,7 +29,7 @@ function Search() {
 
       try {
         const response = await fetch(
-          `http://localhost:4000/api/v1/recipes?search=${query.trim()}&page=${page}`
+          `${API_URL}/api/v1/recipes?search=${query.trim()}&page=${page}`
         );
 
         const resData = await response.json();
@@ -49,7 +50,7 @@ function Search() {
         setIsLoading(false);
       }
     },
-    [query]
+    [query, API_URL]
   );
 
   useEffect(() => {

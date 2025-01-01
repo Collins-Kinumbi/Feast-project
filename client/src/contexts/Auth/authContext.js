@@ -3,6 +3,7 @@ import { modalContext } from "../Modal/modalContext";
 export const authContext = createContext();
 
 function AuthContextProvider({ children }) {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loginError, setLoginError] = useState(null);
@@ -14,13 +15,10 @@ function AuthContextProvider({ children }) {
   useEffect(() => {
     const checkPersistentLogin = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:4000/api/v1/auth/checkAuth",
-          {
-            method: "GET",
-            credentials: "include", // Include cookies
-          }
-        );
+        const response = await fetch(`${API_URL}/api/v1/auth/checkAuth`, {
+          method: "GET",
+          credentials: "include", // Include cookies
+        });
 
         const data = await response.json();
         if (response.ok) {
@@ -38,14 +36,14 @@ function AuthContextProvider({ children }) {
     };
 
     checkPersistentLogin();
-  }, []);
+  }, [API_URL]);
 
   // Login
   async function login(email, password) {
     setLoginError(null); //Reset any existing errors
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/api/v1/auth/login", {
+      const response = await fetch(`${API_URL}/api/v1/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +82,7 @@ function AuthContextProvider({ children }) {
       confirmPassword,
     };
     try {
-      const response = await fetch("http://localhost:4000/api/v1/auth/signup", {
+      const response = await fetch(`${API_URL}/api/v1/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -114,7 +112,7 @@ function AuthContextProvider({ children }) {
   async function logout() {
     try {
       // Send a request to the server to clear the JWT cookie
-      const response = await fetch("http://localhost:4000/api/v1/auth/logout", {
+      const response = await fetch(`${API_URL}/api/v1/auth/logout`, {
         method: "GET",
         credentials: "include", // Include cookies in the request
       });

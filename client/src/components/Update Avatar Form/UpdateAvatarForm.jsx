@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { modalContext } from "../../contexts/Modal/modalContext";
 
 function UpdateAvatarForm({ closeForm }) {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
   const { toggleModal } = useContext(modalContext);
 
   const [avatar, setAvatar] = useState(null);
@@ -20,14 +21,11 @@ function UpdateAvatarForm({ closeForm }) {
     try {
       setLoading(true);
 
-      const response = await fetch(
-        "http://localhost:4000/api/v1/users/updateAvatar",
-        {
-          method: "PATCH",
-          credentials: "include",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${API_URL}/api/v1/users/updateAvatar`, {
+        method: "PATCH",
+        credentials: "include",
+        body: formData,
+      });
 
       const data = await response.json();
 

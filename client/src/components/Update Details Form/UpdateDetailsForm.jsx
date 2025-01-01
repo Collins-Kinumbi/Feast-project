@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { modalContext } from "../../contexts/Modal/modalContext";
 
 function UpdateDetailsForm({ closeForm }) {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
   const { toggleModal } = useContext(modalContext);
 
   const [username, setUsername] = useState("");
@@ -12,15 +13,12 @@ function UpdateDetailsForm({ closeForm }) {
   const handleUpdateField = async (field, value) => {
     try {
       setLoading(true);
-      const response = await fetch(
-        "http://localhost:4000/api/v1/users/updateDetails",
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ [field]: value }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/v1/users/updateDetails`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ [field]: value }),
+      });
 
       const data = await response.json();
 

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Error from "../Error/Error";
 
 export default function ResetForm({ token }) {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +23,7 @@ export default function ResetForm({ token }) {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/v1/auth/resetPassword/${token}`,
+        `${API_URL}/api/v1/auth/resetPassword/${token}`,
         {
           method: "PATCH",
           headers: {

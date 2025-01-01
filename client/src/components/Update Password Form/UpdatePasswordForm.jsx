@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { modalContext } from "../../contexts/Modal/modalContext";
 
 function UpdatePasswordForm({ closeForm }) {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
   const { toggleModal } = useContext(modalContext);
   const [loading, setLoading] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
@@ -16,19 +17,16 @@ function UpdatePasswordForm({ closeForm }) {
         throw new Error("New password and confirm new password do not match!");
       }
 
-      const response = await fetch(
-        "http://localhost:4000/api/v1/users/updatePassword",
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            currentPassword,
-            newPassword,
-            confirmNewPassword,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/v1/users/updatePassword`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+          confirmNewPassword,
+        }),
+      });
       const data = await response.json();
 
       if (data.status === "Success!") {

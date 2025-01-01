@@ -5,6 +5,7 @@ import { modalContext } from "../../contexts/Modal/modalContext";
 import { useNavigate } from "react-router-dom";
 
 function CreateRecipe() {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
   const { toggleModal } = useContext(modalContext);
   const navigate = useNavigate();
   const [sending, setSending] = useState(false);
@@ -53,7 +54,7 @@ function CreateRecipe() {
     });
 
     try {
-      const response = await fetch("http://localhost:4000/api/v1/recipes", {
+      const response = await fetch(`${API_URL}/api/v1/recipes`, {
         method: "POST",
         credentials: "include",
         body: formDataToSend,

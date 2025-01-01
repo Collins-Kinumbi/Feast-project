@@ -7,6 +7,8 @@ import UpdateAvatarForm from "../../components/Update Avatar Form/UpdateAvatarFo
 import ProfileCard from "../../components/Profile card/ProfileCard";
 
 function MyProfile() {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
+
   const { logout } = useContext(authContext);
   const { toggleModal } = useContext(modalContext);
   const [showUpdateDetails, setShowUpdateDetails] = useState(false);
@@ -29,7 +31,7 @@ function MyProfile() {
           onClick: async () => {
             try {
               const response = await fetch(
-                "http://localhost:4000/api/v1/users/deleteAccount",
+                `${API_URL}/api/v1/users/deleteAccount`,
                 {
                   method: "DELETE",
                   credentials: "include", // to send cookies

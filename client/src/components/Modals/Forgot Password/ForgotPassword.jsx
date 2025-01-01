@@ -4,6 +4,7 @@ import { modalContext } from "../../../contexts/Modal/modalContext";
 import Error from "../../Error/Error";
 
 function ForgotPassword() {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -18,16 +19,13 @@ function ForgotPassword() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        "http://localhost:4000/api/v1/auth/forgotPassword",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/v1/auth/forgotPassword`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
 
       const data = await response.json();
 

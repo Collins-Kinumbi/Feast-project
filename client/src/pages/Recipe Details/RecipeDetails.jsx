@@ -4,6 +4,7 @@ import RecipeDetailsCard from "../../components/Recipe Details Card/RecipeDetail
 import Error from "../../components/Error/Error";
 
 function RecipeDetails() {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,9 +15,7 @@ function RecipeDetails() {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch(
-          `http://localhost:4000/api/v1/recipes/${id}`
-        );
+        const response = await fetch(`${API_URL}/api/v1/recipes/${id}`);
         const data = await response.json();
 
         if (!response.ok) {
@@ -33,7 +32,7 @@ function RecipeDetails() {
     }
 
     fetchRecipe();
-  }, [id]);
+  }, [id, API_URL]);
 
   return (
     <div className="recipe-page">

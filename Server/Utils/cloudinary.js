@@ -10,7 +10,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: "feast_recipes",
+    folder: process.env === "production" ? "feast_app" : "feast_dev",
     // allowed_formats: ["jpeg", "png", "jpg"],
     allowed_formats: [],
   },

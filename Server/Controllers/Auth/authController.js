@@ -5,7 +5,7 @@ import CustomError from "../../Utils/CustomError.js";
 import sendEmail from "../../Utils/mailer.js";
 import crypto from "crypto";
 
-const secret = process.env.SECRET_STRING || "Secret string";
+const secret = process.env.SECRET_STRING;
 
 const tokenExpires = process.env.LOGIN_EXPIRES || "1d";
 
@@ -24,11 +24,11 @@ export function response(res, statusCode, user) {
     maxAge: process.env.LOGIN_EXPIRES,
     // secure: true,
     httpOnly: true, //prevents offside scripting attacks
-    sameSite: "None",
   };
 
   if (process.env.NODE_ENV === "production") {
     options.secure = true;
+    options.sameSite = "None";
   }
 
   res.cookie("jwt", token, options);

@@ -7,7 +7,7 @@ import crypto from "crypto";
 
 const secret = process.env.SECRET_STRING;
 
-const tokenExpires = process.env.LOGIN_EXPIRES || "1d";
+const tokenExpires = process.env.LOGIN_EXPIRES;
 
 // Returns a jwt token
 function getToken(id, email) {

@@ -1,15 +1,5 @@
-// import "dotenv/config";
-import dotenv from "dotenv";
 import app from "./app.js";
 import mongoose from "mongoose";
-
-// Load the correct .env file based on NODE_ENV
-dotenv.config({
-  path:
-    process.env.NODE_ENV === "production"
-      ? ".env.production"
-      : ".env.development",
-});
 
 const port = process.env.PORT;
 

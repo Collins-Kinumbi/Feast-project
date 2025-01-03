@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "cross-env env-cmd -f .env.development nodemon server.js",
-    "start:prod": "cross-env env-cmd -f .env.production node server.js",
+    "prod": "cross-env env-cmd -f .env.production node server.js",
     "start": "node server.js"
   },
   "author": "Collins Kinumbi",

@@ -205,15 +205,7 @@ export const checkAuth = asyncErrorHandler(async function (req, res, next) {
     return next(error);
   }
 
-  // 5. Renew token (for smoother UX)
-  const newToken = getToken(user._id, user.email);
-  res.cookie("jwt", newToken, {
-    maxAge: process.env.LOGIN_EXPIRES || "1d",
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-  });
-
-  // 6. Return user data
+  // 5. Return user data
   user.password = undefined;
   user.active = undefined;
   res.status(200).json({

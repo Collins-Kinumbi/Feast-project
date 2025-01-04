@@ -316,8 +316,8 @@ export const logout = (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    expires: new Date(0), // Expire immediately
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    maxAge: new Date(0), // Expire immediately
   });
   res.status(200).json({ success: true, message: "Logged out successfully" });
 };

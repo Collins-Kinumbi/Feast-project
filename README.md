@@ -2,6 +2,8 @@
 
 Feast API is the backend server for the Feast recipe‑sharing application. It provides RESTful endpoints for user authentication, recipe management, image uploads, and more, using Node.js, Express, and MongoDB.
 
+Live project: `https://the-feast-project.netlify.app/`
+
 ---
 
 ## Table of Contents
